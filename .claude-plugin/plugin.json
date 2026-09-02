@@ -1,0 +1,8 @@
+{
+  "name": "wensdev",
+  "description": "Wen's bundled cross-project software development skills: language/dev-prompt setup, Rust cross-platform app blueprint, VS Code extension debugging, GitHub/release workflows, and platform-store publishing.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Wen"
+  }
+}
