@@ -38,6 +38,7 @@ as `**[MUST]**` / `**[SHOULD]**` / `**[CONSIDER]**` immediately after its number
 |---|---|---|
 | UI (all surfaces) | [references/ui/principles.md](references/ui/principles.md) | 23 principles (9 MUST / 13 SHOULD / 1 SHOULD-with-inline-CONSIDER) + Common Mistakes: architecture, focus/selection, keyboard & input, popups, reorderable lists, chrome/layout, web PWA |
 | Docs (repository documentation) | [references/docs/principles.md](references/docs/principles.md) | 15 principles (10 MUST / 4 SHOULD / 1 CONSIDER) + Common Mistakes: entry point, reference SSOT, working-record lifecycle, ADRs |
+| CLI (command-line programs) | [references/cli/principles.md](references/cli/principles.md) | 2 principles (1 MUST / 1 SHOULD) + Common Mistakes: argument degradation, XDG file placement |
 
 ## UI Deep References
 
