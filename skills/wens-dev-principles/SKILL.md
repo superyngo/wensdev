@@ -1,6 +1,7 @@
 ---
 name: wens-dev-principles
-description: Use when designing, building, or reviewing any user-facing UI — TUI, web, touch, or app shell — covering keyboard navigation, scrollable lists, text input, focus/selection visuals, popups and menus, reorderable lists, cross-platform/RWD component sharing, single-source-of-truth architecture, native-surface preference, layout/resize, logging, i18n, and PWA/installability/offline-first baseline. Also covers repository documentation layout — root CONTEXT.md index, docs/ folder set (reference, adr, spec, plan, debug, audit, tmp), glossary as first single-source-of-truth document, and freeze-on-landing lifecycle for specs/plans/ADRs. Also the router for Wen's other cross-project engineering-principle domains as they are added. Apply whenever the user works on UI components, navigation, scrolling, input fields, list selection, popups, or asks how a UI element should look or behave, or sets up docs/, a glossary, CONTEXT.md, an ADR, or a spec/plan folder, even if they don't explicitly say "design principles" or "conventions".
+description: Use when building or reviewing any user-facing UI (TUI, web, touch, app shell) — keyboard navigation, scrollable lists, text input, focus/selection visuals, popups, menus, reorderable lists, cross-platform/RWD component sharing, single source of truth, native surfaces, layout/resize, logging, i18n, PWA/offline. Also repository documentation layout — CONTEXT.md, the docs/ folder set, glossary, ADRs, spec/plan freeze lifecycle. Also CLI conventions — argument handling, XDG file placement. Apply even when the user never says "principles" or "conventions".
+allowed-tools: Read, Grep, Glob
 ---
 
 # Wen's Development Principles

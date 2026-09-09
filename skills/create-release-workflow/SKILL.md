@@ -1,6 +1,7 @@
 ---
 name: create-release-workflow
 description: Use when generating a GitHub Actions release workflow (.github/workflows/release.yml) for a Rust project with multi-platform binary builds (Linux/Windows/macOS, gnu/musl, x86/arm) triggered by v*.*.* tags
+allowed-tools: Read, Write, Edit, Bash, Grep, Glob, AskUserQuestion
 ---
 
 # Create Release Workflow (Rust)

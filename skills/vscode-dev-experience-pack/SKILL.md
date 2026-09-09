@@ -38,6 +38,13 @@ Use this file to route the task to the right reference doc.
 - Generalized failure signatures and fix patterns (artifact mismatch, CJS/ESM boundaries, swallowed async errors, VSIX-only failures).
 - Use for troubleshooting and postmortem documentation.
 
+## Companion Skills
+
+- `rust-crossplatform-app` — if the extension is a host shell over a Rust/wasm core, that skill
+  owns the architecture (Session/Intent/Snapshot, shared frontend bundle, ceding dirty/undo/save
+  to `TextDocument`); this pack owns debugging whatever that architecture does wrong at runtime.
+- `publishing-platform-stores` — VS Marketplace / Open VSX submission workflows.
+
 ## Output Contract
 For any debug report generated under this pack:
 1. Symptom

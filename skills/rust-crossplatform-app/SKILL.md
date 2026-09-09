@@ -1,6 +1,7 @@
 ---
 name: rust-crossplatform-app
 description: Use when starting, structuring, or extending a Rust application that targets any combination of CLI, TUI, web (wasm), desktop (Tauri), mobile, VS Code extension, or browser extension — covering workspace/folder layout, headless-core architecture, tech selection and recommended stack, per-platform best practices, and end-to-end packaging/store publishing. Apply for questions like "how should I structure this Rust app", "add a web/desktop/mobile/extension host", "which GUI/wasm/TUI stack", or "how do I ship this to <platform/store>".
+allowed-tools: Read, Write, Edit, Bash, Grep, Glob, AskUserQuestion
 ---
 
 # Rust Cross-Platform App Development
@@ -68,9 +69,12 @@ patterns, and per-platform playbooks kept in `references/`.
   before starting N+1; store publishing is its own later milestone per platform.
 - **Document the host seams.** Keep a per-host doc (TAURI.md, VSCODE.md…) plus a skeleton
   top-level guide; record any hand-edits inside generated projects as reapply-after-regen.
-- **UI behavior conventions** (focus, popups, re-renders, cross-host component sharing) are in
-  the companion `wens-dev-principles` skill — apply it alongside this one for anything
-  user-facing.
+- **Companion skills.** UI behavior conventions (focus, popups, re-renders, cross-host
+  component sharing) are in `wens-dev-principles` — apply it alongside this one for anything
+  user-facing. For the VS Code host specifically, `vscode-dev-experience-pack` carries the
+  extension-host debugging, evidence-collection, and VSIX validation playbooks that this
+  skill's VS Code section assumes. For shipping: `create-release-workflow` (build matrix +
+  GitHub Release) then `publishing-platform-stores` (store submission).
 
 ## Common Mistakes
 

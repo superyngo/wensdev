@@ -3,6 +3,12 @@
 End-to-end guide from `cargo build` to each platform's distribution channel, plus the release
 workflow that keeps them in sync.
 
+**Scope boundary — two companion skills own the CI implementation this file only sketches:**
+`create-release-workflow` owns the tag-triggered build matrix and the GitHub Release itself
+(§0–§1 here); `publishing-platform-stores` owns every store submission workflow (§3–§6 here —
+Marketplace/Open VSX, Play, App Store, MSIX, winget, browser stores). Read this file for *what
+each channel needs from a Rust workspace*; read those skills before writing any YAML.
+
 ## 0. Release workflow (do this every release)
 
 1. One version, everywhere: bump `Cargo.toml` (workspace), `web/package.json`, extension

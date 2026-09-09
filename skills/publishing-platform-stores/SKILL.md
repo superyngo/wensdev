@@ -1,6 +1,7 @@
 ---
 name: publishing-platform-stores
 description: Use when adding a GitHub Actions workflow that publishes desktop, mobile, or extension builds (editor plugins, app plugins, or browser extensions) to a platform store (Microsoft Store, Mac App Store, Steam, Google Play, Apple App Store, VS Marketplace, Open VSX, Obsidian, Chrome Web Store, Edge Add-ons, Firefox AMO) — or wiring a new store into an existing tag-triggered release pipeline.
+allowed-tools: Read, Write, Edit, Bash, Grep, Glob, AskUserQuestion
 ---
 
 # Publishing to Platform Stores
