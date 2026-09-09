@@ -86,7 +86,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Keep the heading exactly `## [Unreleased]` — Release mode's step R.5.3 converts it, and
 `create-release-workflow`'s `verify-versions` gate greps for the `## [vX.Y.Z]` it becomes.
 
-**LICENSE** — MIT, author from `git config user.name` (fallback `wen`), current year.
+**LICENSE** — MIT by default, current year. Resolve the copyright holder in this order:
+`git config user.name` → `gh api user --jq .login` → ask. Never substitute a literal name; a
+wrong copyright line is a legal defect that survives every later commit.
 
 **.gitignore** — by project type: Rust `/target/`, `**/*.rs.bk`; Node `node_modules/`, `dist/`,
 `.env`; Python `__pycache__/`, `*.pyc`, `.venv/`, `dist/`, `*.egg-info/`; Go `*.exe`, `*.exe~`,

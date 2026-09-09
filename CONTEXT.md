@@ -1,7 +1,7 @@
 # CONTEXT
 
 Entry point for all documentation in `wensdev`, a bundled set of Claude/agent skills for
-cross-project software development. Root-level files (`README.md`, `CHANGELOG.md`) stay here;
+cross-project software development. Root-level files (`README.md`, `CHANGELOG.md`, `LICENSE`) stay here;
 everything else lives under `docs/` or inside a skill.
 
 | Folder | Holds | Canonical? | Lifecycle |

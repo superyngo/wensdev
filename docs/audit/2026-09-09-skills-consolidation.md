@@ -1,5 +1,11 @@
 # Skills consolidation audit
-Status: Resolved (2026-09-09)
+Status: Resolved (2026-09-09). Follow-ups closed 2026-09-09 — `LICENSE` added; the only
+identity actually surviving F8 into `git-workflow` was the MIT copyright-holder fallback, now
+resolved from `git config`/`gh` (the `superyngo/wenget` mention left in
+`references/desktop-winget.md` is a provenance citation and stays); the changelog-heading
+conflict decided in favor of `## [Unreleased]` by
+[ADR 0002](../adr/0002-changelog-uses-keep-a-changelog-headings.md). The body below is the
+frozen record as it landed and is not rewritten.
 
 Point-in-time sweep of all 8 skills for duplication, boundary overlap, and self-compliance with
 `wens-dev-principles docs`. Scope: 8 skills / 49 files / 1453 lines of `SKILL.md`.

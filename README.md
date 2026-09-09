@@ -17,3 +17,7 @@ Start at [`CONTEXT.md`](CONTEXT.md) for how this repo is organized.
 
 Migrated from `wenskills` on 2026-09-02, then consolidated from 8 skills to 6 on 2026-09-09
 (see [`docs/audit/2026-09-09-skills-consolidation.md`](docs/audit/2026-09-09-skills-consolidation.md)).
+
+## License
+
+MIT — see [`LICENSE`](LICENSE).

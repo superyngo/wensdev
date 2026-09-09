@@ -49,6 +49,13 @@ skill-local `CONTEXT.md`/`docs/adr/` that explain the pattern it teaches. Payloa
 the skill when it is installed alone; repo-level documentation does not.
 _Avoid_: Assets, bundled docs
 
+**Changelog entry**:
+A bullet under `## [Unreleased]` in `CHANGELOG.md`, grouped beneath a `### YYYY-MM-DD`
+sub-heading. The `## [Unreleased]` spelling is a tooling contract, not a style choice — release
+tooling converts it and a CI gate greps for what it becomes. See
+[ADR 0002](../adr/0002-changelog-uses-keep-a-changelog-headings.md).
+_Avoid_: Release note, update entry
+
 **Working record**:
 A document in `docs/spec/`, `docs/plan/`, `docs/debug/`, or `docs/audit/`. Opens with a
 `Status:` line, is named `YYYY-MM-DD-kebab-title.md`, and freezes when it lands — after which
