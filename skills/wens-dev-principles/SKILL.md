@@ -1,6 +1,6 @@
 ---
 name: wens-dev-principles
-description: Use when building or reviewing any user-facing UI (TUI, web, touch, app shell) — keyboard navigation, lists, text input, focus/selection, popups, menus, reorderable lists, cross-platform sharing, i18n, PWA. Also repository documentation layout — CONTEXT.md, the docs/ folder set, glossary, ADRs, changelog archiving, spec/plan lifecycle — plus CLI conventions, debugging discipline (evidence, real-artifact verification, parity fixes), and performance work (phase profiling, cost-model traps). Applies even when the user never says "principles".
+description: Use when building or reviewing any user-facing UI (TUI, web, touch, app shell) — keyboard navigation, lists, text input, focus/selection, popups, inline editing, reorderable lists, cross-platform sharing, i18n, PWA. Also repository documentation layout — CONTEXT.md, docs/, glossary, ADRs, changelog archiving, spec/plan lifecycle — plus CLI conventions, debugging discipline (evidence, real-artifact verification, parity), performance work, and multi-agent execution in worktrees. Applies even when the user never says "principles".
 allowed-tools: Read, Grep, Glob
 ---
 
@@ -41,8 +41,9 @@ as `**[MUST]**` / `**[SHOULD]**` / `**[CONSIDER]**` immediately after its number
 | UI (all surfaces) | [references/ui/principles.md](references/ui/principles.md) | 23 principles (9 MUST / 13 SHOULD / 1 SHOULD-with-inline-CONSIDER) + Common Mistakes: architecture, focus/selection, keyboard & input, popups, reorderable lists, chrome/layout, web PWA |
 | Docs (repository documentation) | [references/docs/principles.md](references/docs/principles.md) | 19 principles (10 MUST / 7 SHOULD / 2 CONSIDER) + Common Mistakes: entry point, reference SSOT, working-record lifecycle, ADRs, changelog archiving, living backlog, code citations |
 | CLI (command-line programs) | [references/cli/principles.md](references/cli/principles.md) | 3 principles (1 MUST / 2 SHOULD) + Common Mistakes: argument degradation, XDG file placement, ambient-config leakage |
-| Debug (diagnosing and fixing defects) | [references/debug/principles.md](references/debug/principles.md) | 10 principles (6 MUST / 3 SHOULD / 1 CONSIDER) + Common Mistakes: evidence, re-measuring a filed cause, instrument choice, shared-layer fixes, record-don't-bundle |
+| Debug (diagnosing and fixing defects) | [references/debug/principles.md](references/debug/principles.md) | 11 principles (6 MUST / 4 SHOULD / 1 CONSIDER) + Common Mistakes: evidence, re-measuring a filed cause, instrument choice, shared-layer fixes, observed vs assumed ordering, record-don't-bundle |
 | Perf (performance work) | [references/perf/principles.md](references/perf/principles.md) | 11 principles (4 MUST / 6 SHOULD / 1 CONSIDER) + Common Mistakes: phase profiling, choosing the axis, context vs algorithm, reporting regressions |
+| Agents (multi-agent execution) | [references/agents/principles.md](references/agents/principles.md) | 4 principles (2 MUST / 2 SHOULD) + Common Mistakes: absolute paths across checkouts, verifying a subagent's writes, auditing the other worktree |
 
 ## UI Deep References
 
@@ -66,7 +67,7 @@ as `**[MUST]**` / `**[SHOULD]**` / `**[CONSIDER]**` immediately after its number
 
 | Topic | Reference | Principles |
 |---|---|---|
-| Ten shipped bug classes with symptom, mechanism, and the rule that generalizes | [references/debug/case-library.md](references/debug/case-library.md) | all |
+| Twelve shipped bug classes with symptom, mechanism, and the rule that generalizes | [references/debug/case-library.md](references/debug/case-library.md) | all |
 
 ## Perf Deep References
 

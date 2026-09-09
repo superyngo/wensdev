@@ -81,3 +81,28 @@ was a real shipped bug or an explicit user correction.
 17. **Work-in-progress survives failure.** A failed paste/move keeps the clipboard; a cancelled
     add rolls back cleanly; mutations are atomic (failure leaves the document untouched). The
     user must always be able to retry without re-doing setup.
+
+## Inline editing inside a rendered row
+
+A cell that swaps between "static, possibly truncated text" and "a live control" is two
+components sharing one element. Both hazards below were shipped bugs in exactly that pattern.
+
+18. **Own the transition with a flag; never infer it from DOM state.** When a control's own
+    commit path re-renders and replaces the control, its `blur` handler cannot ask "am I still
+    attached?" to tell a genuine click-away from a self-inflicted blur: a synchronous re-render
+    driven by an event *originating from that element* can fire `blur` with
+    `document.contains(el)` still `true` — the opposite order from an external removal. Relying
+    on it let a `change` handler cancel its own commit. Instead set a `settled` flag as the
+    **first statement** of every path that deliberately owns the transition (commit, explicit
+    Escape), before any side effect that could blur, and have `blur` return early when it is
+    set. Generalizes to any inline-edit surface — native `<select>`, contenteditable cell,
+    custom combobox — where blur is *also* the "abandon" signal: the two triggers race, so
+    resolve the race with intent, not with connectivity.
+
+19. **Truncation CSS keeps clipping the live control.** `overflow:hidden; text-overflow:
+    ellipsis; min-width:0` is what makes a flex cell ellipsize (`min-width:0` overrides the
+    flexbox `min-width:auto` floor) — and it also lets the cell shrink below a mounted control's
+    own width while still clipping it, so a native `<select>`'s arrow disappears once a sibling
+    cell squeezes the row. The control never shrank; its parent clipped it. Give the editing
+    state its own class rather than one rule for both states: `.val.editing{ overflow:visible;
+    min-width:max-content; }` — `max-content`, not a px floor, so it tracks a longer option.

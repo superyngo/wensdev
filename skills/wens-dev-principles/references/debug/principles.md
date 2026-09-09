@@ -18,6 +18,7 @@ a shipped bug. The concrete cases are in [case-library.md](case-library.md).
 | 8 | SHOULD | Freeze the measured table as a test, including the negative rows |
 | 9 | MUST | Silent partial success is a worse bug than the failure it hides |
 | 10 | CONSIDER | Give the app an in-session diagnostic channel, and verify it records |
+| 11 | SHOULD | Never build a guard on assumed platform ordering — observe the sequence |
 
 ## A. Evidence
 
@@ -90,6 +91,13 @@ a shipped bug. The concrete cases are in [case-library.md](case-library.md).
     ring rather than its head — a `min(len, N)` box fed a full oldest-first vector clips exactly
     the recent activity it exists to show.
 
+11. **[SHOULD]** Never build a diagnosis — or a guard — on *assumed* platform ordering. If the
+    hypothesis is "A happens before B", observe the sequence with an explicit in-process log
+    before acting on it: a DOM `blur` fired by a re-render the element itself triggered arrives
+    while the element is still attached, the reverse of the externally-removed case everyone
+    reasons from. Where two independent triggers can drive the same transition, the fix is an
+    intent flag owned by whichever fires first, never a state read taken after the fact.
+
 ## Common Mistakes
 
 - Closing a bug on green unit tests without running the built product (violates 1).
@@ -106,3 +114,5 @@ a shipped bug. The concrete cases are in [case-library.md](case-library.md).
   (violates 8).
 - Treating "the parser accepted it" as success when it dropped everything after the first node
   (violates 9).
+- Guarding a handler with "is this element still in the document?" instead of an owned flag, on
+  an event-order assumption nobody logged (violates 11).

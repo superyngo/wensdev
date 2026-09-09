@@ -63,3 +63,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   and `rust-crossplatform-app` (two-orchestrator web hosts, per-host CSS palettes,
   Tauri `dragDropEnabled: false` for HTML5 drag, CSP versus inline boot scripts, the
   construct-boundary module split, and a cross-implementation parity testing gate).
+- Integrated the three `wenswiki/almanac` dev-pitfall entries. New `agents` domain in
+  `wens-dev-principles` (4 principles): agent file tools resolve a relative path against the
+  session's root checkout, not a subagent's shell `cwd`, so any multi-checkout workspace
+  requires absolute paths, read-back verification of every write, and controller audits of the
+  checkout nobody is working in. The two web-UI entries land as `ui` pointer-gotchas 18–19 (own
+  an inline control's commit/abandon race with an intent flag — a self-triggered re-render can
+  fire `blur` with `document.contains(el)` still true; and give the editing state its own class
+  so the cell's truncation CSS stops clipping the live control) plus debug case classes 11–12
+  (ordering assumed instead of observed; the failing layer is the container, not the leaf) and
+  debug principle 11.

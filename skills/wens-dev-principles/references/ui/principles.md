@@ -182,3 +182,8 @@ that fits the stack. Heavy detail lives in the sibling references linked per pri
   stateful server-rendered flow (violates 23).
 - Forking app name/version/theme color between the web manifest and the About panel
   (violates 1, 18, 23).
+- Deciding "was this already handled?" inside a `blur` handler by checking whether the element is
+  still in the document, when the commit path itself caused the blur (violates 16 — own the
+  transition with a flag; 15-reference item 18).
+- Reusing a truncating cell's `overflow:hidden` + `min-width:0` for the live control swapped into
+  it, then blaming the control for the clipped edge (violates 19; 15-reference item 19).

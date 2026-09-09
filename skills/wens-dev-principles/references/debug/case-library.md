@@ -147,3 +147,34 @@ separator, the last comment's indent, the trailing pad) — never a constant.
 
 **Rule.** Enumerate the input space as a table before fixing formatting behavior, then freeze
 the table as the test.
+
+## 11. Ordering assumed instead of observed
+
+**Symptom.** A handler that is provably firing produces the opposite of its intent, and the
+guard meant to prevent that is the thing breaking it.
+
+A `<select>`'s `blur` guard returned early only when the element was already detached
+(`document.contains(el)`), on the assumption that a removal fires `blur` afterwards. For a
+re-render triggered by *that element's own* `change` event, Chrome fired `blur` **before** the
+removal completed — so the guard passed, the cancel path ran, and the commit was undone by its
+own success. The order was established only by instrumenting a module-scoped array of events
+(the headless browser's console was not reachable from the harness) and reading the sequence.
+
+**Rule.** Never encode an event-ordering assumption as a state check; two triggers racing on one
+transition are resolved by an intent flag owned by whichever fires first. And when ordering *is*
+the hypothesis, record the actual sequence — an in-page event log beats any narrative about how
+the platform "should" behave.
+
+## 12. The failing layer is not the layer with the symptom
+
+**Symptom.** A widget misbehaves at some sizes, and the widget is innocent.
+
+A native `<select>`'s dropdown arrow vanished at narrow widths — read as a `<select>` quirk. The
+control had held its own 80 px floor the whole time; its flex parent, still carrying the
+truncation rules written for the cell's *static* state (`overflow:hidden` + `min-width:0`), had
+shrunk below it and clipped it.
+
+**Rule.** When a leaf component misbehaves only under a container-driven condition (narrow,
+scrolled, nested, long sibling), test the leaf in isolation at the same condition before
+touching it. If it behaves, the defect belongs to the container — and inspect computed values,
+not the rendered impression (see class 8).
