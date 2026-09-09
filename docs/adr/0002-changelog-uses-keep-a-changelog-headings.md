@@ -49,3 +49,15 @@ repo whose release path greps the heading, this ADR is the local override.
 `## [Unreleased]` as `### YYYY-MM-DD` groups. `docs/reference/skill-anatomy.md` is unaffected;
 the convention is recorded in the glossary entry for **Working record**'s sibling term
 **Changelog entry**.
+
+## Update (2026-09-09)
+
+The paragraph above states that `~/.claude/CLAUDE.md` was left alone. Later the same day it was
+aligned too, at the user's request: its "After Each Development Task" rule now prescribes
+`## [Unreleased]` with `### YYYY-MM-DD` groups, states *why* the spelling is load-bearing, and
+tells the agent to convert an older `## Unreleased Update` heading when it meets one. A backup
+of the prior file sits at `~/.claude/CLAUDE.md.bak-2026-09-09`.
+
+This makes the decision global rather than a local override, and removes the divergence at its
+source instead of per repo. The reasoning is unchanged — only one of the two forms is
+machine-read. Appended rather than rewritten, per the never-edit-an-ADR rule.
