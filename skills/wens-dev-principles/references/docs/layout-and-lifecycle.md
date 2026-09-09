@@ -20,6 +20,9 @@ docs/
     README.md
     glossary.md                     # first file created (principle 5)
     KEYMAP.md
+    changelog/                      # archived changelog series (principle 16)
+      README.md
+      v0.x.md
   adr/
     README.md
     0001-jsonschema-crate-for-validation.md
@@ -29,6 +32,7 @@ docs/
   plan/
     README.md
     2026-09-02-action-menu.md       # pairs with the spec by kebab title
+    2026-09-09-open-follow-ups.md   # the one living backlog (principle 17)
   debug/
     README.md
     2026-08-29-drop-index-off-by-one.md
@@ -231,3 +235,114 @@ git commit -m "docs: archive tmp/ scratch to tmp/archive/$(date +%Y-%m).tar.gz"
 
 Never archive `archive/` itself; never archive files that are still referenced from a
 non-frozen document.
+
+## Changelog archiving
+
+Root `CHANGELOG.md` = `[Unreleased]` + the current series. Everything older lives under
+`docs/reference/changelog/`, moved **verbatim**: same headings, same ordering, no rewrites, no
+summarizing. The move is a documentation change, never a content change.
+
+`docs/reference/changelog/README.md`:
+
+```markdown
+# Changelog archives
+
+The root [`CHANGELOG.md`](../../../CHANGELOG.md) carries **`[Unreleased]` plus the current
+version series only**. Completed series are moved here verbatim — same format, same ordering,
+no edits.
+
+| Archive | Covers |
+|---|---|
+| [`v0.x.md`](v0.x.md) | v0.2.0 (2026-06-06) … v0.32.0 (2026-09-01) |
+
+**When to archive.** On the first release of a new major series (v2.0.0), move the whole
+preceding series into `v1.x.md` here and add a row above. Never archive the series the next tag
+belongs to: the release workflow's version-verification job greps the **root** `CHANGELOG.md`
+for `## [vX.Y.Z]` and hard-fails the tagged build if it is missing.
+```
+
+Checklist for the split commit:
+
+- [ ] Every section of the archived series appears in the archive, byte-identical.
+- [ ] Every section of the *current* series is still in the root file — list them before
+      committing (`rg -n '^## \[v1\.' CHANGELOG.md`).
+- [ ] `CONTEXT.md`'s reading order and `docs/reference/README.md` mention the archive.
+- [ ] The rule ("never archive the current series") is written in **both** the archive index and
+      the agent instruction file's release section.
+
+## Living backlog record
+
+One file, in `docs/plan/`, named like any other working record (`YYYY-MM-DD-open-follow-ups.md`)
+but explicitly exempt from freeze-on-landing. Its `Status:` is `In progress` until the Open
+section empties, then `Resolved (YYYY-MM-DD)`.
+
+```markdown
+# Open follow-ups
+Status: In progress
+
+The one living record of open work. Rows move to Done with the commit that closed them and are
+never deleted. Evidence is file + symbol, never a line number.
+
+## Open
+
+| ID | Finding | Evidence | Verified | P | Effort | Acceptance |
+|---|---|---|---|---|---|---|
+| F7 | Diagnostic ring records only host notices | `session/dispatch.rs` `apply()` vs `dispatch()` | 2026-09-09 | P2 | S | 16 keystrokes produce ≥16 events |
+
+## Watching
+
+Known, deliberately not scheduled — each with the reason it is not a defect *yet*.
+
+## Done
+
+| ID | Finding | Closed by |
+|---|---|---|
+| F12 | `CHANGELOG.md` growth | `9f7c58e` |
+```
+
+Rules that make it work:
+
+- **One record, repo-wide.** Frozen audits keep their evidence and point here; a reference doc
+  never becomes a de-facto tracker.
+- **Re-verify before scheduling.** A row's `Verified` date is when someone last checked it
+  against the tree — an older date means re-measure before acting (debug principle 2).
+- **An acceptance criterion per row**, so "done" is observable rather than argued.
+- **Watching is a real state.** Something reproducible but deliberately unfixed (a lenient
+  parser both sides agree on, a token gap in one palette) belongs there with its reasoning, not
+  in Open where it will be "fixed" into an inconsistency.
+
+## Documentation audit
+
+A periodic sweep of the living documents against the code (principle 19). Structure is the easy
+half; accuracy is where the defects are. Run in two passes:
+
+**Pass 1 — structure (mechanical).**
+
+- [ ] Every `.md` under `docs/` appears in its folder `README.md`; every index row resolves.
+- [ ] Filenames match `YYYY-MM-DD-kebab.md` / `NNNN-kebab.md`; every working record has a
+      `Status:` line on line 2 from the fixed value set.
+- [ ] Links resolve — **and** grep for paths written as inline code spans, which no link
+      checker sees:
+
+      ```sh
+      rg -n '`docs/[a-z][^`]*`' docs *.md
+      ```
+
+- [ ] No file in `reference/` contains a backlog, a "History" section, or a TODO list.
+
+**Pass 2 — accuracy (read the code).**
+
+- [ ] Every count in prose is re-counted (call sites, test suites, catalog keys, table rows), or
+      replaced by a symbol name.
+- [ ] Every behavior claim is checked against the implementation *and* against the other
+      documents that mention it — contradictions between two reference files are the most common
+      finding.
+- [ ] Features shipped without documentation: diff the changelog's feature entries for the period
+      against the reference table of contents.
+- [ ] Invariant tests that assert a documented number are re-read; a drifted test asserts the
+      drifted doc and hides the same defect twice.
+- [ ] The agent instruction file restates nothing from reference (principle 3).
+
+Land the sweep as `docs/audit/YYYY-MM-DD-documentation-audit.md` with the defect list, and fix
+the defects in the same commit or the next one — an audit whose findings are not scheduled
+becomes another frozen record nobody acts on.

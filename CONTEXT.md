@@ -24,7 +24,7 @@ skill rather than here.
 
 | Skill | Scope |
 |---|---|
-| `wens-dev-principles` | UI, documentation-layout, and CLI engineering principles |
+| `wens-dev-principles` | UI, documentation-layout, CLI, debugging, and performance principles |
 | `rust-crossplatform-app` | One Rust core shipping to CLI/TUI/web/desktop/mobile/extension |
 | `vscode-dev-experience-pack` | VS Code extension debugging and evidence collection |
 | `create-release-workflow` | Tag-triggered multi-platform Rust release workflow |

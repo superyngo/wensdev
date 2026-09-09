@@ -10,6 +10,7 @@ user invokes from a shell, on any platform.
 |---|---|---|
 | 1 | SHOULD | Missing required arguments degrade to interactive selection or full help, never a bare error |
 | 2 | MUST | User-level application files follow the XDG Base Directory Specification, with per-platform defaults |
+| 3 | SHOULD | Ambient config that changes output has a session-only override flag, pinned in tests |
 
 ## A. Argument handling
 
@@ -54,6 +55,16 @@ user invokes from a shell, on any platform.
    maintained library (`directories`/`dirs` in Rust, `platformdirs` in Python) over
    re-deriving this table by hand.
 
+## C. Reproducible output
+
+3. **[SHOULD]** Anything ambient that can change what the program prints — language/locale from
+   a user config file, timezone, color support, terminal width, editor, home directory — gets a
+   session-only override flag (`--lang en`, `--no-color`, `--width`), and **every test that
+   asserts user-visible text passes that flag**. Without it the assertion silently depends on
+   the machine: an English expectation passes in CI and on the author's laptop, then fails on a
+   contributor's zh-TW machine, and the failure looks like a bug in the feature rather than in
+   the test. The override is session-only — it never writes back to the user's config.
+
 ## Common Mistakes
 
 - Exiting with `error: missing argument <TARGET>` when `<TARGET>` is one of four known values
@@ -64,3 +75,5 @@ user invokes from a shell, on any platform.
   (violates 2).
 - Writing logs and history into the cache directory, so clearing the cache destroys them
   (violates 2).
+- An integration test asserting a message in English with no `--lang` flag, so it reads the
+  developer's own config file and fails on a machine set to another language (violates 3).

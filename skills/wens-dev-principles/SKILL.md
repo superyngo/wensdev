@@ -1,6 +1,6 @@
 ---
 name: wens-dev-principles
-description: Use when building or reviewing any user-facing UI (TUI, web, touch, app shell) — keyboard navigation, scrollable lists, text input, focus/selection, popups, menus, reorderable lists, cross-platform component sharing, single source of truth, native surfaces, layout/resize, i18n, PWA/offline. Also repository documentation layout — CONTEXT.md, the docs/ folder set, glossary, ADRs, spec/plan lifecycle. Also CLI conventions — argument handling, XDG file placement. Applies even when the user never says "principles".
+description: Use when building or reviewing any user-facing UI (TUI, web, touch, app shell) — keyboard navigation, lists, text input, focus/selection, popups, menus, reorderable lists, cross-platform sharing, i18n, PWA. Also repository documentation layout — CONTEXT.md, the docs/ folder set, glossary, ADRs, changelog archiving, spec/plan lifecycle — plus CLI conventions, debugging discipline (evidence, real-artifact verification, parity fixes), and performance work (phase profiling, cost-model traps). Applies even when the user never says "principles".
 allowed-tools: Read, Grep, Glob
 ---
 
@@ -12,8 +12,10 @@ Cross-project engineering conventions — high-level and implementation-agnostic
 *principles*, not code: apply the spirit, pick the implementation that fits the stack.
 
 This file is a **router only**. Every principle lives under `references/`, grouped by domain.
-Universal coding conduct (minimal changes, bug-fix protocol, commit/tooling rules) is *not*
-here — that is `CLAUDE.md`'s job. This skill holds the domain conventions too detailed for it.
+Universal coding conduct in one line each — minimal changes, "reproduce before and after",
+commit and tooling rules — is *not* here; that is `CLAUDE.md`'s job. This skill holds the
+domain conventions too detailed for it, including what "reproduce" and "measure" actually
+require (the `debug` and `perf` domains).
 
 ## How to Use
 
@@ -37,8 +39,10 @@ as `**[MUST]**` / `**[SHOULD]**` / `**[CONSIDER]**` immediately after its number
 | Domain | Principle list | Scope |
 |---|---|---|
 | UI (all surfaces) | [references/ui/principles.md](references/ui/principles.md) | 23 principles (9 MUST / 13 SHOULD / 1 SHOULD-with-inline-CONSIDER) + Common Mistakes: architecture, focus/selection, keyboard & input, popups, reorderable lists, chrome/layout, web PWA |
-| Docs (repository documentation) | [references/docs/principles.md](references/docs/principles.md) | 15 principles (10 MUST / 4 SHOULD / 1 CONSIDER) + Common Mistakes: entry point, reference SSOT, working-record lifecycle, ADRs |
-| CLI (command-line programs) | [references/cli/principles.md](references/cli/principles.md) | 2 principles (1 MUST / 1 SHOULD) + Common Mistakes: argument degradation, XDG file placement |
+| Docs (repository documentation) | [references/docs/principles.md](references/docs/principles.md) | 19 principles (10 MUST / 7 SHOULD / 2 CONSIDER) + Common Mistakes: entry point, reference SSOT, working-record lifecycle, ADRs, changelog archiving, living backlog, code citations |
+| CLI (command-line programs) | [references/cli/principles.md](references/cli/principles.md) | 3 principles (1 MUST / 2 SHOULD) + Common Mistakes: argument degradation, XDG file placement, ambient-config leakage |
+| Debug (diagnosing and fixing defects) | [references/debug/principles.md](references/debug/principles.md) | 10 principles (6 MUST / 3 SHOULD / 1 CONSIDER) + Common Mistakes: evidence, re-measuring a filed cause, instrument choice, shared-layer fixes, record-don't-bundle |
+| Perf (performance work) | [references/perf/principles.md](references/perf/principles.md) | 11 principles (4 MUST / 6 SHOULD / 1 CONSIDER) + Common Mistakes: phase profiling, choosing the axis, context vs algorithm, reporting regressions |
 
 ## UI Deep References
 
@@ -56,6 +60,19 @@ as `**[MUST]**` / `**[SHOULD]**` / `**[CONSIDER]**` immediately after its number
 | Topic | Reference | Principles |
 |---|---|---|
 | Directory tree, CONTEXT.md and README.md templates, Status line values, glossary entry format, script directories, tmp archiving | [references/docs/layout-and-lifecycle.md](references/docs/layout-and-lifecycle.md) | 1, 2, 5, 8, 10, 12, 14 |
+| Changelog archiving, the living backlog record's row format, the two-pass documentation audit | [references/docs/layout-and-lifecycle.md](references/docs/layout-and-lifecycle.md) | 16, 17, 19 |
+
+## Debug Deep References
+
+| Topic | Reference | Principles |
+|---|---|---|
+| Ten shipped bug classes with symptom, mechanism, and the rule that generalizes | [references/debug/case-library.md](references/debug/case-library.md) | all |
+
+## Perf Deep References
+
+| Topic | Reference | Principles |
+|---|---|---|
+| Bench harness, phase-profile table, cost-model traps, perf-report template | [references/perf/measurement-playbook.md](references/perf/measurement-playbook.md) | 1, 2, 4, 7, 8, 11 |
 
 ## Citation Contract
 

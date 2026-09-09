@@ -8,7 +8,7 @@ Start at [`CONTEXT.md`](CONTEXT.md) for how this repo is organized.
 
 ## Skills
 
-- `wens-dev-principles` — cross-project UI, documentation-layout, and CLI engineering principles.
+- `wens-dev-principles` — cross-project UI, documentation-layout, CLI, debugging, and performance principles.
 - `rust-crossplatform-app` — blueprint for one Rust codebase shipping to CLI/TUI/web/desktop/mobile/extension.
 - `vscode-dev-experience-pack` — VS Code extension debugging and data-collection playbooks.
 - `create-release-workflow` — generate a multi-platform Rust GitHub Actions release workflow.

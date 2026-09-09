@@ -33,7 +33,8 @@ source of truth about itself.
 _Avoid_: Doc, guide, appendix
 
 **Domain**:
-A numbered namespace of principles inside `wens-dev-principles` — currently `ui`, `docs`, `cli`.
+A numbered namespace of principles inside `wens-dev-principles` — currently `ui`, `docs`, `cli`,
+`debug`, `perf`.
 Each has its own `references/<domain>/principles.md` and its own number sequence. Numbers are
 frozen per domain: append, never renumber or reuse.
 _Avoid_: Category, section, area

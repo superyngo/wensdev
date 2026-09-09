@@ -46,3 +46,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   form and the Keep a Changelog form that `git-workflow` writes and `create-release-workflow`'s
   `verify-versions` CI gate greps for. Recorded as ADR 0002: this repo could not previously
   have been released by its own skill.
+- Harvested a full remediation wave from the `confy` repo (15 findings, F1–F15, plus two
+  documentation audits) into the skills. `wens-dev-principles` gains two domains: `debug`
+  (10 principles — reproduce on the real artifact, re-measure a filed cause before
+  implementing its fix, choose an instrument that can move, fix divergence in the shared layer
+  behind a parity test, record-don't-bundle) with a `case-library.md` of ten shipped bug
+  classes; and `perf` (11 principles — phase-profile before touching code, name the degrading
+  axis, remove the expensive context rather than rewrite, revert what measures flat, report
+  the regression) with a `measurement-playbook.md` covering the bench harness, the
+  live-handle-index quadratic trap, tree memory multipliers, and a perf-report template.
+- Extended three existing domains with the same wave's lessons: `docs` 16–19 (changelog
+  archiving to `docs/reference/changelog/`, the one living backlog record as the sole
+  exception to freeze-on-landing, symbol-not-`file:line` citations, the two-pass documentation
+  audit) with templates and checklists in `layout-and-lifecycle.md`; `cli` 3 (a session-only
+  override for ambient config, pinned in every test that asserts user-visible text);
+  and `rust-crossplatform-app` (two-orchestrator web hosts, per-host CSS palettes,
+  Tauri `dragDropEnabled: false` for HTML5 drag, CSP versus inline boot scripts, the
+  construct-boundary module split, and a cross-implementation parity testing gate).

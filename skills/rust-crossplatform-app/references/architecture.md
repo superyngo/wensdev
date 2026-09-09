@@ -87,6 +87,13 @@ Key layout rules:
   stable paths and the split stays invisible to UI code.
 - Host state modules that moved into core stay as thin re-export files in the host, so the
   migration doesn't churn every import.
+- **Split an edit/mutation layer along construct boundaries before it becomes a god object.**
+  Target shape: `mod.rs` holds only the atomic dispatch and semantic validation; siblings hold
+  `resolve` (path → target), `fragment` (what the caller's text means), `container`
+  (destination lookup and rebuild), then one file per mutation family. Extract inline
+  `#[cfg(test)] mod tests` to a sibling with `#[path = "tests.rs"]`. Do it as **pure code
+  motion** and prove it: identical test count before and after, no renamed public items,
+  private fns become `pub(super)`, the crate's public entry points re-exported from `mod.rs`.
 
 ## 4. Mix-and-match adaptability (pick any subset of platforms)
 
@@ -119,3 +126,8 @@ The design must let a project start with one platform and add others on demand, 
    built artifact with the user's exact input; a passing headless test on similar input proves
    nothing.
 6. Byte-identical round-trip tests if the app edits user files losslessly.
+7. A **cross-implementation parity suite** — one behavior asserted against every backend/format
+   in a single loop, with per-implementation fixtures chosen by an exhaustive `match` so a new
+   backend cannot compile until its expectations exist. This is what stops "the same key does
+   three different things", and error variants diverging between backends while each backend's
+   own tests stay green.

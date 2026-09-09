@@ -39,6 +39,13 @@ live in the `wens-dev-principles` skill — apply both.
   useful.
 - PWA (manifest + service worker) gives installability/offline for near-zero cost — do it
   before any store submission.
+- Two web hosts over one core (pointer desktop + touch) is *two orchestrators*: any behavior
+  written in one of them is a bug waiting in the other. Diagnostics drains, session-swap
+  resets, severity styling, and keyboard→intent maps belong in shared modules the specs assert
+  both hosts import.
+- CSS custom properties are per-host palettes, not a shared set: a `color-mix()` on a token
+  that exists in only one stylesheet collapses silently (renders white/transparent). Verify
+  with `getComputedStyle`, never a screenshot.
 
 ## Desktop (Tauri v2)
 
@@ -64,6 +71,13 @@ live in the `wens-dev-principles` skill — apply both.
   bundles slow — use `--debug` bundles for local verification.
 - File open at startup: a `startup_file` command for CLI-arg opens; macOS/iOS/Android get
   `RunEvent::Opened` — **cfg-gate it**, it doesn't exist on Windows and breaks the build.
+- `dragDropEnabled: false` on the main window if the app uses HTML5 drag and drop. Tauri v2
+  defaults it to `true`, and that OS-level file-drop handler swallows the whole drag session
+  before the webview sees it (greyed rows, forbidden cursor, no `dragover`/`drop`) on Windows
+  and macOS alike.
+- Set `security.csp` (Tauri's default is `null`). Once set it forbids inline `<script>`, so
+  every HTML entry's boot script must be an external file listed in the dist-assembly step —
+  a new inline script is a blank window with a console error nobody sees in CI.
 
 ## Mobile (Tauri v2, Android-first)
 
