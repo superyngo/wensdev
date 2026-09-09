@@ -1,6 +1,6 @@
 ---
 name: wens-dev-principles
-description: Use when building or reviewing any user-facing UI (TUI, web, touch, app shell) — keyboard navigation, scrollable lists, text input, focus/selection visuals, popups, menus, reorderable lists, cross-platform/RWD component sharing, single source of truth, native surfaces, layout/resize, logging, i18n, PWA/offline. Also repository documentation layout — CONTEXT.md, the docs/ folder set, glossary, ADRs, spec/plan freeze lifecycle. Also CLI conventions — argument handling, XDG file placement. Apply even when the user never says "principles" or "conventions".
+description: Use when building or reviewing any user-facing UI (TUI, web, touch, app shell) — keyboard navigation, scrollable lists, text input, focus/selection, popups, menus, reorderable lists, cross-platform component sharing, single source of truth, native surfaces, layout/resize, i18n, PWA/offline. Also repository documentation layout — CONTEXT.md, the docs/ folder set, glossary, ADRs, spec/plan lifecycle. Also CLI conventions — argument handling, XDG file placement. Applies even when the user never says "principles".
 allowed-tools: Read, Grep, Glob
 ---
 

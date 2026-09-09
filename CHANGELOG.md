@@ -19,3 +19,12 @@
   original, is now written out). Merged `github-init` and `git-release` into `git-workflow`,
   collapsing their duplicate project-type detection tables and git pre-flight checks into
   one shared section behind `init` / `gist` / `release` entry points.
+- 2026-09-09: Brought the repo into compliance with the documentation layout its own
+  `wens-dev-principles docs` domain defines: root `CONTEXT.md`, the seven-folder `docs/` set
+  with indexing `README.md`s, `docs/reference/glossary.md`, `docs/reference/skill-anatomy.md`,
+  and `docs/adr/README.md`. Recorded the one deliberate deviation — skills keep their own
+  `CONTEXT.md` and ADRs so they stay installable standalone — as ADR 0001, and gave
+  `publishing-platform-stores`'s own ADR folder the status table it was missing. Landed the
+  audit as `docs/audit/2026-09-09-skills-consolidation.md` with a re-runnable
+  `check_structure.py` that verifies frontmatter, description budget, link integrity, and
+  absence of stale skill references. Updated `README.md` and `.claude-plugin/plugin.json`.
