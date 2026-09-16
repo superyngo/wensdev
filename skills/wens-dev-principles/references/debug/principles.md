@@ -19,6 +19,7 @@ a shipped bug. The concrete cases are in [case-library.md](case-library.md).
 | 9 | MUST | Silent partial success is a worse bug than the failure it hides |
 | 10 | CONSIDER | Give the app an in-session diagnostic channel, and verify it records |
 | 11 | SHOULD | Never build a guard on assumed platform ordering — observe the sequence |
+| 12 | MUST | A platform-behavior bug is verified on every engine you ship to |
 
 ## A. Evidence
 
@@ -98,6 +99,17 @@ a shipped bug. The concrete cases are in [case-library.md](case-library.md).
     reasons from. Where two independent triggers can drive the same transition, the fix is an
     intent flag owned by whichever fires first, never a state read taken after the fact.
 
+## C. Evidence across engines
+
+12. **[MUST]** When the defect lives in platform behavior — focus, caret, scroll anchoring, input
+    method, clipboard — a pass on one engine is not evidence, no matter how thorough. One
+    reported Firefox scroll jump survived a full Chromium sweep (headless *and* windowed, real
+    wheel, real clicks) because only Gecko scrolls a focused caret into view. Build the harness
+    headed, with real input events, and run it on **all** engines you ship to (Chromium, the
+    Chromium-derived browsers you claim, Gecko, WebKit) — plus the pre-fix build, which must fail
+    exactly the reported checks and nothing else. Keep the harness in the record: the next
+    platform-behavior bug is cheaper with it than without.
+
 ## Common Mistakes
 
 - Closing a bug on green unit tests without running the built product (violates 1).
@@ -116,3 +128,5 @@ a shipped bug. The concrete cases are in [case-library.md](case-library.md).
   (violates 9).
 - Guarding a handler with "is this element still in the document?" instead of an owned flag, on
   an event-order assumption nobody logged (violates 11).
+- Declaring a rendering/input bug fixed after a thorough sweep on the one engine that never had
+  it (violates 12).

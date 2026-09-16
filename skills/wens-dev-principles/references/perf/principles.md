@@ -21,6 +21,8 @@ report template, and cost-model traps are in
 | 9 | SHOULD | Cap the resource on the axis that grows, and let the tighter cap win |
 | 10 | SHOULD | Build and dev-loop cost is performance; record the trade where it is made |
 | 11 | CONSIDER | Keep a plain in-repo bench harness and always measure at documented sizes |
+| 12 | MUST | Measure the fallback branch the headline capability actually takes |
+| 13 | SHOULD | Prove a time-ceiling test fails without the fix |
 
 ## A. Before touching code
 
@@ -86,6 +88,23 @@ report template, and cost-model traps are in
     documented sizes so runs months apart are comparable, and re-run the old sizes when
     re-verifying an old finding.
 
+## D. Branches and guards
+
+12. **[MUST]** Benchmark the branch the *advertised* capability takes, not the branch the common
+    case takes. A Block edit's cursor re-anchor only ran when the pre-edit path stopped
+    resolving — precisely the key **rename** the feature exists to enable — so the fast path
+    (26 ms at 3,000 nodes) was measured and the headline one (20.7 s on the same buffer) was
+    not. Enumerate the fallbacks, error recoveries, and "path no longer resolves" branches, and
+    put each on the bench with its own row; a branch reachable only by the marquee feature is
+    the one users hit first.
+
+13. **[SHOULD]** A wall-clock ceiling asserted in a regression test must be shown to fail with
+    the old code restored, and the failing number recorded (2 s ceiling; 205.9 s with the
+    per-node query back). An unfalsified ceiling is decoration — it passes on a quadratic
+    implementation at the size the test happens to use. Prefer a ceiling that also states the
+    shape it is defending: after the fix, the rename column *equalled* the same-key column, so
+    the quadratic term is gone rather than merely smaller.
+
 ## Common Mistakes
 
 - Optimizing the phase the reviewer named instead of the phase the profile named (violates 1).
@@ -100,3 +119,6 @@ report template, and cost-model traps are in
   (violates 9).
 - Benchmarks at "a big file" instead of a stated node count, so no later run is comparable
   (violates 11).
+- Benchmarking only the path that resolves, so the feature's own path is the slow one
+  (violates 12).
+- Landing a "does not regress" time bound without ever seeing it fail (violates 13).

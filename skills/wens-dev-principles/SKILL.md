@@ -41,8 +41,8 @@ as `**[MUST]**` / `**[SHOULD]**` / `**[CONSIDER]**` immediately after its number
 | UI (all surfaces) | [references/ui/principles.md](references/ui/principles.md) | 23 principles (9 MUST / 13 SHOULD / 1 SHOULD-with-inline-CONSIDER) + Common Mistakes: architecture, focus/selection, keyboard & input, popups, reorderable lists, chrome/layout, web PWA |
 | Docs (repository documentation) | [references/docs/principles.md](references/docs/principles.md) | 19 principles (10 MUST / 7 SHOULD / 2 CONSIDER) + Common Mistakes: entry point, reference SSOT, working-record lifecycle, ADRs, changelog archiving, living backlog, code citations |
 | CLI (command-line programs) | [references/cli/principles.md](references/cli/principles.md) | 3 principles (1 MUST / 2 SHOULD) + Common Mistakes: argument degradation, XDG file placement, ambient-config leakage |
-| Debug (diagnosing and fixing defects) | [references/debug/principles.md](references/debug/principles.md) | 11 principles (6 MUST / 4 SHOULD / 1 CONSIDER) + Common Mistakes: evidence, re-measuring a filed cause, instrument choice, shared-layer fixes, observed vs assumed ordering, record-don't-bundle |
-| Perf (performance work) | [references/perf/principles.md](references/perf/principles.md) | 11 principles (4 MUST / 6 SHOULD / 1 CONSIDER) + Common Mistakes: phase profiling, choosing the axis, context vs algorithm, reporting regressions |
+| Debug (diagnosing and fixing defects) | [references/debug/principles.md](references/debug/principles.md) | 12 principles (7 MUST / 4 SHOULD / 1 CONSIDER) + Common Mistakes: evidence, re-measuring a filed cause, instrument choice, shared-layer fixes, cross-engine verification, observed vs assumed ordering, record-don't-bundle |
+| Perf (performance work) | [references/perf/principles.md](references/perf/principles.md) | 13 principles (5 MUST / 7 SHOULD / 1 CONSIDER) + Common Mistakes: phase profiling, choosing the axis, context vs algorithm, unmeasured fallback branches, reporting regressions |
 | Agents (multi-agent execution) | [references/agents/principles.md](references/agents/principles.md) | 4 principles (2 MUST / 2 SHOULD) + Common Mistakes: absolute paths across checkouts, verifying a subagent's writes, auditing the other worktree |
 
 ## UI Deep References
@@ -51,7 +51,7 @@ as `**[MUST]**` / `**[SHOULD]**` / `**[CONSIDER]**` immediately after its number
 |---|---|---|
 | Single source of truth; cross-platform adaptation order; native surfaces; About/Help panel | [references/ui/single-source-and-cross-platform.md](references/ui/single-source-and-cross-platform.md) | 1, 2, 3, 18 |
 | Selection state model (committed + preview two-set) | [references/ui/list-selection-model.md](references/ui/list-selection-model.md) | 6 |
-| Sticky-cursor viewport scrolling | [references/ui/scrollable-list-viewport.md](references/ui/scrollable-list-viewport.md) | 7 |
+| Sticky-cursor viewport scrolling; preserving scroll across view swaps | [references/ui/scrollable-list-viewport.md](references/ui/scrollable-list-viewport.md) | 7, 8 |
 | Text field contract: move + select + edit + clipboard | [references/ui/text-editing-contract.md](references/ui/text-editing-contract.md) | 10 |
 | Popup / re-render / event contract for pointer UIs | [references/ui/pointer-ui-gotchas.md](references/ui/pointer-ui-gotchas.md) | 15, 19 |
 | Downward-move index correction | [references/ui/reorder-index-offsets.md](references/ui/reorder-index-offsets.md) | 17 |
@@ -67,13 +67,13 @@ as `**[MUST]**` / `**[SHOULD]**` / `**[CONSIDER]**` immediately after its number
 
 | Topic | Reference | Principles |
 |---|---|---|
-| Twelve shipped bug classes with symptom, mechanism, and the rule that generalizes | [references/debug/case-library.md](references/debug/case-library.md) | all |
+| Thirteen shipped bug classes with symptom, mechanism, and the rule that generalizes | [references/debug/case-library.md](references/debug/case-library.md) | all |
 
 ## Perf Deep References
 
 | Topic | Reference | Principles |
 |---|---|---|
-| Bench harness, phase-profile table, cost-model traps, perf-report template | [references/perf/measurement-playbook.md](references/perf/measurement-playbook.md) | 1, 2, 4, 7, 8, 11 |
+| Bench harness, phase-profile table, cost-model traps, perf-report template | [references/perf/measurement-playbook.md](references/perf/measurement-playbook.md) | 1, 2, 4, 7, 8, 11, 12, 13 |
 
 ## Citation Contract
 

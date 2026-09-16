@@ -54,6 +54,11 @@ each channel needs from a Rust workspace*; read those skills before writing any 
   - Linux → AppImage/deb/rpm if targeted.
 - **Channels:** GitHub Releases (dmg + exe) first; macOS App Store and Microsoft Store (MSIX)
   later — both add signing, sandbox entitlements, and review cycles; keep them out of the MVP.
+- **If the CLI/TUI binary is to ship inside the desktop package, decide it before writing the
+  manifest.** On MSIX it costs a second `<Application>` node (an `AppExecutionAlias` launches
+  its *parent* node's executable), an alphanumeric-only `Application/@Id`, and a visible
+  Start-menu entry — hiding it makes the package a "headless app" the Store rejects. Details:
+  `publishing-platform-stores` → `references/desktop-microsoft-store.md`.
 - Icons: regen the full set from one source PNG via `cargo tauri icon` (must be RGBA).
 - Updater: Tauri's updater plugin once signing exists; until then, releases page + in-app
   version check is enough.

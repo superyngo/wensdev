@@ -77,6 +77,24 @@ Always state which one you measured.
 document on every mutation. Thread the text that the mutation already returned; keep the
 argument-less public entry point for callers that genuinely have no text.
 
+**A whole-document query called once per item.** The sibling of the trap above, and the easiest
+quadratic to write during a feature: a convenience accessor whose *implementation* serializes
+and walks the entire document, invoked in a loop over N nodes. One commit paid N full serializes
+plus N full projections; the observable was a 37 KB file taking 20.7 s to commit an edit.
+
+```
+sections  bytes   fast path   per-node query   read the value in hand
+      50  1.7 KB    5.6 ms            68 ms                   3.6 ms
+     200  7.2 KB   10.7 ms           653 ms                   8.3 ms
+     500   18 KB   15.4 ms          4.49 s                   13.0 ms
+    1000   37 KB   25.2 ms         20.70 s                   25.2 ms
+```
+
+The fix was not a faster query: the value (each node's text range) was **already** on the
+projected item, filled during the projection the caller had just performed. Before optimizing a
+per-item call, check whether the datum is already in hand — and read the query's body for
+`to_string()`/full-walk entry costs before ever putting it in a loop.
+
 ## Report template
 
 A perf commit message (or record) carries, in this order:

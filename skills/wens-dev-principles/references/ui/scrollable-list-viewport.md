@@ -79,6 +79,34 @@ Guards:
 - Operations that trigger a redraw (edit / save / reload) **must preserve** `selected_index` and `scroll_offset`; never reset them to 0.
 - When the item count changes (add/remove), first try to preserve the **original item** that `selected_index` pointed to (relocate by id, not by index); only if relocation fails fall back to keeping the index value and clamping it.
 
+## Preserving scroll across view swaps (DOM hosts)
+
+A "same document, other view" swap (tree ↔ raw text, read ↔ write, list ↔ detail) is where
+reading position is lost, and the loss usually happens at *hide* time — before any restore code
+of yours runs. Four rules, each paid for by a shipped bug:
+
+- **Hide the scroll container, not its content.** Hiding the inner content while the scroller
+  stays `display`ed collapses its content height, and the browser commits `scrollTop = 0` on the
+  spot (measured 200 → 0). Either hide the scroller itself, or save its `scrollTop` on the way
+  out and restore it before the re-render — and apply the restore *before* the cursor-follow, so
+  a cursor genuinely moved by the swap still wins.
+- **Never re-derive the viewport from the cursor on every render.** Calling `scrollIntoView` on
+  the cursor row per render means scrolling away to read and then pressing any key snaps the pane
+  back to the cursor. Gate the follow on the cursor (plus any anchor it draws, e.g. a paste slot)
+  having actually changed — one scroll per resolved key, not per render.
+- **Verify the element you scroll is the scroll container.** Nested wrap + content boxes with
+  different padding give the two view states different scrollports, so "copy `scrollTop` across
+  the swap" copies a value that is always 0. Assert `scrollHeight > clientHeight` on the element
+  you write to, and have both states share one metrics rule set so they are the same box.
+- **Seating a caret scrolls on Gecko only.** Focusing a text field with the selection at offset 0
+  makes Firefox scroll the caret into view; Chromium and WebKit do not — so a full Chromium pass
+  never reproduces it. Put the caret on the first *visible* line (the inverse of your
+  scroll-offset → text-offset mapping, which is also where the user asked to edit), set the
+  selection *before* restoring scroll, and re-assert the restore after layout.
+
+Regression-test each swap direction by asserting the numeric `scrollTop` before and after, on
+every engine you ship to (`wens-dev-principles debug 12`).
+
 ## Implementation deliverables
 
 Provide:

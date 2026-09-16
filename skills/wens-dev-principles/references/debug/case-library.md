@@ -178,3 +178,20 @@ shrunk below it and clipped it.
 scrolled, nested, long sibling), test the leaf in isolation at the same condition before
 touching it. If it behaves, the defect belongs to the container — and inspect computed values,
 not the rendered impression (see class 8).
+
+## 13. Behavior only one engine has
+
+**Symptom.** A user reports a bug on their browser that a thorough pass on yours cannot
+reproduce — and a *variant* of the same action is fine.
+
+Raw-pane Edit, and Cancel *after* an edit, scrolled the pane to the top on Firefox (480 → 10);
+Cancel on an untouched buffer did not. Both failing paths seated the caret at offset 0, and
+Gecko scrolls a focused caret into view while Chromium and WebKit do not — so a Chromium sweep
+(headless and windowed, real wheel, real clicks) passed every check. The clean/dirty split was
+the early return in the revert path: it touched neither value nor caret, hence no caret to
+scroll.
+
+**Rule.** The variant that *works* localizes the mechanism faster than the one that fails —
+diff the two code paths first. Then verify on every engine you ship to, pre-fix build included
+(`wens-dev-principles debug 12`), and store the state you care about numerically
+(`scrollTop` before/after), never as an impression.

@@ -73,3 +73,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   so the cell's truncation CSS stops clipping the live control) plus debug case classes 11–12
   (ordering assumed instead of observed; the failing layer is the container, not the leaf) and
   debug principle 11.
+
+### 2026-09-16
+
+- Folded confy's v1.3.x experience into the skills. `wens-dev-principles`:
+  `ui/scrollable-list-viewport.md` gains a "preserving scroll across view swaps" section (hide
+  the scroller, not its content; never `scrollIntoView` per render; scroll the element that is
+  actually the scrollport; Gecko-only caret scrolling); `debug` principle **12** requires
+  verifying a platform-behavior bug on every engine shipped to, with case-library class **13**
+  as its worked example; `perf` principles **12** and **13** require benchmarking the fallback
+  branch the headline capability takes and falsifying a time-ceiling test, with the per-item
+  whole-document-query trap and its measured table added to `perf/measurement-playbook.md`.
+- `publishing-platform-stores`: `desktop-microsoft-store.md` documents shipping a CLI/TUI inside
+  the GUI's MSIX as an up-front manifest decision (`AppExecutionAlias` launches its parent
+  `<Application>`'s executable; `Application/@Id` is alphanumeric-only; `AppListEntry="none"`
+  makes it a Store-rejected headless app) plus the per-release `ReleaseNotes` listing CSV.
+  `rust-crossplatform-app` points at it from its desktop packaging section.
