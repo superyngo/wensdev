@@ -28,6 +28,7 @@ are *principles*, not templates — the templates (directory tree, `CONTEXT.md`,
 | 17 | SHOULD | Exactly one living backlog record — the only exception to freeze-on-landing |
 | 18 | SHOULD | Docs cite code by symbol, never by `file:line`; counted claims are machine-checked or dropped |
 | 19 | CONSIDER | Audit living docs against the code periodically, for accuracy as well as structure |
+| 20 | SHOULD | `audit/` holds sweeps and verification runs; one-off measurement in the record, regression checks in repo tooling |
 
 ## A. Entry point and indexes
 
@@ -96,8 +97,18 @@ are *principles*, not templates — the templates (directory tree, `CONTEXT.md`,
 
 12. **[CONSIDER]** `docs/tmp/` is a committed scratch area with no naming or index rules;
     subdirectories per topic are allowed. When it grows stale, tar the loose files into
-    `docs/tmp/archive/YYYY-MM.tar.gz` and remove them in the same commit. **Commands:** same
-    reference, §Archiving tmp/.
+    `docs/tmp/archive/YYYY-MM.tar.gz` and remove them in the same commit. `docs/tmp/<agent>-scratch/`
+    is a gitignored subpath for probes that need not land; the rest of `tmp/` stays committed and
+    archived. **Commands:** same reference, §Archiving tmp/.
+
+20. **[SHOULD]** `docs/audit/` covers **any point-in-time judgement** of the tree: sweeps (bugs,
+    dead code, inconsistency) and equally assessment and verification runs. The homing test is one
+    question — **will anyone want to cite or re-run this later?** Yes → an `audit/` record with a
+    `Status:` line; no → `docs/tmp/`. A subtype prefix after the date is optional
+    (`2026-09-17-verify-keymap-parity.md`, `2026-09-17-sweep-dead-code.md`) and not required when
+    the folder already names the kind. A **regression** check — one re-run every release — does not
+    belong in a record directory: principle 10 freezes those and requires them to be self-contained.
+    It is repo tooling, named in `reference/README.md` per principles 6 and 18.
 
 ## D. `adr/`
 
@@ -170,3 +181,5 @@ are *principles*, not templates — the templates (directory tree, `CONTEXT.md`,
 - An audit that verifies every link and never checks whether a single claim is still true
   (violates 19).
 - Deviating from a MUST principle with a commit-message note instead of an ADR (violates 15).
+- A verification script and its conclusion left in `tmp/` so they never land, or a check that must
+  be re-run every release parked in a frozen record directory (violates 20).

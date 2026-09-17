@@ -43,6 +43,7 @@ docs/
     README.md
     2026-08-29-dead-code-sweep.md
   tmp/                              # scratch, no rules
+    <agent>-scratch/                # gitignored probes
     archive/
       2026-05.tar.gz
 ```
@@ -62,8 +63,8 @@ stay here; everything else lives under `docs/`.
 | [`docs/spec/`](docs/spec/README.md) | Design records written before implementation | No — historical | Frozen once approved; only `Status:` changes |
 | [`docs/plan/`](docs/plan/README.md) | Task-by-task implementation plans derived from a spec | No — historical | Frozen once shipped; only `Status:` changes |
 | [`docs/debug/`](docs/debug/README.md) | Handoff notes from investigations, with repro scripts | No — historical | Frozen once resolved; only `Status:` changes |
-| [`docs/audit/`](docs/audit/README.md) | Point-in-time sweeps for bugs, dead code, inconsistency | No — historical | Frozen once findings are addressed; only `Status:` changes |
-| `docs/tmp/` | Scratch | No | Archived to `tmp/archive/YYYY-MM.tar.gz` when stale |
+| [`docs/audit/`](docs/audit/README.md) | Point-in-time sweeps for bugs, dead code, inconsistency, plus assessment / verification runs | No — historical | Frozen once findings are addressed; only `Status:` changes |
+| `docs/tmp/` | Scratch; `<agent>-scratch/` is gitignored | No | Archived to `tmp/archive/YYYY-MM.tar.gz` when stale |
 
 ## Reading order
 
@@ -139,7 +140,7 @@ H1 / description per folder:
 | `spec/` | `# Specs` | Design records written before implementation. |
 | `plan/` | `# Plans` | Task-by-task implementation plans derived from a spec. |
 | `debug/` | `# Debug notes` | Handoff notes from investigations, with repro material. |
-| `audit/` | `# Audits` | Point-in-time sweeps for bugs, dead code, and inconsistency. |
+| `audit/` | `# Audits` | Point-in-time sweeps for bugs, dead code, and inconsistency. Also assessment and verification runs. |
 
 ## Status line
 
@@ -220,6 +221,8 @@ Checklist:
       codebase under test (it will move on; the script must not).
 - [ ] The directory freezes when the `.md` does — same `Status:` rule, no later edits.
 - [ ] `docs/debug/README.md` lists the `.md` only, never the directory contents.
+- [ ] This script is a one-off measurement, not a regression check re-run every release — the
+      latter is repo tooling and is not bound by the freeze rule here.
 
 ## Archiving tmp/
 
@@ -233,8 +236,8 @@ git add docs/tmp/archive
 git commit -m "docs: archive tmp/ scratch to tmp/archive/$(date +%Y-%m).tar.gz"
 ```
 
-Never archive `archive/` itself; never archive files that are still referenced from a
-non-frozen document.
+Never archive `archive/` itself, nor `<agent>-scratch/` (untracked); never archive files that are
+still referenced from a non-frozen document.
 
 ## Changelog archiving
 

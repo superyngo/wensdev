@@ -89,3 +89,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `<Application>`'s executable; `Application/@Id` is alphanumeric-only; `AppListEntry="none"`
   makes it a Store-rejected headless app) plus the per-release `ReleaseNotes` listing CSV.
   `rust-crossplatform-app` points at it from its desktop packaging section.
+
+### 2026-09-17
+
+- `wens-dev-principles` docs domain: new principle **20** homes assessment and verification
+  records in `docs/audit/` (the test is "will anyone cite or re-run this later?" — yes goes to
+  `audit/` with a `Status:` line, no stays in `docs/tmp/`), makes a subtype prefix after the date
+  optional, and rules that a regression check re-run every release is repo tooling rather than a
+  frozen record directory. Principle **12** now carves `docs/tmp/<agent>-scratch/` out as a
+  gitignored subpath while the rest of `tmp/` stays committed and tarball-archived, resolving the
+  contradiction with the agent instruction file. `layout-and-lifecycle.md` follows in the
+  directory tree, the `CONTEXT.md` and folder-README templates, the script-directory checklist,
+  and the archiving rule. No folder renames and no MUST semantics changed, so no ADR is required.

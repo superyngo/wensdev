@@ -39,7 +39,7 @@ as `**[MUST]**` / `**[SHOULD]**` / `**[CONSIDER]**` immediately after its number
 | Domain | Principle list | Scope |
 |---|---|---|
 | UI (all surfaces) | [references/ui/principles.md](references/ui/principles.md) | 23 principles (9 MUST / 13 SHOULD / 1 SHOULD-with-inline-CONSIDER) + Common Mistakes: architecture, focus/selection, keyboard & input, popups, reorderable lists, chrome/layout, web PWA |
-| Docs (repository documentation) | [references/docs/principles.md](references/docs/principles.md) | 19 principles (10 MUST / 7 SHOULD / 2 CONSIDER) + Common Mistakes: entry point, reference SSOT, working-record lifecycle, ADRs, changelog archiving, living backlog, code citations |
+| Docs (repository documentation) | [references/docs/principles.md](references/docs/principles.md) | 20 principles (10 MUST / 8 SHOULD / 2 CONSIDER) + Common Mistakes: entry point, reference SSOT, working-record lifecycle, ADRs, changelog archiving, living backlog, code citations, assessment homing |
 | CLI (command-line programs) | [references/cli/principles.md](references/cli/principles.md) | 3 principles (1 MUST / 2 SHOULD) + Common Mistakes: argument degradation, XDG file placement, ambient-config leakage |
 | Debug (diagnosing and fixing defects) | [references/debug/principles.md](references/debug/principles.md) | 12 principles (7 MUST / 4 SHOULD / 1 CONSIDER) + Common Mistakes: evidence, re-measuring a filed cause, instrument choice, shared-layer fixes, cross-engine verification, observed vs assumed ordering, record-don't-bundle |
 | Perf (performance work) | [references/perf/principles.md](references/perf/principles.md) | 13 principles (5 MUST / 7 SHOULD / 1 CONSIDER) + Common Mistakes: phase profiling, choosing the axis, context vs algorithm, unmeasured fallback branches, reporting regressions |
@@ -60,7 +60,7 @@ as `**[MUST]**` / `**[SHOULD]**` / `**[CONSIDER]**` immediately after its number
 
 | Topic | Reference | Principles |
 |---|---|---|
-| Directory tree, CONTEXT.md and README.md templates, Status line values, glossary entry format, script directories, tmp archiving | [references/docs/layout-and-lifecycle.md](references/docs/layout-and-lifecycle.md) | 1, 2, 5, 8, 10, 12, 14 |
+| Directory tree, CONTEXT.md and README.md templates, Status line values, glossary entry format, script directories, tmp archiving | [references/docs/layout-and-lifecycle.md](references/docs/layout-and-lifecycle.md) | 1, 2, 5, 8, 10, 12, 14, 20 |
 | Changelog archiving, the living backlog record's row format, the two-pass documentation audit | [references/docs/layout-and-lifecycle.md](references/docs/layout-and-lifecycle.md) | 16, 17, 19 |
 
 ## Debug Deep References
