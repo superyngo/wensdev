@@ -31,8 +31,8 @@ docs/
     2026-09-02-action-menu.md
   plan/
     README.md
+    BACKLOG.md                      # the one living backlog, undated (principles 9, 17)
     2026-09-02-action-menu.md       # pairs with the spec by kebab title
-    2026-09-09-open-follow-ups.md   # the one living backlog (principle 17)
   debug/
     README.md
     2026-08-29-drop-index-off-by-one.md
@@ -48,6 +48,49 @@ docs/
       2026-05.tar.gz
 ```
 
+Filenames carry the lifecycle: **dated ⇔ frozen snapshot, undated ⇔ living** (principle 9). Every
+undated name above — `CONTEXT.md`, `CHANGELOG.md`, the `reference/` files, `BACKLOG.md` — is a
+document whose content is always current; every dated one is a judgement formed on that day and
+frozen. `adr/NNNN-*.md` is the third case: frozen, but sequence-numbered because ADRs are cited
+by number.
+
+## Repo initialization
+
+Lay the tree down in the **first commits of the repo**, before the first feature lands
+(principle 2). The cost is one commit; the cost of retrofitting is a path migration plus every
+citation already written into landed changelog entries and frozen records, which by then cannot
+be rewritten except as mechanical path repair (principle 7).
+
+Order matters — each step is depended on by the next:
+
+1. `docs/reference/glossary.md` — **before any code** (principle 5). Written later, the
+   identifiers and the docs have already diverged and one of them has to be renamed.
+2. The seven folders with their `README.md` index stubs, each carrying its `## In progress`
+   section empty (principle 11), plus root `CONTEXT.md` from the template above.
+3. `CHANGELOG.md` containing only `## [Unreleased]`. Spell that heading exactly — release
+   tooling rewrites it and version gates grep for the result (principle 16).
+4. **`docs/plan/BACKLOG.md`, created empty on day one** (principle 17). This is the step most
+   often skipped and the most expensive to skip: with no backlog, the first follow-up is written
+   into `tmp/` or the tail of a debug note, and that path — findings scattered across frozen
+   records — persists for as long as the repo does.
+5. `docs/adr/0001-*.md` for the first expensive decision, usually the stack or a core dependency
+   choice, on the day it is made (principle 13). The ADR habit is set by whether the first one
+   exists.
+6. `.gitignore` with `docs/tmp/*-scratch/` (principle 12).
+7. The agent instruction file, pointing at `CONTEXT.md` and holding conduct only — commands,
+   commit rules, release mechanics (principle 3).
+
+Checklist before the first feature commit:
+
+- [ ] `rg -L '^Status: ' docs/{spec,plan,debug,audit}/*.md` names only `BACKLOG.md`, if anything.
+- [ ] Every folder `README.md` exists and every row in it resolves.
+- [ ] `CONTEXT.md`'s folder table lists all seven folders and names `BACKLOG.md` as the one live
+      tracker.
+- [ ] No document outside `docs/` except the root four.
+
+The whole skeleton is worth scripting once, idempotently (create-if-absent, never overwrite), so
+that the layout is not a judgement call at hour zero of a new repo.
+
 ## Root CONTEXT.md template
 
 ```markdown
@@ -62,6 +105,7 @@ stay here; everything else lives under `docs/`.
 | [`docs/adr/`](docs/adr/README.md) | Decisions that were expensive to reach and would be expensive to reverse | No — historical | Never edited; superseded by a new ADR |
 | [`docs/spec/`](docs/spec/README.md) | Design records written before implementation | No — historical | Frozen once approved; only `Status:` changes |
 | [`docs/plan/`](docs/plan/README.md) | Task-by-task implementation plans derived from a spec | No — historical | Frozen once shipped; only `Status:` changes |
+| [`docs/plan/BACKLOG.md`](docs/plan/BACKLOG.md) | The one living tracker of open work, pending verification, external blockers, and watched items | No — live state | Never frozen while anything is open |
 | [`docs/debug/`](docs/debug/README.md) | Handoff notes from investigations, with repro scripts | No — historical | Frozen once resolved; only `Status:` changes |
 | [`docs/audit/`](docs/audit/README.md) | Point-in-time sweeps for bugs, dead code, inconsistency, plus assessment / verification runs | No — historical | Frozen once findings are addressed; only `Status:` changes |
 | `docs/tmp/` | Scratch; `<agent>-scratch/` is gitignored | No | Archived to `tmp/archive/YYYY-MM.tar.gz` when stale |
@@ -72,6 +116,7 @@ stay here; everything else lives under `docs/`.
 2. [`docs/reference/README.md`](docs/reference/README.md) — the subsystem map.
 3. [`docs/adr/README.md`](docs/adr/README.md) — why the shape is what it is.
 4. `CHANGELOG.md` — what changed recently.
+5. [`docs/plan/BACKLOG.md`](docs/plan/BACKLOG.md) — what is still open.
 ```
 
 ## Folder README.md templates
@@ -141,6 +186,13 @@ H1 / description per folder:
 | `plan/` | `# Plans` | Task-by-task implementation plans derived from a spec. |
 | `debug/` | `# Debug notes` | Handoff notes from investigations, with repro material. |
 | `audit/` | `# Audits` | Point-in-time sweeps for bugs, dead code, and inconsistency. Also assessment and verification runs. |
+
+`plan/README.md` carries one extra line above `## In progress`, because the folder holds the one
+file the template's "frozen once approved" sentence does not describe:
+
+```markdown
+The living backlog is [BACKLOG.md](BACKLOG.md) — undated, never frozen while work is open.
+```
 
 ## Status line
 
@@ -275,26 +327,48 @@ Checklist for the split commit:
 
 ## Living backlog record
 
-One file, in `docs/plan/`, named like any other working record (`YYYY-MM-DD-open-follow-ups.md`)
-but explicitly exempt from freeze-on-landing. Its `Status:` is `In progress` until the Open
-section empties, then `Resolved (YYYY-MM-DD)`.
+One file, `docs/plan/BACKLOG.md` — **undated**, because it is a living record and the filename is
+what tells a reader so (principle 9) — explicitly exempt from freeze-on-landing. Its `Status:` is
+`In progress` until the Open section empties, then `Resolved (YYYY-MM-DD)`.
 
 ```markdown
-# Open follow-ups
+# Backlog
 Status: In progress
 
 The one living record of open work. Rows move to Done with the commit that closed them and are
-never deleted. Evidence is file + symbol, never a line number.
+never deleted. Evidence is file + symbol, never a line number. `Verified` is the date the row was
+last checked against the tree — not when it was opened.
 
 ## Open
 
-| ID | Finding | Evidence | Verified | P | Effort | Acceptance |
-|---|---|---|---|---|---|---|
-| F7 | Diagnostic ring records only host notices | `session/dispatch.rs` `apply()` vs `dispatch()` | 2026-09-09 | P2 | S | 16 keystrokes produce ≥16 events |
+| ID | Opened | Verified | Pri | Finding | Evidence | Effort | Acceptance |
+|---|---|---|---|---|---|---|---|
+| F7 | 2026-09-02 | 2026-09-09 | P2 | Diagnostic ring records only host notices | `session/dispatch.rs` `apply()` vs `dispatch()` | S | 16 keystrokes produce ≥16 events |
+
+## Pending verification
+
+Landed, but the check needs a platform or pipeline not available locally.
+
+| Item | Closed by | Verifies when | Fallback |
+|---|---|---|---|
+| Store manifest accepts the single-`<Application>` shape | `5b4bf5f` | next `publish-msstore` run | revert `5b4bf5f` |
+
+## Awaiting external
+
+Blocked on a person or third party. **Not counted as open** — no amount of local work closes it.
+
+| Item | Blocked on | Ready when |
+|---|---|---|
+| Play Store channel | account + testers | `publish-play.yml` can run |
 
 ## Watching
 
-Known, deliberately not scheduled — each with the reason it is not a defect *yet*.
+Known, deliberately not scheduled — each with the reason it is not a defect *yet*, the **trigger**
+that would promote it to Open, and the date it was last re-read.
+
+| Item | Why not now | Trigger | Re-read |
+|---|---|---|---|
+| `taplo` unmaintained upstream | no usable replacement; `rowan` exact-pinned to match | `cargo audit` flags `rowan`/`taplo` | 2026-09-18 |
 
 ## Done
 
@@ -308,11 +382,22 @@ Rules that make it work:
 - **One record, repo-wide.** Frozen audits keep their evidence and point here; a reference doc
   never becomes a de-facto tracker.
 - **Re-verify before scheduling.** A row's `Verified` date is when someone last checked it
-  against the tree — an older date means re-measure before acting (debug principle 2).
+  against the tree — an older date means re-measure before acting (debug principle 2). Without
+  that column a stale row is indistinguishable from a fresh one, and the next sweep re-files work
+  that already shipped.
 - **An acceptance criterion per row**, so "done" is observable rather than argued.
-- **Watching is a real state.** Something reproducible but deliberately unfixed (a lenient
-  parser both sides agree on, a token gap in one palette) belongs there with its reasoning, not
-  in Open where it will be "fixed" into an inconsistency.
+- **Four states, not two.** Open, Pending verification, Awaiting external, Watching. Collapsing
+  them inflates the open count with work nobody can act on, and — worse — a
+  landed-but-unverified caveat written as a sentence in a `Done` row is invisible: nothing will
+  ever prompt anyone to go back and check it.
+- **Watching is a real state**, and every row needs a trigger. Something reproducible but
+  deliberately unfixed (a lenient parser both sides agree on, a token gap in one palette) belongs
+  there with its reasoning, not in Open where it will be "fixed" into an inconsistency. A row with
+  no trigger is not being watched — it is being forgotten in a nicer font.
+- **Watching is also the SSOT for deferred dependency decisions.** A pinned or unmaintained
+  dependency's *decision* ("do not migrate now, because…") lives in one row here; the agent
+  instruction file keeps only the risk and links to it. Copied into two or three files, the copies
+  drift and each one looks authoritative.
 
 ## Documentation audit
 
@@ -322,8 +407,10 @@ half; accuracy is where the defects are. Run in two passes:
 **Pass 1 — structure (mechanical).**
 
 - [ ] Every `.md` under `docs/` appears in its folder `README.md`; every index row resolves.
-- [ ] Filenames match `YYYY-MM-DD-kebab.md` / `NNNN-kebab.md`; every working record has a
-      `Status:` line on line 2 from the fixed value set.
+- [ ] Filenames match `YYYY-MM-DD-kebab.md` / `NNNN-kebab.md`, the sole undated exception being
+      the living `plan/BACKLOG.md`; every working record has a `Status:` line on line 2 from the
+      fixed value set. A second undated file in a working-record folder, or a dated file that is
+      still being edited, means the lifecycle and the filename disagree (principle 9).
 - [ ] Links resolve — **and** grep for paths written as inline code spans, which no link
       checker sees:
 

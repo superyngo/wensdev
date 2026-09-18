@@ -15,9 +15,9 @@ are *principles*, not templates — the templates (directory tree, `CONTEXT.md`,
 | 4 | MUST | `docs/reference/` describes current behavior only |
 | 5 | MUST | `docs/reference/glossary.md` is the first document, in a fixed entry format |
 | 6 | SHOULD | Reference is one file per subsystem, cross-linked, machine-checks named |
-| 7 | MUST | Working records freeze on landing; only `Status:` changes afterward |
+| 7 | MUST | Working records freeze on landing; afterwards only `Status:` and mechanical path repair |
 | 8 | MUST | Every working record opens with a `Status:` line from a fixed value set |
-| 9 | MUST | Working-record filenames are `YYYY-MM-DD-kebab-title.md`, dated when written |
+| 9 | MUST | Frozen working records are dated `YYYY-MM-DD-kebab-title.md`; living records are named by role, undated |
 | 10 | SHOULD | A working record may own a same-basename directory for scripts and fixtures |
 | 11 | SHOULD | Folder `README.md` lists in-progress work in a section at the top |
 | 12 | CONSIDER | `docs/tmp/` is committed scratch, archived as a tarball when stale |
@@ -25,7 +25,7 @@ are *principles*, not templates — the templates (directory tree, `CONTEXT.md`,
 | 14 | MUST | `adr/README.md` is a status table; filenames are `NNNN-kebab-title.md` |
 | 15 | MUST | Deviating from any MUST principle in this skill requires an ADR |
 | 16 | SHOULD | `CHANGELOG.md` carries `[Unreleased]` plus the current series; older series archive verbatim |
-| 17 | SHOULD | Exactly one living backlog record — the only exception to freeze-on-landing |
+| 17 | SHOULD | Exactly one living backlog record, `plan/BACKLOG.md` — the only exception to freeze-on-landing |
 | 18 | SHOULD | Docs cite code by symbol, never by `file:line`; counted claims are machine-checked or dropped |
 | 19 | CONSIDER | Audit living docs against the code periodically, for accuracy as well as structure |
 | 20 | SHOULD | `audit/` holds sweeps and verification runs; one-off measurement in the record, regression checks in repo tooling |
@@ -43,7 +43,11 @@ are *principles*, not templates — the templates (directory tree, `CONTEXT.md`,
    `spec/`, `plan/`, `debug/`, `audit/`, `tmp/`. Each except `tmp/` has a `README.md` that lists
    every `.md` file in that folder with a one-line summary and its status. Adding or
    re-statusing a document and updating its folder `README.md` happen in the same commit; a
-   document absent from its index is a bug. **Templates:** same reference, §Folder README.md templates.
+   document absent from its index is a bug. Lay the whole set down at **repo initialization**,
+   with index stubs and an empty living backlog, before the first feature commit: retrofitting it
+   later is a path migration that breaks every citation already written into landed changelog
+   entries and frozen records. **Templates:** same reference, §Folder README.md templates;
+   **init order:** same reference, §Repo initialization.
 
 3. **[SHOULD]** The agent instruction file (`CLAUDE.md`, `AGENTS.md`, or equivalent) points at
    `CONTEXT.md` and states repo-specific *conduct* — tooling, commit rules, review gates. It does
@@ -70,9 +74,14 @@ are *principles*, not templates — the templates (directory tree, `CONTEXT.md`,
 
 7. **[MUST]** A document in `spec/`, `plan/`, `debug/`, or `audit/` is frozen once it lands —
    spec approved, plan shipped, debug resolved, audit findings addressed. After that the only
-   permitted edit is its `Status:` line. Corrections, follow-ups, and changed designs are new
-   documents that the old one's `Status:` points to. A false start stays in the record; it often
-   explains a later design better than the design document does.
+   permitted edits are its `Status:` line and **mechanical path repair**: when a file it cites is
+   renamed or moved, rewrite the path string in the same commit as the move and change nothing
+   else. That is not a revision — findings, evidence, and conclusions are untouched — and the
+   alternative is a permanently dead link in every frozen record that cited the old path, which
+   makes the archive unnavigable exactly when someone is trying to trace a decision. Corrections,
+   follow-ups, and changed designs are new documents that the old one's `Status:` points to. A
+   false start stays in the record; it often explains a later design better than the design
+   document does.
 
 8. **[MUST]** Every working-record document opens with a status line as the second line of the
    file, immediately after the H1: `Status: <value>`. Values are exactly `Draft`, `Approved`,
@@ -80,9 +89,20 @@ are *principles*, not templates — the templates (directory tree, `CONTEXT.md`,
    `Abandoned`. `Shipped` is for spec/plan; `Resolved` is for debug/audit. A document with no
    `Status:` line is treated as `In progress`. **Value table + audit grep:** same reference, §Status line.
 
-9. **[MUST]** Filenames are `YYYY-MM-DD-kebab-title.md`, dated when the document was written,
-   not when the work landed. A spec and its plan share the kebab title
-   (`spec/2026-09-02-foo.md` ↔ `plan/2026-09-02-foo.md`) so they pair by name.
+9. **[MUST]** A **frozen-lifecycle** working record is named `YYYY-MM-DD-kebab-title.md`, dated
+   when the document was written, not when the work landed. A spec and its plan share the kebab
+   title (`spec/2026-09-02-foo.md` ↔ `plan/2026-09-02-foo.md`) so they pair by name.
+
+   The date earns its place only there: it marks when that judgement was formed, it gives a
+   stable sort, and it pairs the spec with the plan. A **living** record has none of those
+   properties — its content is always *now*, nothing pairs with it, and its creation date is in
+   git history — so it is named by **role**, in caps, undated: `plan/BACKLOG.md`, alongside
+   `CHANGELOG.md` and `CONTEXT.md`. Read the filename as the lifecycle: **dated ⇔ frozen
+   snapshot, undated ⇔ living**, so a reader knows which to trust without opening the file, the
+   same way principles 4 and 7 make the *folder* carry that meaning. A date on a living file
+   actively misleads: it reads as a snapshot, so readers ask whether a newer one exists, and the
+   pressure eventually produces a second dated file beside it
+   (`audit/2026-09-15-open-follow-ups-evaluation.md`) instead of a row in the one tracker.
 
 10. **[SHOULD]** A working-record document may own a sibling directory with the same basename
     (`debug/2026-09-02-foo/`) for scripts, fixtures, captured output, and other non-Markdown
@@ -137,15 +157,20 @@ are *principles*, not templates — the templates (directory tree, `CONTEXT.md`,
     hard-fail a tagged build after the tag is already pushed. **Template:**
     [layout-and-lifecycle.md](layout-and-lifecycle.md) §Changelog archiving.
 
-17. **[SHOULD]** Open follow-ups live in exactly one **living backlog record**, and that record
-    is the single permitted exception to principle 7's freeze-on-landing: rows move to a `Done`
-    log with the commit that closed them and are never deleted. Frozen audits and debug notes
-    are right for evidence and wrong for a backlog — nothing can be ticked off in them, so an
-    item's real status is only knowable by re-reading the code. Every row carries its evidence
-    (file + symbol), the date it was last verified against the tree, priority, effort, and an
-    acceptance criterion, so picking one up does not start with re-deriving what it means. The
-    entry index names it as the one live tracker; other records point at it instead of growing
-    their own. **Row format:** same reference, §Living backlog record.
+17. **[SHOULD]** Open follow-ups live in exactly one **living backlog record**,
+    `docs/plan/BACKLOG.md` — named by role and undated per principle 9 — and that record is the
+    single permitted exception to principle 7's freeze-on-landing: rows move to a `Done` log with
+    the commit that closed them and are never deleted. Frozen audits and debug notes are right
+    for evidence and wrong for a backlog — nothing can be ticked off in them, so an item's real
+    status is only knowable by re-reading the code. Every row carries its evidence (file +
+    symbol), the date it was last verified against the tree, priority, effort, and an acceptance
+    criterion, so picking one up does not start with re-deriving what it means. Work that is
+    neither open nor done gets its own section rather than a footnote: landed-but-unverifiable
+    here, blocked on a third party, and deliberately-not-scheduled are three different states and
+    only the first counts against the open list. The entry index names it as the one live tracker;
+    other records — and the agent instruction file, for deferred dependency decisions — point at
+    it instead of growing their own copy. **Row format and sections:** same reference,
+    §Living backlog record.
 
 18. **[SHOULD]** Documentation cites code by **symbol** (`array_insert`, `Session::dispatch`),
     never by `file.rs:123` — line citations rot silently and in bulk (41 of them in one sweep).
@@ -169,9 +194,14 @@ are *principles*, not templates — the templates (directory tree, `CONTEXT.md`,
 - Editing a shipped plan to "keep it current" instead of writing a new one (violates 7).
 - Emoji-only status banners that cannot be grepped or compared (violates 8).
 - Dating a plan by its ship date so the spec/plan slugs no longer pair (violates 9).
+- Dating the living backlog (`plan/2026-09-09-open-follow-ups.md`), so it reads as a snapshot of
+  that day, and the next sweep files its findings in a new dated record beside it instead of as
+  rows in it (violates 9 and 17).
 - A folder of debug scripts with no `.md` explaining what they reproduce (violates 10).
 - Rewriting an ADR to match the new behavior instead of superseding it (violates 13).
 - A new document committed without its folder `README.md` row, so the index lies (violates 2).
+- Creating `docs/` folders only when the first document needs one, so the layout is retrofitted
+  months in and every already-landed citation points at the old path (violates 2).
 - A `CHANGELOG.md` that grows to thousands of lines because "there was no threshold to hit",
   or archiving the series the next tag belongs to and breaking the release gate (violates 16).
 - Tracking open work across three frozen records and a footnote, so nothing can be ticked off
