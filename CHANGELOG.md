@@ -101,3 +101,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   contradiction with the agent instruction file. `layout-and-lifecycle.md` follows in the
   directory tree, the `CONTEXT.md` and folder-README templates, the script-directory checklist,
   and the archiving rule. No folder renames and no MUST semantics changed, so no ADR is required.
+
+### 2026-09-18
+
+- **Corrected a wrong rule that had cost confy four Store-blocking defects.**
+  `publishing-platform-stores` → `desktop-microsoft-store.md` said an MSIX
+  `AppExecutionAlias` must sit on an `<Application>` node whose `Executable` *is* the console
+  binary, making a CLI-in-the-GUI-package cost a second node — which is then a dead end both
+  ways (visible: a Start-menu tile a CLI requiring arguments cannot serve; hidden via
+  `AppListEntry="none"`: the Store rejects the whole package as a headless app, the check
+  being per-`<Application>`, so a visible GUI sibling does not exempt it). The alias target is
+  actually settable on the extension: `uap3:Extension` takes optional `Executable` /
+  `EntryPoint`, so **one** node suffices — verified on real Windows (confy 2026-09-18:
+  `makeappx pack` accepts it, `mytool --help` prints the TUI usage, one Start-menu entry, file
+  associations intact). The section now leads with that shape and keeps the four defects as
+  the trap list, adds the PATH-shadowing gotcha (a winget/scoop copy of the same binary
+  precedes `…\WindowsApps`, which is how a broken alias survives weeks of "works for me"),
+  and confines the `HeadlessAppBypass` waiver request procedure (storeops email, then the
+  Business-support category that actually exists) to the pure-CLI case that genuinely needs
+  it. `rust-crossplatform-app` → `packaging-release.md`'s one-line cross-reference carried the
+  same wrong claim and now states the attribute.
