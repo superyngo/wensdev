@@ -86,7 +86,7 @@ are *principles*, not templates — the templates (directory tree, `CONTEXT.md`,
 8. **[MUST]** Every working-record document opens with a status line as the second line of the
    file, immediately after the H1: `Status: <value>`. Values are exactly `Draft`, `Approved`,
    `In progress`, `Shipped (YYYY-MM-DD)`, `Resolved (YYYY-MM-DD)`, `Superseded by <relative path>`,
-   `Abandoned`. `Shipped` is for spec/plan; `Resolved` is for debug/audit. A document with no
+   `Abandoned`. `Shipped` is for spec/plan; `Resolved` is for debug/audit and the living backlog (principle 17). A document with no
    `Status:` line is treated as `In progress`. **Value table + audit grep:** same reference, §Status line.
 
 9. **[MUST]** A **frozen-lifecycle** working record is named `YYYY-MM-DD-kebab-title.md`, dated

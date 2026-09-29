@@ -43,8 +43,9 @@ patterns, and per-platform playbooks kept in `references/`.
 
 - **[references/architecture.md](references/architecture.md)** — hard rules for the headless
   core, the Session/Intent/Snapshot pattern in detail, the full workspace/folder layout
-  template, mix-and-match platform adaptability, and the five testing gates (no-fs gate, serde
-  round-trips, headless scripts, fake Host, built-wasm smoke).
+  template, mix-and-match platform adaptability, and the testing gates (no-fs gate, serde
+  round-trips, headless scripts, fake Host, built-wasm smoke, byte-identical round-trips,
+  cross-implementation parity suite).
 - **[references/tech-stack.md](references/tech-stack.md)** — tech selection tables (core +
   per-platform), the recommended default stack (clap/ratatui/wasm-bindgen+esbuild/Tauri v2/
   CustomTextEditorProvider/MV3), decisions not to re-litigate (session-in-webview, no JS

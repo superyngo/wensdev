@@ -82,7 +82,7 @@ Order matters — each step is depended on by the next:
 
 Checklist before the first feature commit:
 
-- [ ] `rg -L '^Status: ' docs/{spec,plan,debug,audit}/*.md` names only `BACKLOG.md`, if anything.
+- [ ] The missing-status audit from §Status line prints nothing.
 - [ ] Every folder `README.md` exists and every row in it resolves.
 - [ ] `CONTEXT.md`'s folder table lists all seven folders and names `BACKLOG.md` as the one live
       tracker.
@@ -205,7 +205,7 @@ H1, is `Status: <value>`. Values are exact strings so they can be grepped:
 | `Approved` | spec, plan | Agreed; implementation not started. |
 | `In progress` | all four | Work under way. Also the implied status of a file with no `Status:` line. |
 | `Shipped (YYYY-MM-DD)` | spec, plan | Landed on the given date. Frozen. |
-| `Resolved (YYYY-MM-DD)` | debug, audit | Bug fixed / findings addressed on the given date. Frozen. |
+| `Resolved (YYYY-MM-DD)` | debug, audit, `plan/BACKLOG.md` | Bug fixed / findings addressed (backlog: Open section empty) on the given date. Frozen. |
 | `Superseded by <relative path>` | all four | Replaced; the path names the replacement. Frozen. |
 | `Abandoned` | all four | Dropped without replacement. Frozen. |
 
@@ -219,13 +219,13 @@ Status: Shipped (2026-08-30)
 Audit for files missing a status line (each is by definition in progress):
 
 ```sh
-rg -L '^Status: ' docs/{spec,plan,debug,audit}/*.md
+rg --files-without-match '^Status: ' docs/{spec,plan,debug,audit} --max-depth 1 -g '*.md' -g '!README.md'
 ```
 
 List everything frozen:
 
 ```sh
-rg -n '^Status: (Shipped|Resolved|Superseded|Abandoned)' docs/{spec,plan,debug,audit}/*.md
+rg -n '^Status: (Shipped|Resolved|Superseded|Abandoned)' docs/{spec,plan,debug,audit} --max-depth 1 -g '*.md'
 ```
 
 ## Glossary entry
@@ -407,9 +407,10 @@ half; accuracy is where the defects are. Run in two passes:
 **Pass 1 — structure (mechanical).**
 
 - [ ] Every `.md` under `docs/` appears in its folder `README.md`; every index row resolves.
-- [ ] Filenames match `YYYY-MM-DD-kebab.md` / `NNNN-kebab.md`, the sole undated exception being
-      the living `plan/BACKLOG.md`; every working record has a `Status:` line on line 2 from the
-      fixed value set. A second undated file in a working-record folder, or a dated file that is
+- [ ] Filenames match `YYYY-MM-DD-kebab.md` / `NNNN-kebab.md`, the only undated exceptions being
+      each folder's `README.md` index and the living `plan/BACKLOG.md`; every working record
+      has a `Status:` line on line 2 from the fixed value set. Any other undated file in a
+      working-record folder, or a dated file that is
       still being edited, means the lifecycle and the filename disagree (principle 9).
 - [ ] Links resolve — **and** grep for paths written as inline code spans, which no link
       checker sees:

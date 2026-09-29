@@ -70,23 +70,7 @@ node ./test-integration/runTest.mjs
 Goal:
 - deterministic API-level checks instead of manual view interactions.
 
-## 7) Git Safety for Debug Sessions
-
-```bash
-# inspect local changes before and after debugging
-git status --short
-
-# show current branch and remote tracking state
-git status -sb
-
-# refresh remote refs
-git fetch --all --prune
-```
-
-Goal:
-- avoid accidental commits of temp logs/cache files.
-
-## 8) Optional: Capture Build/Test Output for Sharing
+## 7) Optional: Capture Build/Test Output for Sharing
 
 PowerShell pattern:
 
@@ -98,7 +82,7 @@ npm run integration-test 2>&1 | Tee-Object integration-test.log
 Goal:
 - preserve evidence for issue reports and team handoff.
 
-## 9) Recommended Debug Order
+## 8) Recommended Debug Order
 
 1. `npm ci`
 2. `npm run check`

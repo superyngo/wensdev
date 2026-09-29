@@ -121,3 +121,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Business-support category that actually exists) to the pure-CLI case that genuinely needs
   it. `rust-crossplatform-app` → `packaging-release.md`'s one-line cross-reference carried the
   same wrong claim and now states the attribute.
+
+### 2026-09-29
+
+- Prompt-audit fixes across the skills:
+  - `wens-dev-principles` docs: the status audit used `rg -L`, which is ripgrep's `--follow`,
+    not "files without match", and its shell glob errors on the empty folders a fresh repo
+    has. Now `rg --files-without-match … --max-depth 1 -g '*.md' -g '!README.md'`; the init
+    checklist expects it to print nothing.
+  - `Resolved` is allowed on `plan/BACKLOG.md` (principle 8 and the status table now agree
+    with the backlog section); the pass-1 checklist names folder `README.md`s as undated too.
+  - `rust-crossplatform-app`: the router lists all seven testing gates instead of "five".
+  - `git-workflow` Init points at `wens-dev-principles` docs §Repo initialization for the
+    `docs/` layout.
+  - `vscode-dev-experience-pack`: dropped the generic "Git Safety" commands section.

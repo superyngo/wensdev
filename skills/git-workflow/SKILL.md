@@ -65,7 +65,9 @@ and **visibility** (Public default / Private).
 
 ### I.2 Generate skeleton files
 
-Confirm which to generate; pre-select by project type and skip any that already exist.
+Confirm which to generate; pre-select by project type and skip any that already exist. The
+`docs/` layout (`CONTEXT.md`, glossary, folder indexes, `BACKLOG.md`) is owned by
+`wens-dev-principles` → docs domain, §Repo initialization; lay it down in the same init.
 
 **README.md** — H1 project name, description, Usage, License. Include an Installation section
 only for binary projects.
