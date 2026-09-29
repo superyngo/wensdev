@@ -228,7 +228,8 @@ Show last version + change summary + suggested version, then ask:
    extension has its own manifest. Miss one and `create-release-workflow`'s `verify-versions`
    job fails the build.
 3. **CHANGELOG.md** — convert `## [Unreleased]` into a dated section, leaving an empty
-   `## [Unreleased]` behind:
+   `## [Unreleased]` behind. Move the existing `[Unreleased]` body under the new heading
+   verbatim; draft entries from commits (template below) only when `[Unreleased]` is empty:
    ```markdown
    ## [vX.Y.Z] - YYYY-MM-DD
    ### Added / Changed / Fixed / Docs

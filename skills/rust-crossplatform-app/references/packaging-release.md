@@ -24,7 +24,7 @@ each channel needs from a Rust workspace*; read those skills before writing any 
 
 - **Channel:** GitHub Releases via a tag-triggered CI workflow (`softprops/action-gh-release`),
   cross-compiled matrix: linux x86_64 + aarch64 (musl for portability), macOS x86_64 + arm64,
-  Windows x86_64 + arm64.
+  Windows x86_64 (arm64 optional).
 - Optionally `cargo install` via crates.io (publish the host crate; core publishes as its dep),
   and Homebrew tap / winget manifest once there's an audience.
 - Scope CI release builds to the binary crate (`-p myapp-tui`), not the whole workspace —

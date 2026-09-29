@@ -39,6 +39,8 @@ Ask the user before generating:
 
 **Windows (windows-latest):**
 - `x86_64-pc-windows-msvc`, `i686-pc-windows-msvc`
+- `aarch64-pc-windows-msvc` (optional) — cross-compiled on the x64 runner via
+  `rustup target add aarch64-pc-windows-msvc`; artifact `<BINARY_NAME>-windows-aarch64.exe`
 
 **macOS:**
 - `x86_64-apple-darwin` → `macos-15-intel`
@@ -132,7 +134,7 @@ a same-OS CI workflow as a sufficient gate for a build step that also runs cross
 - Every build job MUST `needs: verify-versions` — see Version Consistency Gate below
 - `permissions: contents: write, actions: write`
 - Toolchain: `dtolnay/rust-toolchain@stable`
-- Release action: `softprops/action-gh-release@v1`
+- Release action: `softprops/action-gh-release@v3` (Node 24 runtime; v1 ran on the retired Node 16)
 - Ask user about extras: winget workflow_dispatch, `cargo-deny`, test runs, etc.
 
 ## Version Consistency Gate

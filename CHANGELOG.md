@@ -135,3 +135,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `git-workflow` Init points at `wens-dev-principles` docs §Repo initialization for the
     `docs/` layout.
   - `vscode-dev-experience-pack`: dropped the generic "Git Safety" commands section.
+- Resolved the audit's open decisions:
+  - `publishing-platform-stores` VS Marketplace/Open VSX workflow now follows the skill's own
+    rule: a `ref` input (defaults to `tag`) for checkout, plus an optional unused `run_id` so
+    the gate's single `-f run_id` dispatch line is accepted; checklist step 5 says the same.
+  - ADR 0002 (selective publish gate) status: accepted — running in production.
+  - `create-release-workflow`: `aarch64-pc-windows-msvc` added as an optional target;
+    `packaging-release.md` marks Windows arm64 optional. Release action pinned to
+    `softprops/action-gh-release@v3` (Node 24; v1 ran on Node 16).
+  - Mac App Store reference uploads with `xcrun iTMSTransporter` and installs the API key as
+    `~/.appstoreconnect/private_keys/AuthKey_<KEY_ID>.p8`; the unused `notarytool
+    store-credentials` step and the `altool` upload are gone.
+  - `git-workflow` R.5.3 moves the existing `[Unreleased]` body verbatim under the new version
+    heading, drafting from commits only when it is empty.

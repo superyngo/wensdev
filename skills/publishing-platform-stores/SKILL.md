@@ -88,7 +88,7 @@ one. Load the reference file only for the store you're integrating.
 | Category | Store | Mechanism | Reference |
 |---|---|---|---|
 | Desktop | Microsoft Store | `msstore` CLI / Partner Center Submission API | [desktop-microsoft-store.md](references/desktop-microsoft-store.md) |
-| Desktop | Mac App Store | Transporter / `altool` + App Store Connect API | [desktop-mac-app-store.md](references/desktop-mac-app-store.md) |
+| Desktop | Mac App Store | Transporter (`iTMSTransporter`) + App Store Connect API | [desktop-mac-app-store.md](references/desktop-mac-app-store.md) |
 | Desktop | Steam (Linux/cross-platform) | `steamcmd` via `game-ci/steam-deploy` | [desktop-steam.md](references/desktop-steam.md) |
 | Desktop | winget (Windows Package Manager) | `vedantmgoyal9/winget-releaser` (Komac) → PR to `microsoft/winget-pkgs` | [desktop-winget.md](references/desktop-winget.md) |
 | Mobile | Google Play | Play Developer API via `r0adkll/upload-google-play` | [mobile-google-play.md](references/mobile-google-play.md) |
@@ -122,7 +122,8 @@ the reference set.
    a downstream publish failure — without waiting for a fresh `Release` `workflow_run` event.
 5. Write `publish-<store>.yml`: `workflow_dispatch` inputs `tag` + `run_id` (artifact-only
    stores that just re-upload what `release.yml` built) or `tag` + optional `ref` defaulting to
-   `tag` (source-building stores — see Decouple checkout `ref` above) →
+   `tag`, plus an optional unused `run_id` so the gate's single dispatch line is accepted
+   (source-building stores — see Decouple checkout `ref` above) →
    `actions/download-artifact@v5` (pinned to `run-id: inputs.run_id`) → authenticate (skip for
    API-less stores — go straight to minting the store's own canonical release artifact) →
    upload → submit for review if the store has one.

@@ -22,4 +22,4 @@ exclusive across a project's lifetime — a project with one store today can nam
 job/environment `publish-gate-<store>` from the start (zero extra cost) so a second store added
 later slots into the same selective-gate shape without a rename.
 
-**Status:** proposed — not yet run in production.
+**Status:** accepted — running in production.

@@ -1,16 +1,17 @@
 # Mac App Store
 
 **Unverified in production** — general/official guidance, not battle-tested by the authoring
-project. Re-verify tool status (esp. `altool`) before relying on it long-term.
+project. Re-verify the upload tool's status before relying on it long-term.
 
 ## Mechanism
 
 Two distinct steps:
 1. **Code signing** with an Apple Distribution / Mac Installer Distribution certificate (not
    Developer ID) + a Mac App Store provisioning profile.
-2. **Upload to App Store Connect** — `xcrun altool --upload-app` (still functional for
-   App Store *uploads* as of 2025-2026, but Apple is steering new adoption toward
-   **Transporter**, its GUI app / CLI successor) or fastlane `deliver`.
+2. **Upload to App Store Connect** — `xcrun iTMSTransporter` (Transporter's CLI, bundled with
+   Xcode) with an App Store Connect API key, or fastlane `deliver`. Not `xcrun altool`:
+   `--upload-app` is deprecated in favour of `--upload-package`, and its API-key JWT signing
+   was reported failing on the Xcode 26 toolchain (2026-09).
 
 **Notarization (`notarytool` + `stapler`) is NOT part of the Mac App Store path** — MAS builds
 go through Apple's manual App Review instead of the notary service. `notarytool`/`stapler`
@@ -40,7 +41,7 @@ Store.
 
 ## Workflow
 
-Runs on **`macos-latest`** only (signing/notarization tools are Apple-platform-only).
+Runs on **`macos-latest`** only (signing and upload tools are Apple-platform-only).
 
 ```yaml
 jobs:
@@ -61,26 +62,29 @@ jobs:
       # ... build & codesign the .app, package as .pkg with productbuild
       # using the Mac Installer Distribution identity ...
 
-      - name: Register App Store Connect API key
+      - name: Install App Store Connect API key
+        env:
+          ASC_KEY: ${{ secrets.APP_STORE_CONNECT_PRIVATE_KEY }}
         run: |
-          xcrun notarytool store-credentials "asc-key" \
-            --key <(echo "${{ secrets.APP_STORE_CONNECT_PRIVATE_KEY }}") \
-            --key-id ${{ secrets.APP_STORE_CONNECT_KEY_ID }} \
-            --issuer ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+          mkdir -p ~/.appstoreconnect/private_keys
+          printf '%s\n' "$ASC_KEY" \
+            > ~/.appstoreconnect/private_keys/AuthKey_${{ secrets.APP_STORE_CONNECT_KEY_ID }}.p8
 
       - name: Upload to App Store Connect
         run: |
-          xcrun altool --upload-app -f App.pkg -t macos \
-            --apiKey ${{ secrets.APP_STORE_CONNECT_KEY_ID }} \
-            --apiIssuer ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+          xcrun iTMSTransporter -m upload -assetFile App.pkg \
+            -apiKey ${{ secrets.APP_STORE_CONNECT_KEY_ID }} \
+            -apiIssuer ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
 ```
 
 ## Gotchas
 
-- `altool` was deprecated **only for notarization** (Nov 2023), not for App Store Connect
-  uploads — but treat it as legacy; Transporter is Apple's forward path. Re-verify before
-  writing new CI around it.
-- Keychain must be unlocked and searchable for `codesign`/`productbuild`/`altool` to find the
+- The API key is found by filename: `AuthKey_<KEY_ID>.p8` in `~/.appstoreconnect/private_keys/`
+  (also searched: `./private_keys`, `~/private_keys`, `~/.private_keys`). A misnamed file fails
+  auth even though the key is valid.
+- `altool` was deprecated for notarization in Nov 2023 and `--upload-app` for
+  `--upload-package` since; don't build new upload CI on it.
+- Keychain must be unlocked and searchable for `codesign`/`productbuild` to find the
   imported identity — ephemeral runners mean the import step runs every job, not once.
 - App Store Connect API key is the only 2FA-free CI auth path; Apple ID + app-specific-password
   is legacy and less reliable in CI.

@@ -30,8 +30,14 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: "App release tag to check out and publish (e.g. v0.18.0)"
+        description: "App release tag to publish and validate package.json against (e.g. v0.18.0)"
         required: true
+      ref:
+        description: "Branch/SHA to check out and build; defaults to tag (set it to publish a post-tag fix without retagging)"
+        required: false
+      run_id:
+        description: "Run ID of the Release workflow (unused — this store builds from source; accepted so the gate's dispatch line works)"
+        required: false
       dry_run:
         description: "Build + package only, skip Marketplace/Open VSX publish"
         type: boolean
@@ -46,7 +52,7 @@ jobs:
     steps:
       - uses: actions/checkout@v5
         with:
-          ref: ${{ inputs.tag }}
+          ref: ${{ inputs.ref || inputs.tag }}
 
       # ... build steps producing the extension's webview bundle ...
 
