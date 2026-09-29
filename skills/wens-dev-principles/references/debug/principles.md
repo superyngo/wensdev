@@ -20,6 +20,7 @@ a shipped bug. The concrete cases are in [case-library.md](case-library.md).
 | 10 | CONSIDER | Give the app an in-session diagnostic channel, and verify it records |
 | 11 | SHOULD | Never build a guard on assumed platform ordering — observe the sequence |
 | 12 | MUST | A platform-behavior bug is verified on every engine you ship to |
+| 13 | MUST | Tests are verified where they run — unfiltered, on every CI platform, before a tag |
 
 ## A. Evidence
 
@@ -113,6 +114,10 @@ a shipped bug. The concrete cases are in [case-library.md](case-library.md).
 ## Common Mistakes
 
 - Closing a bug on green unit tests without running the built product (violates 1).
+- Verifying a test run by grepping its output for `test result`/`FAILED` only, so a *compile
+  error* in the test counts as "green" (violates 13).
+- Writing a test on one platform and tagging a release before any CI platform where the tested
+  semantics differ (symlink privilege, drive-less absolute paths) has executed it (violates 13).
 - Implementing an audit's recommended rewrite before checking whether its root cause still
   holds — then optimizing the wrong axis at the cost of a public trait (violates 2).
 - Reporting "no visible change" from an instrument that could not have shown one (violates 3).
@@ -130,3 +135,17 @@ a shipped bug. The concrete cases are in [case-library.md](case-library.md).
   an event-order assumption nobody logged (violates 11).
 - Declaring a rendering/input bug fixed after a thorough sweep on the one engine that never had
   it (violates 12).
+
+## D. Evidence across machines
+
+13. **[MUST]** A test is evidence only where it has actually run. A suite written and passed on
+    one platform can fail to *compile* or encode one-platform semantics (symlink privilege,
+    drive-less absolute paths, path separators) on every other CI target — and a release tag
+    turns that into a failed release. Two disciplines: (a) check the full `cargo test` output
+    unfiltered — a build failure never prints `test result: FAILED`, so narrow greps count a
+    compile error as green; (b) never cut the release tag until the release workflow has passed
+    at least once on every platform you ship, or gate the platform-dependent assertions
+    explicitly (`platform::links_can_dangle()`, `if cfg!(unix)`) with a comment naming the
+    fallback behavior they hide. Verified on a real case: four re-tagged releases in a row
+    failed Windows-only — unresolved module path, `Component`/`&str` type mismatch, Windows
+    path semantics, and an e2e symlink assertion — each invisible to the filtered local run.

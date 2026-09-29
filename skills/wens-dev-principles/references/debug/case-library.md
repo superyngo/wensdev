@@ -195,3 +195,22 @@ scroll.
 diff the two code paths first. Then verify on every engine you ship to, pre-fix build included
 (`wens-dev-principles debug 12`), and store the state you care about numerically
 (`scrollTop` before/after), never as an impression.
+
+## 14. Green on my machine, red on the release runner
+
+**Symptom.** Local `cargo test` passes, the release tag is pushed, and a platform job fails on
+`Run tests` — repeatedly, one layer deeper each time.
+
+An agm release failed Windows CI four re-tags in a row: a test referenced `platform::` without
+the `crate::` prefix (compile error); a new assertion compared `Component<'_>` to `&str`
+(another compile error); a test assumed `/etc/some.conf` joins to `config_dir` on Windows when
+`resolve_path` anchors it to the current drive; and an e2e test asserted a created entry *is a
+symlink* on a runner where unprivileged symlink creation is unavailable, so `agm`'s designed
+copy fallback ran instead. Every one was invisible locally because verification grepped the
+test output for `test result` lines — and a compile error never prints one.
+
+**Rule.** A test is evidence only where it has run (`wens-dev-principles debug 13`). Read the
+full test output unfiltered; assert platform-agnostic properties (absolute, not inside config
+dir) or gate explicitly on the platform predicate with a comment naming the fallback; and do
+not tag a release until the release workflow has passed on every shipped platform at least
+once — the first green run, not the fourth, is the release.
