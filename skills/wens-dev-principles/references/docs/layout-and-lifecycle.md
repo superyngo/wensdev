@@ -18,9 +18,9 @@ LICENSE
 docs/
   reference/                        # current behavior only — the source of truth
     README.md
-    glossary.md                     # first file created (principle 5)
+    glossary.md                     # first file created (principle 6)
     KEYMAP.md
-    changelog/                      # archived changelog series (principle 16)
+    changelog/                      # archived changelog series (principle 18)
       README.md
       v0.x.md
   adr/
@@ -31,12 +31,12 @@ docs/
     2026-09-02-action-menu.md
   plan/
     README.md
-    BACKLOG.md                      # the one living backlog, undated (principles 9, 17)
+    BACKLOG.md                      # the one living backlog, undated (principles 10, 19)
     2026-09-02-action-menu.md       # pairs with the spec by kebab title
   debug/
     README.md
     2026-08-29-drop-index-off-by-one.md
-    2026-08-29-drop-index-off-by-one/   # same-basename script directory (principle 10)
+    2026-08-29-drop-index-off-by-one/   # same-basename script directory (principle 11)
       repro.py
       capture.log
   audit/
@@ -48,7 +48,7 @@ docs/
       2026-05.tar.gz
 ```
 
-Filenames carry the lifecycle: **dated ⇔ frozen snapshot, undated ⇔ living** (principle 9). Every
+Filenames carry the lifecycle: **dated ⇔ frozen snapshot, undated ⇔ living** (principle 10). Every
 undated name above — `CONTEXT.md`, `CHANGELOG.md`, the `reference/` files, `BACKLOG.md` — is a
 document whose content is always current; every dated one is a judgement formed on that day and
 frozen. `adr/NNNN-*.md` is the third case: frozen, but sequence-numbered because ADRs are cited
@@ -59,24 +59,24 @@ by number.
 Lay the tree down in the **first commits of the repo**, before the first feature lands
 (principle 2). The cost is one commit; the cost of retrofitting is a path migration plus every
 citation already written into landed changelog entries and frozen records, which by then cannot
-be rewritten except as mechanical path repair (principle 7).
+be rewritten except as mechanical path repair (principle 8).
 
 Order matters — each step is depended on by the next:
 
-1. `docs/reference/glossary.md` — **before any code** (principle 5). Written later, the
+1. `docs/reference/glossary.md` — **before any code** (principle 6). Written later, the
    identifiers and the docs have already diverged and one of them has to be renamed.
 2. The seven folders with their `README.md` index stubs, each carrying its `## In progress`
-   section empty (principle 11), plus root `CONTEXT.md` from the template above.
+   section empty (principle 12), plus root `CONTEXT.md` from the template above.
 3. `CHANGELOG.md` containing only `## [Unreleased]`. Spell that heading exactly — release
-   tooling rewrites it and version gates grep for the result (principle 16).
-4. **`docs/plan/BACKLOG.md`, created empty on day one** (principle 17). This is the step most
+   tooling rewrites it and version gates grep for the result (principle 18).
+4. **`docs/plan/BACKLOG.md`, created empty on day one** (principle 19). This is the step most
    often skipped and the most expensive to skip: with no backlog, the first follow-up is written
    into `tmp/` or the tail of a debug note, and that path — findings scattered across frozen
    records — persists for as long as the repo does.
 5. `docs/adr/0001-*.md` for the first expensive decision, usually the stack or a core dependency
-   choice, on the day it is made (principle 13). The ADR habit is set by whether the first one
+   choice, on the day it is made (principle 16). The ADR habit is set by whether the first one
    exists.
-6. `.gitignore` with `docs/tmp/*-scratch/` (principle 12).
+6. `.gitignore` with `docs/tmp/*-scratch/` (principle 13).
 7. The agent instruction file, pointing at `CONTEXT.md` and holding conduct only — commands,
    commit rules, release mechanics (principle 3).
 
@@ -328,7 +328,7 @@ Checklist for the split commit:
 ## Living backlog record
 
 One file, `docs/plan/BACKLOG.md` — **undated**, because it is a living record and the filename is
-what tells a reader so (principle 9) — explicitly exempt from freeze-on-landing. Its `Status:` is
+what tells a reader so (principle 10) — explicitly exempt from freeze-on-landing. Its `Status:` is
 `In progress` until the Open section empties, then `Resolved (YYYY-MM-DD)`.
 
 ```markdown
@@ -401,7 +401,7 @@ Rules that make it work:
 
 ## Documentation audit
 
-A periodic sweep of the living documents against the code (principle 19). Structure is the easy
+A periodic sweep of the living documents against the code (principle 21). Structure is the easy
 half; accuracy is where the defects are. Run in two passes:
 
 **Pass 1 — structure (mechanical).**
@@ -411,7 +411,7 @@ half; accuracy is where the defects are. Run in two passes:
       each folder's `README.md` index and the living `plan/BACKLOG.md`; every working record
       has a `Status:` line on line 2 from the fixed value set. Any other undated file in a
       working-record folder, or a dated file that is
-      still being edited, means the lifecycle and the filename disagree (principle 9).
+      still being edited, means the lifecycle and the filename disagree (principle 10).
 - [ ] Links resolve — **and** grep for paths written as inline code spans, which no link
       checker sees:
 

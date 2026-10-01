@@ -34,12 +34,15 @@ as `**[MUST]**` / `**[SHOULD]**` / `**[CONSIDER]**` immediately after its number
 | `SHOULD` | Default behavior. Deviation is not automatically wrong but needs a stated reason. | One-line reason in the commit body. |
 | `CONSIDER` | A recommendation to adopt where it fits; not a default. | No justification needed. |
 
+These grades and the ADR/commit-reason rules govern the repos that *use* this skill. They do not
+bind the maintenance of this skill itself: editing it needs no ADR, and its history is not kept.
+
 ## Domains
 
 | Domain | Principle list | Scope |
 |---|---|---|
 | UI (all surfaces) | [references/ui/principles.md](references/ui/principles.md) | 23 principles (9 MUST / 13 SHOULD / 1 SHOULD-with-inline-CONSIDER) + Common Mistakes: architecture, focus/selection, keyboard & input, popups, reorderable lists, chrome/layout, web PWA |
-| Docs (repository documentation) | [references/docs/principles.md](references/docs/principles.md) | 20 principles (10 MUST / 8 SHOULD / 2 CONSIDER) + Common Mistakes: entry point, reference SSOT, working-record lifecycle and filename-as-lifecycle, repo init layout, ADRs, changelog archiving, living backlog, code citations, assessment homing |
+| Docs (repository documentation) | [references/docs/principles.md](references/docs/principles.md) | 21 principles (10 MUST / 9 SHOULD / 2 CONSIDER) + Common Mistakes: entry point, reference SSOT, working-record lifecycle and filename-as-lifecycle, repo init layout, ADRs, changelog archiving, living backlog, code citations, assessment homing, documentation language |
 | CLI (command-line programs) | [references/cli/principles.md](references/cli/principles.md) | 3 principles (1 MUST / 2 SHOULD) + Common Mistakes: argument degradation, XDG file placement, ambient-config leakage |
 | Debug (diagnosing and fixing defects) | [references/debug/principles.md](references/debug/principles.md) | 13 principles (8 MUST / 4 SHOULD / 1 CONSIDER) + Common Mistakes: evidence, re-measuring a filed cause, instrument choice, shared-layer fixes, cross-engine verification, observed vs assumed ordering, record-don't-bundle, evidence-only-where-it-ran |
 | Perf (performance work) | [references/perf/principles.md](references/perf/principles.md) | 13 principles (5 MUST / 7 SHOULD / 1 CONSIDER) + Common Mistakes: phase profiling, choosing the axis, context vs algorithm, unmeasured fallback branches, reporting regressions |
@@ -60,8 +63,8 @@ as `**[MUST]**` / `**[SHOULD]**` / `**[CONSIDER]**` immediately after its number
 
 | Topic | Reference | Principles |
 |---|---|---|
-| Directory tree, filename-as-lifecycle rule, repo initialization order, CONTEXT.md and README.md templates, Status line values, glossary entry format, script directories, tmp archiving | [references/docs/layout-and-lifecycle.md](references/docs/layout-and-lifecycle.md) | 1, 2, 5, 8, 9, 10, 12, 14, 20 |
-| Changelog archiving, the living backlog record's row format and four states, the two-pass documentation audit | [references/docs/layout-and-lifecycle.md](references/docs/layout-and-lifecycle.md) | 16, 17, 19 |
+| Directory tree, filename-as-lifecycle rule, repo initialization order, CONTEXT.md and README.md templates, Status line values, glossary entry format, script directories, tmp archiving | [references/docs/layout-and-lifecycle.md](references/docs/layout-and-lifecycle.md) | 1, 2, 6, 9, 10, 11, 13, 14, 17 |
+| Changelog archiving, the living backlog record's row format and four states, the two-pass documentation audit | [references/docs/layout-and-lifecycle.md](references/docs/layout-and-lifecycle.md) | 18, 19, 21 |
 
 ## Debug Deep References
 
@@ -79,9 +82,11 @@ as `**[MUST]**` / `**[SHOULD]**` / `**[CONSIDER]**` immediately after its number
 
 Principles are cited **by domain and number** across this repo — ADRs, specs, and code comments
 carry `wens-dev-principles <domain> <n>` (e.g. `wens-dev-principles ui 7`,
-`wens-dev-principles docs 5`). A citation with no domain — `wens-dev-principles <n>` or the
-historical `ui-design-principles <n>`, the former skill name — means the `ui` domain. Numbers
-are frozen per domain: **append new principles, never renumber or reuse a number.**
+`wens-dev-principles docs 6`). A citation with no domain — `wens-dev-principles <n>` or the
+legacy `ui-design-principles <n>`, the former skill name — means the `ui` domain. Numbers
+are ordered by section within each domain and may be renumbered to keep it organized; when you
+do, update every reference inside this skill (indexes, `(violates N)`, Deep References tables)
+in the same change.
 
 ## Adding a Domain
 

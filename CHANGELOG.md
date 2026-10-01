@@ -148,3 +148,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     store-credentials` step and the `altool` upload are gone.
   - `git-workflow` R.5.3 moves the existing `[Unreleased]` body verbatim under the new version
     heading, drafting from commits only when it is empty.
+
+### 2026-10-01
+
+- `wens-dev-principles` docs domain: added principle 4 (documents are written in English) and
+  renumbered the 21 principles by section (1, 2, 15 unchanged); updated all in-skill references.
+  Numbers are no longer frozen, and the skill's own maintenance is exempt from its ADR rules.
+
