@@ -184,6 +184,6 @@ delivers it. On web/native, expose the `Shift/Cmd/Ctrl` vocabulary as primary.
 8. **Paste length cap**: cap 5, paste "hello world" → field is "hello", caret at 5, status reports
    truncation.
 9. **Copy on empty selection**: no selection → `Cmd+C` is a no-op, clipboard untouched.
-10. **CJK cursor**: in "你好|", `←` → caret before 好, `←` again → before 你 (two steps, not six).
+10. **Wide-character cursor**: in "ＡＢ|" (fullwidth), `←` → caret before Ｂ, `←` again → before Ａ (two steps, not six).
 11. **IME commit**: compose and commit "が" → one undo entry, not two.
 12. **Password copy**: masked field, `Cmd+C` → clipboard unchanged (or explicitly blocked).

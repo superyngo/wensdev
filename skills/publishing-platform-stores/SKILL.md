@@ -99,7 +99,7 @@ one. Load the reference file only for the store you're integrating.
 | Extension | Microsoft Edge Add-ons | Edge Add-ons Update REST API | [browser-edge-addons.md](references/browser-edge-addons.md) |
 | Extension | Firefox Add-ons (AMO) | `web-ext sign` | [browser-firefox-amo.md](references/browser-firefox-amo.md) |
 
-**Extending to a new store ("其他"):** add `references/<category>-<store>.md` following the
+**Extending to a new store ("other"):** add `references/<category>-<store>.md` following the
 same shape (mechanism → CI approach → required secrets → workflow snippet → gotchas → official
 docs) and one row to the table above. The skill body itself never grows — only the table and
 the reference set.
