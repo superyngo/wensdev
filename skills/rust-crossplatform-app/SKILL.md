@@ -74,6 +74,8 @@ patterns, and per-platform playbooks kept in `references/`.
   component sharing) are in `wens-dev-principles`, whose `debug` and `perf` domains also carry
   the multi-host bug-case library and the phase-profiling playbook this doctrine's bugs land in
   — apply it alongside this one for anything user-facing.
+  For the TUI host's components (menus, modals, trees, sidebars on ratatui), `tui-components`
+  carries the component specs and the ecosystem crate catalog.
   For the VS Code host specifically, `vscode-dev-experience-pack` carries the
   extension-host debugging, evidence-collection, and VSIX validation playbooks that this
   skill's VS Code section assumes. For shipping: `create-release-workflow` (build matrix +

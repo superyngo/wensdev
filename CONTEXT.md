@@ -10,6 +10,7 @@ everything else lives under `docs/` or inside a skill.
 | [`docs/adr/`](docs/adr/README.md) | Repo-level decisions that were expensive to reach and would be expensive to reverse | No — historical | Never edited; superseded by a new ADR |
 | [`docs/spec/`](docs/spec/README.md) | Design records written before implementation | No — historical | Frozen once approved; only `Status:` changes |
 | [`docs/plan/`](docs/plan/README.md) | Task-by-task implementation plans derived from a spec | No — historical | Frozen once shipped; only `Status:` changes |
+| [`docs/plan/BACKLOG.md`](docs/plan/BACKLOG.md) | The one living tracker of open work | No — live state | Never frozen while anything is open |
 | [`docs/debug/`](docs/debug/README.md) | Handoff notes from investigations, with repro scripts | No — historical | Frozen once resolved; only `Status:` changes |
 | [`docs/audit/`](docs/audit/README.md) | Point-in-time sweeps for bugs, dead code, inconsistency | No — historical | Frozen once findings are addressed; only `Status:` changes |
 | `docs/tmp/` | Scratch | No | Archived to `tmp/archive/YYYY-MM.tar.gz` when stale |
@@ -26,6 +27,7 @@ skill rather than here.
 |---|---|
 | `wens-dev-principles` | UI, documentation-layout, CLI, debugging, performance, and multi-agent principles |
 | `rust-crossplatform-app` | One Rust core shipping to CLI/TUI/web/desktop/mobile/extension |
+| `tui-components` | ratatui component specs: menu, modal, toggle tree, sidebar; web-UI vocabulary mapped to TUI |
 | `vscode-dev-experience-pack` | VS Code extension debugging and evidence collection |
 | `create-release-workflow` | Tag-triggered multi-platform Rust release workflow |
 | `publishing-platform-stores` | Store submission workflows hanging off that release |

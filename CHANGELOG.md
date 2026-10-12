@@ -155,3 +155,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   renumbered the 21 principles by section (1, 2, 15 unchanged); updated all in-skill references.
   Numbers are no longer frozen, and the skill's own maintenance is exempt from its ADR rules.
 
+### 2026-10-12
+
+- Added the `tui-components` skill: ratatui 0.30 component specs for menu/dropdown/context
+  menu, modal/dialog/confirm, toggle tree, and sidebar list navigation, each with state,
+  geometry, render, input, edge cases, and acceptance; shared contracts (frame hit map, overlay
+  stack, keymap, mouse, geometry safety, display width, theme roles, persistence by id); a
+  catalog mapping the web UI vocabulary to terminal equivalents; and an ecosystem catalog of
+  crates checked against ratatui 0.30, with herdr as the reference application. Every Rust
+  snippet compiles and is unit-tested against ratatui 0.30. Design record:
+  `docs/spec/2026-10-12-tui-components-skill.md`; later phases tracked in the new
+  `docs/plan/BACKLOG.md`.

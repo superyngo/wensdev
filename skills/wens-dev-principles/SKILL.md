@@ -15,7 +15,8 @@ This file is a **router only**. Every principle lives under `references/`, group
 Universal coding conduct in one line each — minimal changes, "reproduce before and after",
 commit and tooling rules — is *not* here; that is `CLAUDE.md`'s job. This skill holds the
 domain conventions too detailed for it, including what "reproduce" and "measure" actually
-require (the `debug` and `perf` domains).
+require (the `debug` and `perf` domains). Concrete ratatui component specs that apply the `ui`
+domain (menu, modal, toggle tree, sidebar) live in the `tui-components` skill.
 
 ## How to Use
 
