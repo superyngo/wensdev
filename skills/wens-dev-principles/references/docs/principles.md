@@ -60,6 +60,9 @@ are *principles*, not templates — the templates (directory tree, `CONTEXT.md`,
     language. Docs outlive the session and are read by other contributors and agents; one
     language keeps glossary terms (principle 6) greppable. Reply to the user in their language;
     write the file in English. A repo that has chosen another doc language records it in an ADR.
+    Skills (`SKILL.md` and their references) follow the same rule; the one exception is guidance
+    whose subject is a specific language (e.g. Chinese typesetting or IME behavior), which may use
+    that language for the examples and passages that need it — only there.
 
 ## B. `reference/` — single source of truth
 

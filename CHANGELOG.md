@@ -166,3 +166,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   snippet compiles and is unit-tested against ratatui 0.30. Design record:
   `docs/spec/2026-10-12-tui-components-skill.md`; later phases tracked in the new
   `docs/plan/BACKLOG.md`.
+- `wens-dev-principles docs 4` now also covers skills: English throughout, except passages in
+  guidance whose subject is a specific language (e.g. Chinese typesetting), which may use that
+  language where needed.
