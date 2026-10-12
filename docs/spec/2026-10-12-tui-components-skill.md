@@ -16,7 +16,7 @@ implementations.
 | 2 | Location | New skill `tui-components` | A folder under `wens-dev-principles/references/ui/` — that skill is implementation-agnostic principles for every surface; ratatui-specific component specs have a different trigger and would bloat its router |
 | 3 | Build vs buy | Wrap or adopt an ecosystem crate when one is maintained on ratatui 0.30; self-write only the gap | Self-write everything — duplicates maintained crates and their bug history |
 | 4 | Code location | Any future crate or example gallery lives in its own repository, never in `wensdev` | Inside `wensdev` — breaks the skills-payload shape (ADR 0001) |
-| 5 | Vocabulary source | The HyC Wiki "UIUX – UI樣式專有名詞" list, mapped to terminal equivalents; English terms only | Web terms used verbatim — a third have no terminal meaning |
+| 5 | Vocabulary source | The HyC Wiki "UIUX – UI style terminology" list, mapped to terminal equivalents; English terms only | Web terms used verbatim — a third have no terminal meaning |
 | 6 | Language | English body (`wens-dev-principles docs 4`) | Chinese body |
 
 ## Scope (this change)
@@ -39,5 +39,5 @@ implementations.
 
 - herdr (Apache-2.0), upstream `herdrdev/herdr`: `src/ui/widgets.rs`, `src/client/shell/overlays.rs`,
   `src/client/shell/sidebar.rs`, `src/client/shell/state.rs`.
-- HyC Wiki, "UIUX – UI樣式專有名詞",
+- HyC Wiki, "UIUX – UI style terminology",
   <https://hyc.eshachem.com/program/uiux-ui%E6%A8%A3%E5%BC%8F%E5%B0%88%E6%9C%89%E5%90%8D%E8%A9%9E/>.

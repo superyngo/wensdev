@@ -134,7 +134,7 @@ pub fn menu_rect<A>(anchor: MenuAnchor, items: &[MenuItem<A>], screen: Rect) -> 
 - Screen smaller than 3×3: `menu_rect` returns `None`; render nothing and treat the open as
   failed (the trigger stays focused).
 - Pointer at the bottom-right corner: the menu shifts up/left fully inside the screen.
-- CJK labels: width uses display width; `"漢字ab"` is 6 columns, not 4.
+- CJK labels: width uses display width; `"ＡＢab"` (fullwidth) is 6 columns, not 4.
 - All items disabled: `MenuState::open` returns `None`; do not show an empty menu.
 - Target disappears while open (pane closed): close the menu on the next state update.
 
