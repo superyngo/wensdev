@@ -22,6 +22,13 @@ events against the hit map of the last drawn frame — what the user saw — nev
 fresh recomputation. Tests click by reading a rect out of the hit map, not by hardcoding
 coordinates. herdr: `OverlayRender::menu_rows` fed into the shell's `hits.context_menu_rows`.
 
+**Push order is paint order.** `hit` is last-wins, so push a container (menu body, dialog rect,
+window frame) **before** its rows and buttons. A body pushed after its rows shadows them and
+every click lands on the body.
+
+A target may carry the geometry it was drawn with, for example `Divider { path, rect, parent }`.
+Input then acts on exactly what the user saw (drags, C11) without re-running layout.
+
 ```rust
 use ratatui::layout::{Position, Rect};
 
@@ -212,7 +219,41 @@ dropped on next save.
 | Render | `Buffer::empty(area)` + render, then assert cells/styles; or `ratatui::backend::TestBackend` + `Terminal::draw` for whole frames |
 | Input | Feed `crossterm::event::KeyEvent` / `MouseEvent` to the input function with a hit map from a real render |
 | Mouse | Click at the center of `hit_map.rect_of(target)`; never hardcode coordinates |
+| Real artifact | Drive the built binary in a pty: write SGR mouse sequences (`ESC [ < b ; x ; y M`/`m`, 1-based; b=0 left, 2 right, 32 left-drag) and keys, and read the screen through a terminal emulator such as `pyte` |
 | Identity | Reorder or reload content, assert collapsed/selected state follows the id |
 
 Real-artifact check: run the component in the actual terminal at 80×24 and at a minimum size,
 with a CJK label, before calling it done.
+
+## C11. Drag sessions
+
+A drag is a short-lived mode that starts on press and ends on release. Model it as
+`Option<Drag>` in app state, next to the overlay:
+
+```rust
+pub struct DividerDrag {
+    /// Geometry captured from the hit-map target at press time (C2).
+    pub divider: Divider,
+    /// Value restored when the drag is cancelled.
+    pub original: f32,
+}
+```
+
+- **Start** only on `Down(Left)` over a draggable target. Capture its frame geometry and the
+  value you are about to change.
+- **Own the pointer.** While the session is active, every mouse event goes to it before hit
+  testing. `Drag(Left)` updates from the pointer even outside the original rect, and
+  `Up(_)` ends it. Nothing underneath reacts (same rule as a modal, C3).
+- **Compute from the captured geometry**, not the live layout. The thing being dragged changes
+  the layout on every event.
+- **Esc cancels**: restore `original` and end the session. Any other key ends it in place.
+- **Resize cancels**: the captured geometry is stale.
+- **Show it**: the dragged handle uses the heavy glyph in `accent`, and the status line says what
+  is changing and how to cancel ("resizing 38% · release to keep · esc restores").
+- **Clamp every update** to the component's minimums. Never let the value pass a limit and
+  then snap back.
+- Keyboard path (`ui 11`): every drag has a stepping key (`[` / `]`, arrows in a resize mode).
+
+Terminals report `Drag` only while a button is held, and only after `EnableMouseCapture`
+(xterm 1002/1003). `Moved` (hover) needs any-motion reporting, which crossterm requests. Some
+multiplexers drop it, so hover can never be the only cue.

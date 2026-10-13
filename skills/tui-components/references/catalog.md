@@ -72,5 +72,5 @@ These carry most of a TUI's usability and have no web-list row.
 | Scroll viewport + scrollbar | Sticky-cursor list scrolling (`ui 7`) | built-in `Scrollbar`, `tui-scrollview` | Mapped |
 | Table | Column-aligned rows with a header | built-in `Table` | Mapped |
 | Search / filter | Inline query narrowing a list | `tui-input` + self-write filter | Mapped |
-| Split / resizable panes | Draggable dividers between regions | self-write | Mapped |
+| Split / resizable panes | Split tree with draggable one-cell dividers, preset layouts | [split-panes](components/split-panes.md) | Specified |
 | Inline confirm | Destructive action confirmed in place (`ui 8`) | [modal-dialog](components/modal-dialog.md) | Specified |

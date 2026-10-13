@@ -1,6 +1,6 @@
 ---
 name: tui-components
-description: Use when building, reviewing, or choosing Rust ratatui TUI components — menu, dropdown, context menu, modal/dialog/confirm, collapsible toggle tree, sidebar list navigation, toast, tabs, key-hint bar — or when mapping web UI vocabulary (navbar, accordion, tooltip, chip) to terminal equivalents. Covers state/geometry/render/hit-test contracts, keyboard and mouse behavior, CJK width, theming roles, and whether to adopt an ecosystem crate or self-write.
+description: Use when building, reviewing, or choosing Rust ratatui TUI components — menu, dropdown, context menu, modal/dialog/confirm, collapsible toggle tree, sidebar list navigation, split panes / tiling workspace with draggable dividers, toast, tabs, key-hint bar — or when mapping web UI vocabulary (navbar, accordion, tooltip, chip) to terminal equivalents. Covers state/geometry/render/hit-test contracts, keyboard and mouse behavior (right-click menus, drag sessions), CJK width, theming roles, and whether to adopt an ecosystem crate or self-write.
 allowed-tools: Read, Grep, Glob
 ---
 
@@ -37,13 +37,14 @@ project, then the spec of the component you are building.
 | Modal / dialog / confirm | [references/components/modal-dialog.md](references/components/modal-dialog.md) | Specified |
 | Toggle tree (accordion, collapsible groups) | [references/components/toggle-tree.md](references/components/toggle-tree.md) | Specified |
 | Sidebar list navigation | [references/components/sidebar-nav.md](references/components/sidebar-nav.md) | Specified |
+| Split panes / tiling workspace (drag dividers, preset layouts) | [references/components/split-panes.md](references/components/split-panes.md) | Specified |
 | Everything else in the web UI vocabulary | [references/catalog.md](references/catalog.md) | Mapped, not yet specified |
 
 ## References
 
 - **[references/contracts.md](references/contracts.md)** — rules every component obeys:
   anatomy, frame hit map, overlay stack and focus, baseline keymap, mouse, geometry safety,
-  CJK width, theme roles, persisting UI state by identity, testing.
+  CJK width, theme roles, persisting UI state by identity, testing, drag sessions.
 - **[references/catalog.md](references/catalog.md)** — web UI term →
   terminal equivalent → disposition (direct / adapt / skip) → spec or crate; plus
   terminal-only components the web list lacks.
@@ -72,3 +73,7 @@ project, then the spec of the component you are building.
 - Collapsing a tree group that contains the focused row and losing the cursor (`ui 5`).
 - Keying collapsed/expanded state by row index — a reload expands the wrong group (`ui 8`).
 - A modal that lets keys fall through to the pane underneath.
+- Pushing a container's hit rect after its rows: the hit map is last-wins, so the body swallows
+  every row click (push body first, C2).
+- Re-running layout in the mouse handler during a drag; capture the target geometry at press and
+  let the session own the pointer until release (C11).

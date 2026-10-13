@@ -130,7 +130,8 @@ Action buttons: cancel right-aligned, primary left-aligned in the actions row; e
 3. Header, content (wrapped `Paragraph` with `.scroll((state.scroll, 0))`), footer in `muted`
    or `danger` for an error.
 4. Buttons: focused one `accent` bg + `accent_fg` + bold; destructive primary uses `danger` as
-   its accent. Push each button rect and the whole dialog rect to the hit map (C2).
+   its accent. Push the whole dialog rect first, then each button rect (C2 push order), so
+   buttons shadow the body and other clicks inside the dialog are consumed.
 
 ## Input
 

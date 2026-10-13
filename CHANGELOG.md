@@ -169,3 +169,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `wens-dev-principles docs 4` now also covers skills: English throughout, except passages in
   guidance whose subject is a specific language (e.g. Chinese typesetting), which may use that
   language where needed.
+
+### 2026-10-13
+
+- skill(tui-components): add `split-panes.md` (split tree, one-cell shared dividers, drag-to-resize,
+  preset layouts with identity-preserving re-tiling) and contract C11 "Drag sessions". Fix the
+  hit-map push order in `menu-dropdown.md`/`modal-dialog.md`: the body went last, which shadowed
+  every row under last-wins hit testing; it now goes first. Add a target → menu example and the
+  pty/SGR-mouse real-artifact test row. Worked out on the `wens-tui-lab` demo.

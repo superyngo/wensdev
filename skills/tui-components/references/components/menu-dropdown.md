@@ -25,6 +25,17 @@ pub struct MenuItem<A> {
     pub enabled: bool,
 }
 
+impl<A> MenuItem<A> {
+    pub fn new(label: impl Into<String>, action: A) -> Self {
+        Self { label: label.into(), action, enabled: true }
+    }
+
+    pub fn enabled(mut self, enabled: bool) -> Self {
+        self.enabled = enabled;
+        self
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct MenuState {
     pub anchor: MenuAnchor,
@@ -56,7 +67,31 @@ impl MenuState {
 }
 ```
 
-Items are **derived** from the target each time the menu opens (herdr builds them from
+Items are **derived** from the target each time the menu opens. A context menu needs one
+function from target to menu, called on right-click and on the keyboard menu key alike:
+
+```rust
+fn context_items(&self, target: &Target) -> Option<(String, Vec<MenuItem<Action>>)> {
+    let many = self.root.leaves().len() > 1;
+    Some(match target {
+        Target::Pane(id) => (pane_title(*id), vec![
+            MenuItem::new("Split right", Action::SplitRight(*id)),
+            MenuItem::new("Close pane…", Action::Close(*id)).enabled(many), // disabled, not hidden
+        ]),
+        Target::Divider(d) => ("divider".into(), vec![
+            MenuItem::new("Reset to 50 / 50", Action::Reset(d.path.clone())),
+        ]),
+        Target::StatusBar => ("app".into(), vec![MenuItem::new("Quit", Action::Quit)]),
+        _ => return None, // no menu for this target: the right click does nothing
+    })
+}
+```
+
+Right-clicking a pane also focuses it, so the menu acts on the visible focus. The title row names
+the target, so the user can see what the menu applies to. Show the key hint for each item
+right-aligned in `muted` (`Split right   |`).
+
+Items are derived (herdr builds them from
 `ClientContextMenuTarget`); do not store a stale item list when the target can change.
 Disabled items are shown in `muted` and skipped by navigation — hide an item instead when it can
 never apply to this target.
@@ -110,8 +145,10 @@ pub fn menu_rect<A>(anchor: MenuAnchor, items: &[MenuItem<A>], screen: Rect) -> 
 2. One row per item inside the border: ` label` padded to the inner width, truncated by display
    width with `…` (C7).
 3. Highlighted row: `accent` bg + `accent_fg` + bold across the full inner width. Disabled: `muted`.
-4. Push each row rect with its item index into the hit map (C2), and push the whole menu rect
-   last as a "menu body" target so clicks on the border are consumed, not passed through.
+4. Push the whole menu rect **first** as a "menu body" target, then each row rect with its item
+   index (C2). The hit map is last-wins, so rows shadow the body. Clicks on the border resolve
+   to the body and are consumed, not passed through. Pushing the body last would shadow every
+   row.
 
 ## Input
 
