@@ -27,7 +27,7 @@ skill rather than here.
 |---|---|
 | `wens-dev-principles` | UI, documentation-layout, CLI, debugging, performance, and multi-agent principles |
 | `rust-crossplatform-app` | One Rust core shipping to CLI/TUI/web/desktop/mobile/extension |
-| `tui-components` | ratatui component specs: menu, modal, toggle tree, sidebar, split panes; web-UI vocabulary mapped to TUI |
+| `tui-components` | ratatui component specs: menu, modal, toggle tree, sidebar, split panes, floating windows; web-UI vocabulary mapped to TUI |
 | `vscode-dev-experience-pack` | VS Code extension debugging and evidence collection |
 | `create-release-workflow` | Tag-triggered multi-platform Rust release workflow |
 | `publishing-platform-stores` | Store submission workflows hanging off that release |

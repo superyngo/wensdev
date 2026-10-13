@@ -1,6 +1,6 @@
 ---
 name: tui-components
-description: Use when building, reviewing, or choosing Rust ratatui TUI components — menu, dropdown, context menu, modal/dialog/confirm, collapsible toggle tree, sidebar list navigation, split panes / tiling workspace with draggable dividers, toast, tabs, key-hint bar — or when mapping web UI vocabulary (navbar, accordion, tooltip, chip) to terminal equivalents. Covers state/geometry/render/hit-test contracts, keyboard and mouse behavior (right-click menus, drag sessions), CJK width, theming roles, and whether to adopt an ecosystem crate or self-write.
+description: Use when building, reviewing, or choosing Rust ratatui TUI components — menu, dropdown, context menu, modal/dialog/confirm, collapsible toggle tree, sidebar list navigation, split panes / tiling workspace with draggable dividers, floating windows with z-order and snap, toast, tabs, key-hint bar — or when mapping web UI vocabulary (navbar, accordion, tooltip, chip) to terminal equivalents. Covers state/geometry/render/hit-test contracts, keyboard and mouse behavior (right-click menus, drag sessions), CJK width, theming roles, and whether to adopt an ecosystem crate or self-write.
 allowed-tools: Read, Grep, Glob
 ---
 
@@ -38,6 +38,7 @@ project, then the spec of the component you are building.
 | Toggle tree (accordion, collapsible groups) | [references/components/toggle-tree.md](references/components/toggle-tree.md) | Specified |
 | Sidebar list navigation | [references/components/sidebar-nav.md](references/components/sidebar-nav.md) | Specified |
 | Split panes / tiling workspace (drag dividers, preset layouts) | [references/components/split-panes.md](references/components/split-panes.md) | Specified |
+| Floating windows / desktop (z-order, move, resize, snap, taskbar) | [references/components/floating-windows.md](references/components/floating-windows.md) | Specified |
 | Everything else in the web UI vocabulary | [references/catalog.md](references/catalog.md) | Mapped, not yet specified |
 
 ## References

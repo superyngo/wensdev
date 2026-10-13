@@ -73,4 +73,6 @@ These carry most of a TUI's usability and have no web-list row.
 | Table | Column-aligned rows with a header | built-in `Table` | Mapped |
 | Search / filter | Inline query narrowing a list | `tui-input` + self-write filter | Mapped |
 | Split / resizable panes | Split tree with draggable one-cell dividers, preset layouts | [split-panes](components/split-panes.md) | Specified |
+| Floating window / desktop | Overlapping windows in z-order: move, resize, grid and edge snap, min/max/close | [floating-windows](components/floating-windows.md) | Specified |
+| Taskbar | One button per window in creation order; click raises / minimizes the active one | [floating-windows](components/floating-windows.md) | Specified |
 | Inline confirm | Destructive action confirmed in place (`ui 8`) | [modal-dialog](components/modal-dialog.md) | Specified |

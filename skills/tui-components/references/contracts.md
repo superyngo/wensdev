@@ -219,7 +219,7 @@ dropped on next save.
 | Render | `Buffer::empty(area)` + render, then assert cells/styles; or `ratatui::backend::TestBackend` + `Terminal::draw` for whole frames |
 | Input | Feed `crossterm::event::KeyEvent` / `MouseEvent` to the input function with a hit map from a real render |
 | Mouse | Click at the center of `hit_map.rect_of(target)`; never hardcode coordinates |
-| Real artifact | Drive the built binary in a pty: write SGR mouse sequences (`ESC [ < b ; x ; y M`/`m`, 1-based; b=0 left, 2 right, 32 left-drag) and keys, and read the screen through a terminal emulator such as `pyte` |
+| Real artifact | Drive the built binary in a pty: write SGR mouse sequences (`ESC [ < b ; x ; y M`/`m`, 1-based; b=0 left, 2 right, 32 left-drag) and keys, and read the screen through a terminal emulator such as `pyte`. pyte leaves orphaned `""` cells when a wide glyph is partly overwritten, and its `display` then crashes. Dump `screen.buffer` yourself, mark orphans, and confirm them in a real terminal |
 | Identity | Reorder or reload content, assert collapsed/selected state follows the id |
 
 Real-artifact check: run the component in the actual terminal at 80×24 and at a minimum size,

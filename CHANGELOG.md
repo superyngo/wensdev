@@ -177,3 +177,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   hit-map push order in `menu-dropdown.md`/`modal-dialog.md`: the body went last, which shadowed
   every row under last-wins hit testing; it now goes first. Add a target → menu example and the
   pty/SGR-mouse real-artifact test row. Worked out on the `wens-tui-lab` demo.
+- skill(tui-components): add `floating-windows.md` (z-order as Vec order, move/resize drag
+  sessions, hidden snap grid shown during drag, edge snap, maximize/restore, taskbar in creation
+  order, per-target right-click menus) and catalog rows for floating windows and the taskbar.
+  Note the pyte orphan-cell caveat in contracts C10.
