@@ -171,5 +171,5 @@ pub fn snap(v: u16, lines: &[u16]) -> u16 {
 
 ## Reference
 
-Worked demo (local repo `wens-tui-lab`): `src/desk.rs` (model + geometry), `src/desk_input.rs`
+Worked demo ([wens-tui-lab](https://github.com/superyngo/wens-tui-lab)): `src/desk.rs` (model + geometry), `src/desk_input.rs`
 (sessions, keys, menus), `src/ui.rs` `render_desk`, and `src/tests.rs` (desktop section).

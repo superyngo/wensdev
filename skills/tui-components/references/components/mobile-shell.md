@@ -142,6 +142,6 @@ The phone may have a hardware keyboard or the Termux extra-keys row.
 
 ## Reference
 
-Worked demo: `wens-tui-lab` `src/mobile.rs` (state, input, render), `src/tests.rs`
+Worked demo: [wens-tui-lab](https://github.com/superyngo/wens-tui-lab) `src/mobile.rs` (state, input, render), `src/tests.rs`
 (mobile section), `scripts/pty/s5.json` (43×39 → 43×21 run). Prior art: herdr's mobile header
 and full-screen switcher (`src/client/shell/mobile.rs` in the herdr fork).

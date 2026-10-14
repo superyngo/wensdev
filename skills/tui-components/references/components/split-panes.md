@@ -183,5 +183,5 @@ presets:
 ## Reference
 
 herdr `src/layout.rs` (`Node`, `TileLayout`, `collect_splits`, `set_ratio_at`, `split_rect`) and
-`src/ui/panes.rs` (`add_split_border_cells`: one shared divider cell). Worked demo (local
-repo `wens-tui-lab`): `src/tile.rs`, `src/app.rs`, `src/tests.rs`.
+`src/ui/panes.rs` (`add_split_border_cells`: one shared divider cell). Worked demo
+([wens-tui-lab](https://github.com/superyngo/wens-tui-lab)): `src/tile.rs`, `src/app.rs`, `src/tests.rs`.

@@ -93,5 +93,5 @@ slides off an item before lifting doesn't run it.
 
 ## Reference
 
-`wens-tui-lab` `src/mobile.rs`: `render_sheet`, `sheet_activate`, the sheet branch of
+[wens-tui-lab](https://github.com/superyngo/wens-tui-lab) `src/mobile.rs`: `render_sheet`, `sheet_activate`, the sheet branch of
 `mobile_key`.

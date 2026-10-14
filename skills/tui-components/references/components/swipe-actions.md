@@ -67,5 +67,5 @@ closes it.
 
 ## Reference
 
-`wens-tui-lab` `src/mobile.rs`: `push_row`, `set_reveal`, `tick`, and the `Down`/`Drag`/`Up`
+[wens-tui-lab](https://github.com/superyngo/wens-tui-lab) `src/mobile.rs`: `push_row`, `set_reveal`, `tick`, and the `Down`/`Drag`/`Up`
 arms of `mobile_mouse`.

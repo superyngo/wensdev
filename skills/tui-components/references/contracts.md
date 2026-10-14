@@ -290,7 +290,7 @@ Rules:
   can't aim that precisely: a fingertip covers about 2 rows, and a cell is about half as wide as
   it is tall, so a 3-column ` ⋯ ` is narrower than it looks. This applies to every tappable
   element, including chrome (app bar buttons, tab bar, snackbar action, sheet grabber, items,
-  Cancel). Assert it in a test by walking the hit map (on-device feedback, wens-tui-lab).
+  Cancel). Assert it in a test by walking the hit map (on-device feedback, [wens-tui-lab](https://github.com/superyngo/wens-tui-lab)).
 - Test with a pty driver that sends taps as SGR press+release pairs and swipes as bursts of
   `\x1b[<64;x;yM` / `\x1b[<65;x;yM`. Change the window size (TIOCSWINSZ + SIGWINCH) to simulate the
   keyboard opening. Then run it once on the device.

@@ -46,6 +46,8 @@ project, then the spec of the component you are building.
 
 ## References
 
+- **[wens-tui-lab](https://github.com/superyngo/wens-tui-lab)** — runnable worked example of
+  the specs (tile, desk, mobile modes) with TestBackend and pty tests.
 - **[references/contracts.md](references/contracts.md)** — rules every component obeys:
   anatomy, frame hit map, overlay stack and focus, baseline keymap, mouse, geometry safety,
   CJK width, theme roles, persisting UI state by identity, testing, drag sessions, touch input.

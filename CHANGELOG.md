@@ -172,6 +172,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### 2026-10-14
 
+- skill(tui-components): link the worked-demo references to the public
+  [wens-tui-lab](https://github.com/superyngo/wens-tui-lab) repo, and list it under SKILL.md References.
 - skill(tui-components): touch targets must be at least 2 rows × 5 columns (contracts C12), from
   on-device feedback: cell-exact taps don't make 1-row targets finger-friendly. Mobile shell app
   bar, tab bar (icon over label) and snackbar become 2 rows; bottom sheet grabber, items and
