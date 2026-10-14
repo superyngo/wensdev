@@ -170,6 +170,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   guidance whose subject is a specific language (e.g. Chinese typesetting), which may use that
   language where needed.
 
+### 2026-10-14
+
+- skill(tui-components): add mobile view specs: `mobile-shell.md` (width breakpoint, app bar,
+  stack navigation, bottom tab bar, FAB, snackbar with undo instead of confirm, damped wheel,
+  pull-to-refresh, tick loop), `bottom-sheet.md` (scrim, grabber detent, 2-row destructive items)
+  and `swipe-actions.md` (tap/key/drag paths to one reveal state). New contract C12 Touch input
+  (Termux gesture table, act-on-release, soft-keyboard reflow). Catalog: FAB, swipe actions, pull
+  to refresh, bottom sheet, snackbar, bottom navigation and app bar. Contracts C10 now says pyte
+  orphan cells are an emulator artifact. Worked out on `wens-tui-lab`.
+
 ### 2026-10-13
 
 - skill(tui-components): add `split-panes.md` (split tree, one-cell shared dividers, drag-to-resize,

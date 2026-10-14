@@ -1,6 +1,6 @@
 ---
 name: tui-components
-description: Use when building, reviewing, or choosing Rust ratatui TUI components — menu, dropdown, context menu, modal/dialog/confirm, collapsible toggle tree, sidebar list navigation, split panes / tiling workspace with draggable dividers, floating windows with z-order and snap, toast, tabs, key-hint bar — or when mapping web UI vocabulary (navbar, accordion, tooltip, chip) to terminal equivalents. Covers state/geometry/render/hit-test contracts, keyboard and mouse behavior (right-click menus, drag sessions), CJK width, theming roles, and whether to adopt an ecosystem crate or self-write.
+description: Use when building, reviewing, or choosing Rust ratatui TUI components — menu, dropdown, context menu, modal/dialog/confirm, collapsible toggle tree, sidebar list navigation, split panes / tiling workspace with draggable dividers, floating windows with z-order and snap, mobile view for phone terminals (bottom sheet, swipe actions, tab bar, FAB, snackbar), toast, tabs, key-hint bar — or when mapping web UI vocabulary (navbar, accordion, tooltip, chip) to terminal equivalents. Covers state/geometry/render/hit-test contracts, keyboard, mouse and touch behavior (right-click menus, drag sessions, Termux taps and swipes), CJK width, theming roles, and whether to adopt an ecosystem crate or self-write.
 allowed-tools: Read, Grep, Glob
 ---
 
@@ -39,13 +39,16 @@ project, then the spec of the component you are building.
 | Sidebar list navigation | [references/components/sidebar-nav.md](references/components/sidebar-nav.md) | Specified |
 | Split panes / tiling workspace (drag dividers, preset layouts) | [references/components/split-panes.md](references/components/split-panes.md) | Specified |
 | Floating windows / desktop (z-order, move, resize, snap, taskbar) | [references/components/floating-windows.md](references/components/floating-windows.md) | Specified |
+| Mobile shell (phone terminals: app bar, tab bar, FAB, snackbar undo, pull-to-refresh) | [references/components/mobile-shell.md](references/components/mobile-shell.md) | Specified |
+| Bottom sheet / action sheet | [references/components/bottom-sheet.md](references/components/bottom-sheet.md) | Specified |
+| Swipe actions (row reveal) | [references/components/swipe-actions.md](references/components/swipe-actions.md) | Specified |
 | Everything else in the web UI vocabulary | [references/catalog.md](references/catalog.md) | Mapped, not yet specified |
 
 ## References
 
 - **[references/contracts.md](references/contracts.md)** — rules every component obeys:
   anatomy, frame hit map, overlay stack and focus, baseline keymap, mouse, geometry safety,
-  CJK width, theme roles, persisting UI state by identity, testing, drag sessions.
+  CJK width, theme roles, persisting UI state by identity, testing, drag sessions, touch input.
 - **[references/catalog.md](references/catalog.md)** — web UI term →
   terminal equivalent → disposition (direct / adapt / skip) → spec or crate; plus
   terminal-only components the web list lacks.

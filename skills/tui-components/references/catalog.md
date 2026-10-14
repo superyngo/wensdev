@@ -18,6 +18,8 @@ Spec status: **Specified** (has a spec under `components/`), **Mapped** (row onl
 | Breadcrumb | Path line in a header, `a › b › c`, segments clickable | Direct | self-write (one `Line`) | Mapped |
 | Hamburger menu | Collapsed sidebar (icon/one-char rail) or a launcher button opening a menu | Adapt | [sidebar-nav](components/sidebar-nav.md), [menu-dropdown](components/menu-dropdown.md) | Specified |
 | Tab | Tab bar switching panes in one region | Direct | built-in `Tabs` | Mapped |
+| Bottom navigation / tab bar | One-row bottom tab bar replacing F-key mode switches on touch | Direct | [mobile-shell](components/mobile-shell.md) | Specified |
+| App bar / stack navigation | One-row header with ` ‹ ` back and ` ⋮ ` overflow; full-screen pushed screens | Direct | [mobile-shell](components/mobile-shell.md) | Specified |
 | Footer | Status line + key-hint bar | Adapt | self-write | Mapped |
 
 ## Overlays & popups
@@ -29,7 +31,9 @@ Spec status: **Specified** (has a spec under `components/`), **Mapped** (row onl
 | Dialog | Modal with message + action buttons; confirm | Direct | [modal-dialog](components/modal-dialog.md) | Specified |
 | Tooltip | Hover popup (mouse) or status-line hint for the focused control (keyboard) | Adapt | self-write | Mapped |
 | Dropdown | Anchored menu below/above its trigger | Direct | [menu-dropdown](components/menu-dropdown.md) | Specified |
-| Toast / Snackbar | Corner overlay, auto-expiring, never takes focus | Direct | `ratatui-toaster` or self-write | Mapped |
+| Toast | Corner overlay, auto-expiring, never takes focus | Direct | `ratatui-toaster` or self-write | Mapped |
+| Snackbar | Bottom row with one action (UNDO), auto-expiring; replaces confirm dialogs on mobile | Direct | [mobile-shell](components/mobile-shell.md) | Specified |
+| Bottom sheet / action sheet | Bottom-anchored menu over a scrim, grabber toggles the detent; context menu on touch | Direct | [bottom-sheet](components/bottom-sheet.md) | Specified |
 
 ## Content display
 
@@ -46,7 +50,9 @@ Spec status: **Specified** (has a spec under `components/`), **Mapped** (row onl
 | Web term | Terminal equivalent | Disposition | Spec / crate | Status |
 |---|---|---|---|---|
 | Button | Bracketed label ` ↵ continue ` with a hit rect and a key hint | Adapt | self-write ([modal-dialog](components/modal-dialog.md) action row) | Specified |
-| FAB | — | Skip | — | — |
+| FAB | 7×3 rounded `+` box over the list's bottom-right corner (mobile view only), lifted above the snackbar | Adapt | [mobile-shell](components/mobile-shell.md) | Specified |
+| Swipe actions | Row slides aside to reveal buttons; tap ` ⋯ ` / `←` paths, real drag as an enhancement | Adapt | [swipe-actions](components/swipe-actions.md) | Specified |
+| Pull to refresh | Wheel-up overscroll at the list top, threshold-triggered | Adapt | [mobile-shell](components/mobile-shell.md) | Specified |
 | Checkbox / Radio | `[x]` / `(•)` rows; Space toggles (`wens-dev-principles ui 12`) | Direct | `tui-checkbox` or self-write | Mapped |
 | Toggle / Switch | `on`/`off` value cycled by Space | Direct | self-write | Mapped |
 | Input / Text field | Single-line or multi-line editor honoring `wens-dev-principles ui 10` | Direct | `tui-input`, `ratatui-textarea` | Mapped |

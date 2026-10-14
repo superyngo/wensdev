@@ -219,7 +219,7 @@ dropped on next save.
 | Render | `Buffer::empty(area)` + render, then assert cells/styles; or `ratatui::backend::TestBackend` + `Terminal::draw` for whole frames |
 | Input | Feed `crossterm::event::KeyEvent` / `MouseEvent` to the input function with a hit map from a real render |
 | Mouse | Click at the center of `hit_map.rect_of(target)`; never hardcode coordinates |
-| Real artifact | Drive the built binary in a pty: write SGR mouse sequences (`ESC [ < b ; x ; y M`/`m`, 1-based; b=0 left, 2 right, 32 left-drag) and keys, and read the screen through a terminal emulator such as `pyte`. pyte leaves orphaned `""` cells when a wide glyph is partly overwritten, and its `display` then crashes. Dump `screen.buffer` yourself, mark orphans, and confirm them in a real terminal |
+| Real artifact | Drive the built binary in a pty: write SGR mouse sequences (`ESC [ < b ; x ; y M`/`m`, 1-based; b=0 left, 2 right, 32 left-drag) and keys, and read the screen through a terminal emulator such as `pyte`. pyte leaves orphaned `""` cells when a wide glyph is partly overwritten, and its `display` then crashes. Dump `screen.buffer` yourself and mark orphans. Real terminals clear both halves of a wide glyph when either half is overwritten, so a pyte orphan where the TestBackend buffer is clean is an emulator artifact |
 | Identity | Reorder or reload content, assert collapsed/selected state follows the id |
 
 Real-artifact check: run the component in the actual terminal at 80×24 and at a minimum size,
@@ -257,3 +257,37 @@ pub struct DividerDrag {
 Terminals report `Drag` only while a button is held, and only after `EnableMouseCapture`
 (xterm 1002/1003). `Moved` (hover) needs any-motion reporting, which crossterm requests. Some
 multiplexers drop it, so hover can never be the only cue.
+
+## C12. Touch input
+
+Phone terminals (Termux, Blink, Moshi, Termius) turn touch into mouse events, but only a few
+kinds. Measured in Termux
+([termux-tui FINDINGS](https://github.com/prathamdupare/termux-tui/blob/main/FINDINGS.md)):
+
+| Gesture | What the app receives |
+|---|---|
+| Tap | `Down(Left)` + `Up(Left)` on the exact cell. 1-row targets are reliable |
+| Swipe / drag | About 15 `ScrollUp`/`ScrollDown` events, **never** `Drag` motion |
+| Long-press | Nothing. The terminal opens its own menu |
+| Pinch | Nothing. The terminal changes the font size |
+| Right-click | Never reported ([termux-app #5237](https://github.com/termux/termux-app/issues/5237)) |
+| Horizontal swipe | No horizontal wheel ([#751](https://github.com/termux/termux-app/issues/751)) |
+
+Rules:
+
+- **Every action has a visible tap target and a key.** Gestures (drag, right-click, hover) are
+  enhancements for desktop mice and must never be the only path. Right-click menus get a
+  ` ⋯ ` button that opens a [bottom sheet](components/bottom-sheet.md). Swipe-to-reveal gets a tap
+  path ([swipe-actions](components/swipe-actions.md)).
+- **Act on release over the press target.** Record the target on `Down`, and fire on `Up` only if
+  the hit is the same target. Sliding off cancels. A press that turned into a real drag is not a tap.
+- **Damp the wheel.** About 3 events per row. Treat wheel-up at the top as overscroll
+  (pull-to-refresh) rather than ignoring it.
+- **Survive the soft keyboard.** The height halves when it opens (43×39 → 43×21). Choose the
+  layout by width and reflow by height.
+- **No F-keys or modifiers are guaranteed.** Mode switches need on-screen controls (tab bar).
+- Termux taps are cell-exact, so use 1-row targets. Use 2-row targets for destructive actions,
+  as a margin against mis-taps.
+- Test with a pty driver that sends taps as SGR press+release pairs and swipes as bursts of
+  `\x1b[<64;x;yM` / `\x1b[<65;x;yM`. Change the window size (TIOCSWINSZ + SIGWINCH) to simulate the
+  keyboard opening. Then run it once on the device.
