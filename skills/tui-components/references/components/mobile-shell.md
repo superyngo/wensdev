@@ -1,7 +1,7 @@
 # Mobile Shell
 
 The layout a TUI switches to on a phone terminal (Termux, Blink, Moshi, Termius). It has a
-one-row app bar, one full-screen screen at a time with stack navigation, a bottom tab bar, a
+two-row app bar, one full-screen screen at a time with stack navigation, a bottom tab bar, a
 floating add button (FAB), and a snackbar with undo. Use it when your app can run on a phone
 or in any narrow terminal. Read [contracts C12](../contracts.md#c12-touch-input) first: touch
 input sets every rule here.
@@ -32,32 +32,37 @@ pub fn is_mobile(&self) -> bool {
 ## Layout
 
 ```
-row 0          ‹  Title                         ⋮     app bar (back only when pushed)
-rows 1..h-2    screen: list or detail                  body
-row h-2        closed editor #1              UNDO      snackbar (only while showing)
+rows 0-1       ‹   Title                        ⋮      app bar: title row + ─ rule (back only when pushed)
+               ─────────────────────────────────
+rows 2..h-3    screen: list or detail                  body
+rows h-4..h-3  closed editor #1              UNDO      snackbar, 2 rows (only while showing)
                                           ╭─────╮
-                                          │  +  │      FAB, lifted 1 row above the snackbar
+                                          │  +  │      FAB, lifted 2 rows above the snackbar
                                           ╰─────╯
-row h-1        ▦ Panes          ❐ Windows               bottom tab bar
+rows h-2..h-1      ▦              ❐                     bottom tab bar: icon over label
+                 Panes         Windows
 ```
 
-- **App bar.** ` ‹ ` (3 cells) appears only on a pushed screen. The title is truncated by
+Every tap target is at least `TOUCH_H = 2` rows by `TOUCH_W = 5` columns (contracts C12). The
+chrome costs 4 rows, so at 43×21 (keyboard open) the body has 17 rows: 8 list rows, 7 while a
+snackbar shows.
+
+- **App bar.** `  ‹  ` (5×2, the whole bar height) appears only on a pushed screen. The title is truncated by
   display width (C7). ` ⋮ ` opens the screen's overflow actions in a bottom sheet.
 - **Tab bar.** It replaces F-key mode switches, because a touch-only session has no F keys. Split
-  the width evenly. The active tab uses `focus` style. Switching tabs resets that tab's stack and
+  the width evenly. Two rows: icon centered on the first, label on the second. The active tab uses `focus` style. Switching tabs resets that tab's stack and
   scroll.
 - **Screens.** A list screen, plus a detail screen pushed by tapping a row. An
   `Option<Item>` is enough at depth 2. Use a `Vec<Screen>` when deeper. If the item a pushed
   screen shows is removed, pop that screen (`ui 5`).
-- **List rows** are 2 lines (title + muted subtitle). Termux taps are cell-exact, so 1-row
-  targets work, but 2 rows are kinder to thumbs and leave room for state text. Each row has a
-  trailing ` ⋯ ` button (the tap path for [swipe-actions](swipe-actions.md)).
+- **List rows** are 2 lines (title + muted subtitle). A 2-row row is the minimum touch height anyway, and it
+  leaves room for state text. Each row has a trailing `  ⋯  ` button (5×2) (the tap path for [swipe-actions](swipe-actions.md)).
 - **Detail screens** show buttons that are full width and 2 rows tall. Destructive buttons use the
   danger style.
 - **FAB:** a 7×3 rounded box with `+` in the bottom-right of the list screen. It creates the
   primary thing for the current tab. It moves up while a snackbar is showing so neither covers the
   other.
-- **Snackbar:** one reversed row above the tab bar with ` UNDO ` on the right. It expires after
+- **Snackbar:** two reversed rows above the tab bar with ` UNDO ` (7×2) on the right. It expires after
   about 5 s using ticks (see Loop). It never takes focus. Tapping its text closes an open row
   strip, like any tap on the background.
 
@@ -130,6 +135,7 @@ The phone may have a hardware keyboard or the Termux extra-keys row.
 - [ ] 43×39 and 43×21 render the mobile view and 80×24 does not. Force overrides the width.
 - [ ] Tapping a row pushes its detail and ` ‹ ` pops it. Closing the item from its detail pops too.
 - [ ] Closing an item shows a snackbar, and UNDO restores it exactly (same position and focus).
+- [ ] Every mobile hit-map target is ≥ 2 rows × 5 columns, in every screen and sheet, at 43×39 and 43×21.
 - [ ] The FAB moves up while a snackbar is showing.
 - [ ] 5 wheel events scroll 1 row. Wheel-up at the top shows the pull indicator and refreshes.
 - [ ] A press released over a different target does nothing (tap cancel).

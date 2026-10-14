@@ -13,7 +13,7 @@ Spec status: **Specified** (has a spec under `components/`), **Mapped** (row onl
 
 | Web term | Terminal equivalent | Disposition | Spec / crate | Status |
 |---|---|---|---|---|
-| Navbar | Top bar or tab bar, one row | Direct | built-in `Tabs` | Mapped |
+| Navbar | Top bar or tab bar, one row (two on touch) | Direct | built-in `Tabs` | Mapped |
 | Sidebar | Vertical navigable list, optionally sectioned | Direct | [sidebar-nav](components/sidebar-nav.md) | Specified |
 | Breadcrumb | Path line in a header, `a › b › c`, segments clickable | Direct | self-write (one `Line`) | Mapped |
 | Hamburger menu | Collapsed sidebar (icon/one-char rail) or a launcher button opening a menu | Adapt | [sidebar-nav](components/sidebar-nav.md), [menu-dropdown](components/menu-dropdown.md) | Specified |

@@ -32,9 +32,9 @@ pub const REVEAL_STEP: u16 = 4;  // cells per 100 ms tick
 
 ## Render
 
-- Row container first (`Row(item)`, C2). Its content is shifted: the text gets `width − shown − 4`
+- Row container first (`Row(item)`, C2). Its content is shifted: the text gets `width − shown − 6`
   columns.
-- The ` ⋯ ` button sits just left of the strip and moves with the content.
+- The `  ⋯  ` button (5 columns × the row's 2 rows, contracts C12) sits just left of the strip and moves with the content.
 - Strip: the buttons start at `row.right − shown` and are clipped at the right edge, so they
   slide in from the edge. Destructive actions use `danger_focus`, the others `focus`. Push a
   `RowAction(action)` hit for each visible part. Mid-animation taps go to whatever part the user

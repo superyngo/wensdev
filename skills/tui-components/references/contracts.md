@@ -266,7 +266,7 @@ kinds. Measured in Termux
 
 | Gesture | What the app receives |
 |---|---|
-| Tap | `Down(Left)` + `Up(Left)` on the exact cell. 1-row targets are reliable |
+| Tap | `Down(Left)` + `Up(Left)` on the exact cell. Accurate, but a fingertip covers ~2 rows |
 | Swipe / drag | About 15 `ScrollUp`/`ScrollDown` events, **never** `Drag` motion |
 | Long-press | Nothing. The terminal opens its own menu |
 | Pinch | Nothing. The terminal changes the font size |
@@ -286,8 +286,11 @@ Rules:
 - **Survive the soft keyboard.** The height halves when it opens (43×39 → 43×21). Choose the
   layout by width and reflow by height.
 - **No F-keys or modifiers are guaranteed.** Mode switches need on-screen controls (tab bar).
-- Termux taps are cell-exact, so use 1-row targets. Use 2-row targets for destructive actions,
-  as a margin against mis-taps.
+- **Finger-sized targets: at least 2 rows × 5 columns.** Taps arrive cell-exact, but people
+  can't aim that precisely: a fingertip covers about 2 rows, and a cell is about half as wide as
+  it is tall, so a 3-column ` ⋯ ` is narrower than it looks. This applies to every tappable
+  element, including chrome (app bar buttons, tab bar, snackbar action, sheet grabber, items,
+  Cancel). Assert it in a test by walking the hit map (on-device feedback, wens-tui-lab).
 - Test with a pty driver that sends taps as SGR press+release pairs and swipes as bursts of
   `\x1b[<64;x;yM` / `\x1b[<65;x;yM`. Change the window size (TIOCSWINSZ + SIGWINCH) to simulate the
   keyboard opening. Then run it once on the device.

@@ -172,6 +172,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### 2026-10-14
 
+- skill(tui-components): touch targets must be at least 2 rows × 5 columns (contracts C12), from
+  on-device feedback: cell-exact taps don't make 1-row targets finger-friendly. Mobile shell app
+  bar, tab bar (icon over label) and snackbar become 2 rows; bottom sheet grabber, items and
+  Cancel become 2 rows, and the half detent grows to 2/3 of the height so an action sheet still
+  fits with the keyboard open. Acceptance adds a hit-map size test.
 - skill(tui-components): add mobile view specs: `mobile-shell.md` (width breakpoint, app bar,
   stack navigation, bottom tab bar, FAB, snackbar with undo instead of confirm, damped wheel,
   pull-to-refresh, tick loop), `bottom-sheet.md` (scrim, grabber detent, 2-row destructive items)

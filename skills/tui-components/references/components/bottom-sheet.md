@@ -29,32 +29,38 @@ The sheet is the top overlay (C3). While open, it gets every key and tap.
 
 ```
    (scrim: everything above is dimmed, tap closes)
-──────────────────━━━━━━━──────────────────   grabber row: tap toggles the detent
+──────────────────━━━━━━━──────────────────   grabber, 2 rows: tap toggles the detent
+
  Title (muted)
-  Open
+  Open                                         every item is 2 rows tall
+
   Hide window
-  Close window                                 destructive rows are 2 rows tall,
-                                               danger style
-                  Cancel                       always the last row
+
+  Close window                                 destructive: danger style
+
+                  Cancel                       always the last 2 rows
+
 ```
 
-- Height = `3 + Σ row heights` (grabber, title, cancel + items), capped at the detent:
-  half (`max(h/2, 4)`) or expanded (`h − 1`). Always leave at least one scrim row, so there is
-  somewhere to tap outside the sheet.
+- Height = `5 + 2 × items` (grabber 2, title 1, Cancel 2), capped at the detent:
+  half (`max(2h/3, 7)`) or expanded (`h − 1`). The half detent is 2/3, not 1/2: with 2-row
+  items, half of 21 rows (keyboard open) fits only two items, which hid "Close window".
+  Always leave at least one scrim row, so there is somewhere to tap outside the sheet.
 - When the items don't fit, they scroll inside the sheet. The grabber, title and Cancel stay fixed.
-- Items are full width and 1 row tall, which is enough because Termux taps are cell-exact.
-  Destructive items are 2 rows tall, as a comfort margin against a mis-tap.
-- Below 3 rows tall, don't draw a sheet at all. The scrim alone still dismisses on tap.
+- Items are full width and 2 rows tall: finger-sized (contracts C12), not just cell-exact.
+  Destructive items differ by danger style only.
+- Below 5 rows tall, don't draw a sheet at all. The scrim alone still dismisses on tap.
 
 ## Render and hit map (C2 push order)
 
 1. Dim the whole area, then push `Scrim` for the whole area.
 2. `Clear` the sheet rect, fill it with `panel_bg`, and push `Body`. `Body` swallows taps on the
    chrome so they don't fall through to the scrim.
-3. Draw the grabber row: a `─` line with a 7-cell `━` handle in `accent`. Push `Grabber`.
+3. Draw the grabber: a `─` line with a 7-cell `━` handle in `accent` on its first row. Push
+   `Grabber` for both rows.
 4. Draw the title in `muted`.
 5. Draw the items from `scroll`, push `Item(i)` for each, and highlight with the `focus` style.
-6. Draw `Cancel` centered on the last row and push `Cancel`.
+6. Draw `Cancel` centered on the first of the last 2 rows and push `Cancel` for both.
 
 ## Input
 
@@ -81,7 +87,7 @@ slides off an item before lifting doesn't run it.
 
 - [ ] The sheet bottom equals the screen bottom, and one scrim row stays visible even when the sheet is expanded.
 - [ ] Tapping the scrim closes the sheet and nothing behind it reacts. Tapping the grabber toggles `expanded`.
-- [ ] Destructive items render 2 rows tall in danger style.
+- [ ] Every item, the grabber and Cancel are ≥ 2 rows tall. Destructive items use the danger style.
 - [ ] With more items than fit, the wheel scrolls inside the sheet and Cancel stays visible.
 - [ ] A sheet with zero items still renders (grabber, title, Cancel) without panicking at 24×6.
 
