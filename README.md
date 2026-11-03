@@ -11,6 +11,7 @@ Start at [`CONTEXT.md`](CONTEXT.md) for how this repo is organized.
 - `wens-dev-principles` — cross-project UI, documentation-layout, CLI, debugging, performance, and multi-agent principles.
 - `rust-crossplatform-app` — blueprint for one Rust codebase shipping to CLI/TUI/web/desktop/mobile/extension.
 - `tui-components` — ratatui component specs (menu, modal, toggle tree, sidebar navigation, split panes, floating windows, mobile view) and a web-UI-to-terminal vocabulary map.
+- `ui-design` — design-first static TSX + Tailwind mock-ups with tokens, typed states, screenshot review, and a GPUI/web handoff.
 - `vscode-dev-experience-pack` — VS Code extension debugging and data-collection playbooks.
 - `create-release-workflow` — generate a multi-platform Rust GitHub Actions release workflow.
 - `publishing-platform-stores` — wire store submission (Microsoft Store, App Store, VS Marketplace, etc.) into a release pipeline.

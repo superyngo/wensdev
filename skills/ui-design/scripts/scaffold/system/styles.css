@@ -1,0 +1,4 @@
+/* Purely visual utilities that are not a single token. Values still come from theme tokens. */
+@utility hatch {
+  background-image: repeating-linear-gradient(-45deg, var(--color-border) 0 1px, transparent 1px 6px);
+}

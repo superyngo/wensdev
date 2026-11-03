@@ -198,3 +198,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   sessions, hidden snap grid shown during drag, edge snap, maximize/restore, taskbar in creation
   order, per-target right-click menus) and catalog rows for floating windows and the taskbar.
   Note the pyte orphan-cell caveat in contracts C10.
+
+### 2026-11-03
+
+- skill(ui-design): add a design-first static mock-up skill (TSX + Tailwind v4 → script-free
+  HTML, reviewed before app code), adapted from OpenCut's `ui-design`. Adds what that version
+  left unenforced: role-named tokens for text sizes, radii and shadows (not just colours) with a
+  literal-value audit, a GPUI-mappable CSS subset with margin notes for the rest, TypeScript rules
+  (`deno task check` before build, state unions, `ColorToken` props, `on*`/`className` as type
+  errors), a fixed-width screenshot task, and a Tailwind → GPUI/web handoff. Ships a runnable
+  `scripts/scaffold/`.
