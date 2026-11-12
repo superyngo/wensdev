@@ -23,7 +23,7 @@ are *principles*, not templates — the templates (directory tree, `CONTEXT.md`,
 | 12 | SHOULD | Folder `README.md` lists in-progress work in a section at the top |
 | 13 | CONSIDER | `docs/tmp/` is committed scratch, archived as a tarball when stale |
 | 14 | SHOULD | `audit/` holds sweeps and verification runs; one-off measurement in the record, regression checks in repo tooling |
-| 15 | MUST | Deviating from any MUST principle in this skill requires an ADR |
+| 15 | MUST | Deviating from any MUST principle in this skill or `wens-dev-principles` requires an ADR |
 | 16 | MUST | One ADR per expensive decision; never edited, only superseded |
 | 17 | MUST | `adr/README.md` is a status table; filenames are `NNNN-kebab-title.md` |
 | 18 | SHOULD | `CHANGELOG.md` carries `[Unreleased]` plus the current series; older series archive verbatim |
@@ -142,8 +142,9 @@ are *principles*, not templates — the templates (directory tree, `CONTEXT.md`,
 
 ## D. `adr/`
 
-15. **[MUST]** Deviating from any `MUST` principle in this skill — any domain — requires an ADR
-    in `docs/adr/` citing the principle by domain and number (`wens-dev-principles docs 8`).
+15. **[MUST]** Deviating from any `MUST` principle — in this skill or in any domain of
+    `wens-dev-principles` — requires an ADR in `docs/adr/` citing the principle by skill and
+    number (`repo-docs 8`, `wens-dev-principles ui 7`).
 
 16. **[MUST]** One ADR per decision that was expensive to reach and would be expensive to
     reverse. It records why, the alternatives rejected, and the date; it is a historical record,

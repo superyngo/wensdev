@@ -11,4 +11,5 @@ _None._
 
 | Date | Document | Status |
 |---|---|---|
+| 2026-11-12 | [repo-docs skill](2026-11-12-repo-docs-skill.md) | Shipped (2026-11-12) |
 | 2026-10-12 | [tui-components skill](2026-10-12-tui-components-skill.md) | Shipped (2026-10-12) |

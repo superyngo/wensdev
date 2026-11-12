@@ -208,3 +208,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   (`deno task check` before build, state unions, `ColorToken` props, `on*`/`className` as type
   errors), a fixed-width screenshot task, and a Tailwind → GPUI/web handoff. Ships a runnable
   `scripts/scaffold/`.
+
+### 2026-11-12
+
+- skill(repo-docs): split the `docs` domain out of `wens-dev-principles` into its own skill.
+  Both reference files move unchanged to `skills/repo-docs/references/`; no principle is
+  renumbered. New citations are written `repo-docs <n>`, and `wens-dev-principles docs <n>` is a
+  permanent alias, so no citing document changes. The new router maps tasks to principles and
+  lists the procedures (repo init, changelog and tmp archiving, status audit, documentation
+  audit). `wens-dev-principles` drops the docs triggers from its description and now has five
+  domains; `git-workflow` init points at `repo-docs`. Decision: ADR 0003; design record:
+  `docs/spec/2026-11-12-repo-docs-skill.md`. Follow-ups T4-T6 in `docs/plan/BACKLOG.md`.

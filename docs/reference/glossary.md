@@ -33,10 +33,11 @@ source of truth about itself.
 _Avoid_: Doc, guide, appendix
 
 **Domain**:
-A numbered namespace of principles inside `wens-dev-principles` — currently `ui`, `docs`, `cli`,
-`debug`, `perf`, `agents`.
-Each has its own `references/<domain>/principles.md` and its own number sequence. Numbers are
-frozen per domain: append, never renumber or reuse.
+A numbered namespace of principles inside `wens-dev-principles` — currently `ui`, `cli`,
+`debug`, `perf`, `agents`. (The former `docs` domain is now the `repo-docs` skill; see
+[ADR 0003](../adr/0003-docs-domain-becomes-the-repo-docs-skill.md).)
+Each has its own `references/<domain>/principles.md` and its own number sequence. Numbers may
+be renumbered to keep a domain organized.
 _Avoid_: Category, section, area
 
 **Grade**:

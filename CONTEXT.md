@@ -25,7 +25,8 @@ skill rather than here.
 
 | Skill | Scope |
 |---|---|
-| `wens-dev-principles` | UI, documentation-layout, CLI, debugging, performance, and multi-agent principles |
+| `wens-dev-principles` | UI, CLI, debugging, performance, and multi-agent principles |
+| `repo-docs` | Repository documentation layout and lifecycle: `CONTEXT.md`, `docs/` folder set, ADRs, working records, backlog, changelog archiving |
 | `rust-crossplatform-app` | One Rust core shipping to CLI/TUI/web/desktop/mobile/extension |
 | `tui-components` | ratatui component specs: menu, modal, toggle tree, sidebar, split panes, floating windows, mobile view; web-UI vocabulary mapped to TUI |
 | `ui-design` | Design-first static mock-ups: tokens, page layout, TypeScript states, review, handoff to GPUI/web |

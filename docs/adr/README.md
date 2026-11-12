@@ -11,5 +11,6 @@ that skill's own `docs/adr/` — see 0001.
 |---|---|---|
 | [0001](0001-skills-carry-their-own-docs-payload.md) | A skill carries its own `CONTEXT.md` and ADRs rather than hoisting them to the repo root | Implemented (2026-09-09) |
 | [0002](0002-changelog-uses-keep-a-changelog-headings.md) | `CHANGELOG.md` uses `## [Unreleased]`, overriding the global instruction file's prose form, because release tooling parses it | Implemented (2026-09-09) |
+| [0003](0003-docs-domain-becomes-the-repo-docs-skill.md) | The `docs` domain of `wens-dev-principles` becomes the `repo-docs` skill; numbers unchanged, old citations a permanent alias | Implemented (2026-11-12) |
 
 Partial supersessions: none.

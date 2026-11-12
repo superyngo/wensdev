@@ -1,6 +1,6 @@
 ---
 name: wens-dev-principles
-description: Use when building or reviewing any user-facing UI (TUI, web, touch, app shell) — keyboard navigation, lists, text input, focus/selection, popups, inline editing, reorderable lists, cross-platform sharing, i18n, PWA. Also repository documentation layout — CONTEXT.md, docs/, glossary, ADRs, changelog archiving, spec/plan lifecycle — plus CLI conventions, debugging discipline (evidence, real-artifact verification, parity), performance work, and multi-agent execution in worktrees. Applies even when the user never says "principles".
+description: Use when building or reviewing any user-facing UI (TUI, web, touch, app shell) — keyboard navigation, lists, text input, focus/selection, popups, inline editing, reorderable lists, cross-platform sharing, i18n, PWA. Also CLI conventions, debugging discipline (evidence, real-artifact verification, parity), performance work, and multi-agent execution in worktrees. Applies even when the user never says "principles".
 allowed-tools: Read, Grep, Glob
 ---
 
@@ -17,7 +17,9 @@ commit and tooling rules — is *not* here; that is `CLAUDE.md`'s job. This skil
 domain conventions too detailed for it, including what "reproduce" and "measure" actually
 require (the `debug` and `perf` domains). Concrete ratatui component specs that apply the `ui`
 domain (menu, modal, toggle tree, sidebar) live in the `tui-components` skill. How pixel UI
-*looks*, and how that look is agreed before code, lives in the `ui-design` skill.
+*looks*, and how that look is agreed before code, lives in the `ui-design` skill. Repository
+documentation layout — `CONTEXT.md`, `docs/`, ADRs, backlog, changelog — lives in the
+`repo-docs` skill.
 
 ## How to Use
 
@@ -32,7 +34,7 @@ as `**[MUST]**` / `**[SHOULD]**` / `**[CONSIDER]**` immediately after its number
 
 | Grade | Meaning | Deviating |
 |---|---|---|
-| `MUST` | Violating it is a bug — the user directly experiences breakage or lost work/state. | Record an ADR. |
+| `MUST` | Violating it is a bug — the user directly experiences breakage or lost work/state. | Record an ADR (`repo-docs 15`–17). |
 | `SHOULD` | Default behavior. Deviation is not automatically wrong but needs a stated reason. | One-line reason in the commit body. |
 | `CONSIDER` | A recommendation to adopt where it fits; not a default. | No justification needed. |
 
@@ -44,7 +46,6 @@ bind the maintenance of this skill itself: editing it needs no ADR, and its hist
 | Domain | Principle list | Scope |
 |---|---|---|
 | UI (all surfaces) | [references/ui/principles.md](references/ui/principles.md) | 23 principles (9 MUST / 13 SHOULD / 1 SHOULD-with-inline-CONSIDER) + Common Mistakes: architecture, focus/selection, keyboard & input, popups, reorderable lists, chrome/layout, web PWA |
-| Docs (repository documentation) | [references/docs/principles.md](references/docs/principles.md) | 21 principles (10 MUST / 9 SHOULD / 2 CONSIDER) + Common Mistakes: entry point, reference SSOT, working-record lifecycle and filename-as-lifecycle, repo init layout, ADRs, changelog archiving, living backlog, code citations, assessment homing, documentation language |
 | CLI (command-line programs) | [references/cli/principles.md](references/cli/principles.md) | 3 principles (1 MUST / 2 SHOULD) + Common Mistakes: argument degradation, XDG file placement, ambient-config leakage |
 | Debug (diagnosing and fixing defects) | [references/debug/principles.md](references/debug/principles.md) | 13 principles (8 MUST / 4 SHOULD / 1 CONSIDER) + Common Mistakes: evidence, re-measuring a filed cause, instrument choice, shared-layer fixes, cross-engine verification, observed vs assumed ordering, record-don't-bundle, evidence-only-where-it-ran |
 | Perf (performance work) | [references/perf/principles.md](references/perf/principles.md) | 13 principles (5 MUST / 7 SHOULD / 1 CONSIDER) + Common Mistakes: phase profiling, choosing the axis, context vs algorithm, unmeasured fallback branches, reporting regressions |
@@ -60,13 +61,6 @@ bind the maintenance of this skill itself: editing it needs no ADR, and its hist
 | Text field contract: move + select + edit + clipboard | [references/ui/text-editing-contract.md](references/ui/text-editing-contract.md) | 10 |
 | Popup / re-render / event contract for pointer UIs | [references/ui/pointer-ui-gotchas.md](references/ui/pointer-ui-gotchas.md) | 15, 19 |
 | Downward-move index correction | [references/ui/reorder-index-offsets.md](references/ui/reorder-index-offsets.md) | 17 |
-
-## Docs Deep References
-
-| Topic | Reference | Principles |
-|---|---|---|
-| Directory tree, filename-as-lifecycle rule, repo initialization order, CONTEXT.md and README.md templates, Status line values, glossary entry format, script directories, tmp archiving | [references/docs/layout-and-lifecycle.md](references/docs/layout-and-lifecycle.md) | 1, 2, 6, 9, 10, 11, 13, 14, 17 |
-| Changelog archiving, the living backlog record's row format and four states, the two-pass documentation audit | [references/docs/layout-and-lifecycle.md](references/docs/layout-and-lifecycle.md) | 18, 19, 21 |
 
 ## Debug Deep References
 
@@ -84,8 +78,10 @@ bind the maintenance of this skill itself: editing it needs no ADR, and its hist
 
 Principles are cited **by domain and number** across this repo — ADRs, specs, and code comments
 carry `wens-dev-principles <domain> <n>` (e.g. `wens-dev-principles ui 7`,
-`wens-dev-principles docs 6`). A citation with no domain — `wens-dev-principles <n>` or the
-legacy `ui-design-principles <n>`, the former skill name — means the `ui` domain. Numbers
+`wens-dev-principles debug 3`). A citation with no domain — `wens-dev-principles <n>` or the
+legacy `ui-design-principles <n>`, the former skill name — means the `ui` domain.
+`wens-dev-principles docs <n>` means `repo-docs <n>`: the `docs` domain moved to that skill
+with its numbers unchanged. Numbers
 are ordered by section within each domain and may be renumbered to keep it organized; when you
 do, update every reference inside this skill (indexes, `(violates N)`, Deep References tables)
 in the same change.
