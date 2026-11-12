@@ -256,6 +256,8 @@ Show last version + change summary + suggested version, then ask:
    ```
    Fallback: `https://github.com/<owner>/<repo>/releases/new?tag=vX.Y.Z`
 9. **Report** updated files, tag, push status, and the Release / Actions link.
+10. **Offer the scratch sweep** when the repo has `docs/tmp/`: `repo-docs`, §Sweeping tmp/. It
+    reports a classification and waits for approval; it removes nothing unasked.
 
 ### R.6 Clean up the feature branch
 

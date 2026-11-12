@@ -21,7 +21,7 @@ are *principles*, not templates — the templates (directory tree, `CONTEXT.md`,
 | 10 | MUST | Frozen working records are dated `YYYY-MM-DD-kebab-title.md`; living records are named by role, undated |
 | 11 | SHOULD | A working record may own a same-basename directory for scripts and fixtures |
 | 12 | SHOULD | Folder `README.md` lists in-progress work in a section at the top |
-| 13 | CONSIDER | `docs/tmp/` is committed scratch, archived as a tarball when stale |
+| 13 | CONSIDER | `docs/tmp/` is scratch; sweep it at each release — triage first, then archive or trash, with approval |
 | 14 | SHOULD | `audit/` holds sweeps and verification runs; one-off measurement in the record, regression checks in repo tooling |
 | 15 | MUST | Deviating from any MUST principle in this skill or `wens-dev-principles` requires an ADR |
 | 16 | MUST | One ADR per expensive decision; never edited, only superseded |
@@ -126,10 +126,15 @@ are *principles*, not templates — the templates (directory tree, `CONTEXT.md`,
     visible in one place; landed documents follow in a table.
 
 13. **[CONSIDER]** `docs/tmp/` is a committed scratch area with no naming or index rules;
-    subdirectories per topic are allowed. When it grows stale, tar the loose files into
-    `docs/tmp/archive/YYYY-MM.tar.gz` and remove them in the same commit. `docs/tmp/<agent>-scratch/`
-    is a gitignored subpath for probes that need not land; the rest of `tmp/` stays committed and
-    archived. **Commands:** same reference, §Archiving tmp/.
+    subdirectories per topic are allowed. `docs/tmp/<agent>-scratch/` is a gitignored subpath
+    for probes that need not land. **Sweep `tmp/` at each release** — "when it grows stale"
+    names no moment, so it never happens. The sweep **triages before it removes**: anything
+    worth citing later is promoted to its real home first (principle 14). What is left and stale
+    leaves in a recoverable way — tracked files into `docs/tmp/archive/YYYY-MM.tar.gz`,
+    untracked files into the OS trash, never `rm`. Build output (`target/`, `node_modules/`,
+    `.venv/`, `dist/`, `build/`) is regenerable, not scratch: it is most of the bytes and is
+    never archived. The sweep reports its classification and waits for approval every time; it
+    moves nothing on its own. **Procedure:** same reference, §Sweeping tmp/.
 
 14. **[SHOULD]** `docs/audit/` covers **any point-in-time judgement** of the tree: sweeps (bugs,
     dead code, inconsistency) and equally assessment and verification runs. The homing test is one
@@ -224,5 +229,7 @@ are *principles*, not templates — the templates (directory tree, `CONTEXT.md`,
 - Deviating from a MUST principle with a commit-message note instead of an ADR (violates 15).
 - A verification script and its conclusion left in `tmp/` so they never land, or a check that must
   be re-run every release parked in a frozen record directory (violates 14).
+- Archiving or trashing `tmp/` without triage, so the one evaluation worth keeping goes into a
+  tarball with the probes; or tarring a 600 MB `target/` directory into git history (violates 13).
 - Writing a record in the conversation's language (e.g. Chinese) so glossary terms and greps no
   longer match the English docs around it (violates 4).

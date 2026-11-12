@@ -108,7 +108,7 @@ stay here; everything else lives under `docs/`.
 | [`docs/plan/BACKLOG.md`](docs/plan/BACKLOG.md) | The one living tracker of open work, pending verification, external blockers, and watched items | No — live state | Never frozen while anything is open |
 | [`docs/debug/`](docs/debug/README.md) | Handoff notes from investigations, with repro scripts | No — historical | Frozen once resolved; only `Status:` changes |
 | [`docs/audit/`](docs/audit/README.md) | Point-in-time sweeps for bugs, dead code, inconsistency, plus assessment / verification runs | No — historical | Frozen once findings are addressed; only `Status:` changes |
-| `docs/tmp/` | Scratch; `<agent>-scratch/` is gitignored | No | Archived to `tmp/archive/YYYY-MM.tar.gz` when stale |
+| `docs/tmp/` | Scratch; `<agent>-scratch/` is gitignored | No | Swept at each release: promoted, archived to `tmp/archive/YYYY-MM.tar.gz`, or trashed |
 
 ## Reading order
 
@@ -276,20 +276,63 @@ Checklist:
 - [ ] This script is a one-off measurement, not a regression check re-run every release — the
       latter is repo tooling and is not bound by the freeze rule here.
 
-## Archiving tmp/
+## Sweeping tmp/
 
-`docs/tmp/` is committed and unindexed. When it is stale, archive in one commit:
+Run at each release (principle 13), after the release is cut. Scratch has two halves with
+different tools: **tracked** files, which git can restore, and **untracked** files under
+`<agent>-scratch/`, which exist only on this disk. Most of what accumulates is the second half.
+
+**1. Inventory.** One line per top-level entry: size, last modification, tracked or not.
 
 ```sh
+for e in docs/tmp/* docs/tmp/*-scratch/*; do
+  case "$e" in docs/tmp/archive|docs/tmp/*-scratch) continue;; esac
+  [ -e "$e" ] || continue
+  printf '%s\t%s\t%s\t%s\n' "$(du -sh "$e" | cut -f1)" \
+    "$(find "$e" -type f -exec stat -f %Sm -t %Y-%m-%d {} + 2>/dev/null | sort | tail -1)" \
+    "$([ -n "$(git ls-files "$e" | head -1)" ] && echo tracked || echo untracked)" "$e"
+done
+find docs/tmp -type d \( -name target -o -name node_modules -o -name .venv -o -name dist \
+  -o -name build \) -prune -exec du -sh {} +
+```
+
+(`stat -f %Sm -t` is the macOS form; on Linux use `stat -c %y`.)
+
+**2. Classify** every entry into exactly one class:
+
+| Class | Test | Action |
+|---|---|---|
+| Promote | Someone will want to cite or re-run it (principle 14), or it holds an open follow-up | Write the `audit/` record, `BACKLOG.md` row, or `reference/` section; the scratch copy then becomes Stale |
+| Regenerable | A build-output directory from the `find` above | Trash the directory, keep its sources |
+| Stale | Not modified for 30 days **and** not referenced from any living document or open working record | Tracked → archive; untracked → trash |
+| Live | Everything else | Leave |
+
+**3. Report and stop.** Show the table — entry, size, date, class, proposed action — and wait
+for approval. Ask every time; an earlier approval does not carry over to the next sweep.
+
+**4. Execute** only what was approved.
+
+```sh
+# Stale, tracked: archive in one commit
 mkdir -p docs/tmp/archive
 tar -czf docs/tmp/archive/$(date +%Y-%m).tar.gz -C docs/tmp <files and dirs to archive>
 git rm -r docs/tmp/<those same files and dirs>
 git add docs/tmp/archive
 git commit -m "docs: archive tmp/ scratch to tmp/archive/$(date +%Y-%m).tar.gz"
+
+# Stale untracked, and Regenerable: OS trash, recoverable
+trash <paths>          # macOS; Linux: gio trash <paths>
 ```
 
-Never archive `archive/` itself, nor `<agent>-scratch/` (untracked); never archive files that are
-still referenced from a non-frozen document.
+Checklist:
+
+- [ ] Every entry is in exactly one class, and every Promote entry has landed in its new home
+      before its scratch copy is touched.
+- [ ] The table was shown and approved in this sweep.
+- [ ] Nothing was removed with `rm`; `archive/` itself was not archived.
+- [ ] No build-output directory went into a tarball.
+- [ ] `git check-ignore docs/tmp/<agent>-scratch` succeeds; if not, add `docs/tmp/*-scratch/` to
+      `.gitignore`.
 
 ## Changelog archiving
 

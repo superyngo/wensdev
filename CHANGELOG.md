@@ -219,3 +219,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   audit). `wens-dev-principles` drops the docs triggers from its description and now has five
   domains; `git-workflow` init points at `repo-docs`. Decision: ADR 0003; design record:
   `docs/spec/2026-11-12-repo-docs-skill.md`. Follow-ups T4-T6 in `docs/plan/BACKLOG.md`.
+- skill(repo-docs): replace "archive `tmp/` when stale" with a sweep procedure run at each
+  release. Principle 13 keeps its number and grade; §Archiving tmp/ becomes §Sweeping tmp/:
+  inventory, classify (Promote / Regenerable / Stale / Live), report and wait for approval every
+  time, then archive tracked files and move untracked files and build output to the OS trash,
+  never `rm`. `git-workflow` release offers the sweep as its last step. Measured across 19
+  repos: 1817 MB of `docs/tmp/`, 93% build output, 5 repos ever archived. Follow-up T7 in
+  `docs/plan/BACKLOG.md`.

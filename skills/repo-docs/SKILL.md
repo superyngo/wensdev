@@ -38,7 +38,7 @@ The grades govern the repos that use this skill, not the maintenance of the skil
 | Record or revisit a decision | 15, 16, 17 | §Folder README.md templates (`docs/adr/README.md`) |
 | Track open work | 19 | §Living backlog record |
 | Choose the language of a document | 4 | — |
-| Use or clean `docs/tmp/` | 13 | §Archiving tmp/ |
+| Use or clean `docs/tmp/` | 13 | §Sweeping tmp/ |
 
 ## Procedures
 
@@ -49,7 +49,7 @@ checklist is ticked.
 |---|---|
 | Initialize a new repo's documentation skeleton | §Repo initialization |
 | Archive a completed changelog series | §Changelog archiving |
-| Archive stale scratch | §Archiving tmp/ |
+| Sweep `docs/tmp/` at a release: triage, then archive or trash with approval | §Sweeping tmp/ |
 | Find working records with a missing `Status:` line | §Status line |
 | Audit living documents against the code (structure pass, then accuracy pass) | §Documentation audit |
 
