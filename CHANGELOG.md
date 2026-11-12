@@ -226,3 +226,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   never `rm`. `git-workflow` release offers the sweep as its last step. Measured across 19
   repos: 1817 MB of `docs/tmp/`, 93% build output, 5 repos ever archived. Follow-up T7 in
   `docs/plan/BACKLOG.md`.
+- skill(repo-docs): add `docs/memo/`, a free space for people, as principle 22 (`CONSIDER`,
+  appended; no number moves). Any filename, structure, or language; no `Status:`, no freeze, no
+  required index. Not canonical, and agents edit it only on request. Principle 2 becomes "these
+  seven, plus `memo/` where used"; principle 4 exempts it from English; the `tmp/` sweep can
+  promote into it; new repos get `docs/memo/README.md` at init. This repo adds its own
+  `docs/memo/`. Decision: ADR 0004.

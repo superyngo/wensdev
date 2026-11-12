@@ -42,6 +42,9 @@ docs/
   audit/
     README.md
     2026-08-29-dead-code-sweep.md
+  memo/                             # the human's free space, any form (principle 22)
+    README.md
+    ideas.md
   tmp/                              # scratch, no rules
     <agent>-scratch/                # gitignored probes
     archive/
@@ -66,7 +69,8 @@ Order matters — each step is depended on by the next:
 1. `docs/reference/glossary.md` — **before any code** (principle 6). Written later, the
    identifiers and the docs have already diverged and one of them has to be renamed.
 2. The seven folders with their `README.md` index stubs, each carrying its `## In progress`
-   section empty (principle 12), plus root `CONTEXT.md` from the template above.
+   section empty (principle 12), `docs/memo/README.md` from its template (principle 22), plus
+   root `CONTEXT.md` from the template above.
 3. `CHANGELOG.md` containing only `## [Unreleased]`. Spell that heading exactly — release
    tooling rewrites it and version gates grep for the result (principle 18).
 4. **`docs/plan/BACKLOG.md`, created empty on day one** (principle 19). This is the step most
@@ -108,6 +112,7 @@ stay here; everything else lives under `docs/`.
 | [`docs/plan/BACKLOG.md`](docs/plan/BACKLOG.md) | The one living tracker of open work, pending verification, external blockers, and watched items | No — live state | Never frozen while anything is open |
 | [`docs/debug/`](docs/debug/README.md) | Handoff notes from investigations, with repro scripts | No — historical | Frozen once resolved; only `Status:` changes |
 | [`docs/audit/`](docs/audit/README.md) | Point-in-time sweeps for bugs, dead code, inconsistency, plus assessment / verification runs | No — historical | Frozen once findings are addressed; only `Status:` changes |
+| [`docs/memo/`](docs/memo/README.md) | The human's notes: ideas still forming, loose thinking, background | No — not evidence of behavior | Free-form; edited by people, by agents only on request |
 | `docs/tmp/` | Scratch; `<agent>-scratch/` is gitignored | No | Swept at each release: promoted, archived to `tmp/archive/YYYY-MM.tar.gz`, or trashed |
 
 ## Reading order
@@ -193,6 +198,22 @@ file the template's "frozen once approved" sentence does not describe:
 ```markdown
 The living backlog is [BACKLOG.md](BACKLOG.md) — undated, never frozen while work is open.
 ```
+
+### `docs/memo/README.md`
+
+```markdown
+# Memo
+
+Free space for people. Ideas still forming, loose thinking, background — anything worth being
+able to find again. Any filename, any structure, any language.
+
+- Not canonical: nothing here describes how the repo behaves. That is `../reference/`.
+- Human-owned: agents read or tidy this folder only when asked, and do not write here unasked.
+- An idea that matures becomes a spec in `../spec/` or a row in `../plan/BACKLOG.md`; the memo
+  stays as written.
+```
+
+No file index is required; add one if it helps.
 
 ## Status line
 
@@ -302,7 +323,7 @@ find docs/tmp -type d \( -name target -o -name node_modules -o -name .venv -o -n
 
 | Class | Test | Action |
 |---|---|---|
-| Promote | Someone will want to cite or re-run it (principle 14), or it holds an open follow-up | Write the `audit/` record, `BACKLOG.md` row, or `reference/` section; the scratch copy then becomes Stale |
+| Promote | Someone will want to cite or re-run it (principle 14), or it holds an open follow-up | Write the `audit/` record, `BACKLOG.md` row, or `reference/` section — or, for a forming idea the human wants kept, move it to `memo/` (principle 22); the scratch copy then becomes Stale |
 | Regenerable | A build-output directory from the `find` above | Trash the directory, keep its sources |
 | Stale | Not modified for 30 days **and** not referenced from any living document or open working record | Tracked → archive; untracked → trash |
 | Live | Everything else | Leave |

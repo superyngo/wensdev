@@ -1,6 +1,6 @@
 ---
 name: repo-docs
-description: Repository documentation layout and lifecycle. Use when creating, moving, renaming, indexing, or auditing a repo's documents — CONTEXT.md, the docs/ folder set, glossary, ADRs, specs and plans, debug and audit records, Status lines, BACKLOG.md, CHANGELOG archiving, docs/tmp scratch — when initializing a new repo's docs skeleton, and when deciding where a finding, decision, or follow-up should be written down.
+description: Repository documentation layout and lifecycle. Use when creating, moving, renaming, indexing, or auditing a repo's documents — CONTEXT.md, the docs/ folder set, glossary, ADRs, specs and plans, debug and audit records, Status lines, BACKLOG.md, CHANGELOG archiving, docs/tmp scratch, docs/memo human notes — when initializing a new repo's docs skeleton, and when deciding where a finding, decision, or follow-up should be written down.
 allowed-tools: Read, Grep, Glob, Bash, Write, Edit
 ---
 
@@ -11,7 +11,7 @@ freezes. The rules are **exact**: folder names, filenames, `Status:` values, and
 are fixed strings that tooling and other documents grep for, so copy them rather than adapting
 them.
 
-This file is a router. The 21 principles are in
+This file is a router. The 22 principles are in
 [references/principles.md](references/principles.md); templates, commands, and checklists are in
 [references/layout-and-lifecycle.md](references/layout-and-lifecycle.md).
 
@@ -39,6 +39,7 @@ The grades govern the repos that use this skill, not the maintenance of the skil
 | Track open work | 19 | §Living backlog record |
 | Choose the language of a document | 4 | — |
 | Use or clean `docs/tmp/` | 13 | §Sweeping tmp/ |
+| Read, write, or tidy `docs/memo/` (the human's notes) | 22 | §Folder README.md templates (`docs/memo/README.md`) |
 
 ## Procedures
 

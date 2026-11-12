@@ -30,6 +30,7 @@ are *principles*, not templates — the templates (directory tree, `CONTEXT.md`,
 | 19 | SHOULD | Exactly one living backlog record, `plan/BACKLOG.md` — the only exception to freeze-on-landing |
 | 20 | SHOULD | Docs cite code by symbol, never by `file:line`; counted claims are machine-checked or dropped |
 | 21 | CONSIDER | Audit living docs against the code periodically, for accuracy as well as structure |
+| 22 | CONSIDER | `docs/memo/` is the human's free space: any form, any language, not canonical, agent-edited only on request |
 
 ## A. Entry point, indexes, and language
 
@@ -41,7 +42,8 @@ are *principles*, not templates — the templates (directory tree, `CONTEXT.md`,
    other document lives under `docs/`. **Template:** [layout-and-lifecycle.md](layout-and-lifecycle.md) §Root CONTEXT.md template.
 
 2. **[MUST]** `docs/` contains exactly these folders, singular names: `reference/`, `adr/`,
-   `spec/`, `plan/`, `debug/`, `audit/`, `tmp/`. Each except `tmp/` has a `README.md` that lists
+   `spec/`, `plan/`, `debug/`, `audit/`, `tmp/` — plus `memo/` where the repo uses one
+   (principle 22). Each except `tmp/` has a `README.md`; outside `memo/`, that `README.md` lists
    every `.md` file in that folder with a one-line summary and its status. Adding or
    re-statusing a document and updating its folder `README.md` happen in the same commit; a
    document absent from its index is a bug. Lay the whole set down at **repo initialization**,
@@ -63,6 +65,7 @@ are *principles*, not templates — the templates (directory tree, `CONTEXT.md`,
     Skills (`SKILL.md` and their references) follow the same rule; the one exception is guidance
     whose subject is a specific language (e.g. Chinese typesetting or IME behavior), which may use
     that language for the examples and passages that need it — only there.
+    `docs/memo/` is exempt: it is written for and by the human, in whatever language they think in.
 
 ## B. `reference/` — single source of truth
 
@@ -202,6 +205,22 @@ are *principles*, not templates — the templates (directory tree, `CONTEXT.md`,
     the folder whose README says "current behavior only". **Checklist:** same reference,
     §Documentation audit.
 
+## F. `memo/`
+
+22. **[CONSIDER]** `docs/memo/` is the human's free space in the repo: ideas still forming,
+    loose thinking, background, anything a person wants to be able to find again. Every other
+    folder is shaped for agents to operate on; after long agent-driven development the reasoning
+    lives only in prompts that turned straight into code, and nothing is left that a person can
+    browse. So `memo/` has **no rules of form**: any filename, any structure, any language
+    (exempt from principle 4), no `Status:` line, no freeze, and no per-file index — its
+    `README.md` states the purpose and may list files but need not. It is committed. Two rules
+    keep it from becoming a second `tmp/` or a second `reference/`: it is **not canonical** —
+    nothing in it is evidence of how the repo behaves, and an agent does not act on it as
+    instruction; and it is **human-owned** — an agent reads or tidies it when asked in that
+    turn, and does not write session output there on its own. When an idea matures, it becomes
+    a spec or a `BACKLOG.md` row as a new document; the memo stays as written.
+    **Template:** same reference, §Folder README.md templates.
+
 ## Common Mistakes
 
 - An agent instruction file that grows into a second, drifting copy of reference (violates 3).
@@ -231,5 +250,7 @@ are *principles*, not templates — the templates (directory tree, `CONTEXT.md`,
   be re-run every release parked in a frozen record directory (violates 14).
 - Archiving or trashing `tmp/` without triage, so the one evaluation worth keeping goes into a
   tarball with the probes; or tarring a 600 MB `target/` directory into git history (violates 13).
+- An agent parking its session notes or run output in `memo/`, or citing a memo as proof of
+  what the code does (violates 22).
 - Writing a record in the conversation's language (e.g. Chinese) so glossary terms and greps no
   longer match the English docs around it (violates 4).
