@@ -1,7 +1,7 @@
 ---
 name: git-workflow
 description: Use when initializing a GitHub repository or Gist for the current directory, or when committing, pushing, and cutting a tagged release with changelog and version bumps. Covers git init, gh pre-flight checks, skeleton file generation (README, CHANGELOG, LICENSE, .gitignore, PRIVACY.md), remote creation, branch/remote sync, quality gates, semver bump, tagging, and GitHub Release creation.
-argument-hint: [init|gist|release] [version]
+argument-hint: "[init|gist|release] [version]"
 allowed-tools: Read, Write, Edit, Bash, Grep, Glob, AskUserQuestion, mcp__github__create_pull_request, mcp__github__list_tags, mcp__github__get_latest_release
 ---
 
