@@ -35,6 +35,7 @@ skill rather than here.
 | `create-release-workflow` | Tag-triggered multi-platform Rust release workflow |
 | `publishing-platform-stores` | Store submission workflows hanging off that release |
 | `git-workflow` | Repo init / Gist / commit-push-tag-release |
+| `slow-down` | Early-stage ideation at the user's pace: lead / offer / space moves, parking lot, hand-off recap |
 
 ## Reading order
 

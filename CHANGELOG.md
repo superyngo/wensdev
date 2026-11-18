@@ -232,3 +232,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   seven, plus `memo/` where used"; principle 4 exempts it from English; the `tmp/` sweep can
   promote into it; new repos get `docs/memo/README.md` at init. This repo adds its own
   `docs/memo/`. Decision: ADR 0004.
+
+### 2026-11-18
+
+- Added the `slow-down` skill: early-stage ideation at the user's thinking pace, one move per
+  turn (Lead / Offer / Space), a parking lot for foreseen issues, and a Decided / Still open /
+  Parking lot recap on hand-off. Listed in `CONTEXT.md`, `README.md`, and `plugin.json`.

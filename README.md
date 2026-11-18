@@ -17,6 +17,7 @@ Start at [`CONTEXT.md`](CONTEXT.md) for how this repo is organized.
 - `create-release-workflow` — generate a multi-platform Rust GitHub Actions release workflow.
 - `publishing-platform-stores` — wire store submission (Microsoft Store, App Store, VS Marketplace, etc.) into a release pipeline.
 - `git-workflow` — initialize a GitHub repo or Gist; commit, push, tag, and cut a release.
+- `slow-down` — early-stage ideation at the user's thinking pace, so they clarify the idea and decide in conversation.
 
 Migrated from `wenskills` on 2026-09-02, then consolidated from 8 skills to 6 on 2026-09-09
 (see [`docs/audit/2026-09-09-skills-consolidation.md`](docs/audit/2026-09-09-skills-consolidation.md)).
