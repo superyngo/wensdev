@@ -268,3 +268,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   out-of-git files; root `NOW.md` and `INBOX.md`; a weekly NOW rewrite triggered when
   `Week of` is over 7 days old; cross-cutting checks in an area of their own; other repos'
   systems indexed only. See ADR 0006.
+- docs(plan): backlog T8 (ADR index is missing 0005) and T9 (`~/life` adopts the `life` profile).
