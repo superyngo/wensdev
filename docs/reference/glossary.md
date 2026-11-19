@@ -72,8 +72,16 @@ working record. See [ADR 0005](../adr/0005-repo-docs-gains-profiles-note-folder-
 _Avoid_: Lessons learned, tip, knowledge-base article
 
 **Profile** (repo-docs):
-A repo's primary kind of work (`dev`, `ops`, …), declared on a `Profile:` line in its
+A repo's primary kind of work (`dev`, `ops`, `life`, …), declared on a `Profile:` line in its
 `CONTEXT.md`. A profile file under `skills/repo-docs/references/profiles/` sets what each docs
-folder holds, the cadences, and the ADR scope for that domain, never the lifecycle rules.
+folder holds, the cadences, and the ADR scope for that domain, and may map the folder set
+through **Lifecycle classes** (ADR 0006); never the lifecycle rules.
 Distinct from a **Domain** of `wens-dev-principles`.
 _Avoid_: Domain, mode, flavor
+
+**Lifecycle class** (repo-docs):
+One of the closed list in `skills/repo-docs/references/profiles/README.md` (living canonical,
+living tracker, working record, event log, decision, capture queue, scratch, human-owned,
+outside git). A profile that maps the folder set assigns each mapped folder or file exactly one,
+and that class's rules apply. See [ADR 0006](../adr/0006-repo-docs-profiles-may-map-the-folder-set.md).
+_Avoid_: Folder type, kind

@@ -1,6 +1,6 @@
 ---
 name: repo-docs
-description: Repository documentation layout and lifecycle, for dev and ops (maintenance) repos. Use when creating, moving, indexing, or auditing a repo's documents — CONTEXT.md, the docs/ folder set, glossary, ADRs and when not to write one, specs, plans, debug and audit records, Status lines, BACKLOG.md, CHANGELOG, docs/tmp, docs/memo, docs/note topic knowledge — when initializing a repo's docs skeleton, and when deciding where a finding, lesson, decision, or follow-up goes.
+description: Repository documentation layout and lifecycle, for dev, ops (maintenance), and life (personal base) repos. Use when creating, moving, indexing, or auditing a repo's documents — CONTEXT.md, the docs/ folder set, glossary, ADRs and when not to write one, specs, plans, debug and audit records, Status lines, BACKLOG.md, CHANGELOG, docs/tmp, docs/memo, docs/note topic knowledge — when initializing a repo's docs skeleton, and when deciding where a finding, lesson, decision, or follow-up goes.
 allowed-tools: Read, Grep, Glob, Bash, Write, Edit
 ---
 
@@ -42,12 +42,13 @@ The grades govern the repos that use this skill, not the maintenance of the skil
 | Write scratch, finish a task that wrote scratch, or clean `docs/tmp/` | 13, 14 | §Scratch shape and task end, §Sweeping tmp/ |
 | Read, write, or tidy `docs/memo/` (the human's notes) | 22 | §Folder README.md templates (`docs/memo/README.md`) |
 | Write general knowledge (tool or platform behavior, gotchas) in `docs/note/` | 23, 24 | §Folder README.md templates (`docs/note/README.md`) |
-| Set up docs for a non-software repo (operations, others), or adapt a rule to the repo's domain | 25 | `profiles/` |
+| Set up docs for a non-software repo (operations, a personal life base, others), or adapt a rule to the repo's domain | 25 | `profiles/` |
 
 ## Profiles
 
 The principles are domain-neutral; a profile says what each folder holds, the cadences, and the
-ADR scope for one kind of repo (principle 25). A repo declares it on a `Profile:` line in
+ADR scope for one kind of repo, and may map the folder set through lifecycle classes
+(principle 25). A repo declares it on a `Profile:` line in
 `CONTEXT.md`; none means `dev`. To add one, follow the contract in
 [references/profiles/README.md](references/profiles/README.md) and add a row here.
 
@@ -55,6 +56,7 @@ ADR scope for one kind of repo (principle 25). A repo declares it on a `Profile:
 |---|---|---|
 | `dev` | Ships software: code, releases, versions | [references/profiles/dev.md](references/profiles/dev.md) |
 | `ops` | Runs existing systems: hosts, patches, compliance; no releases | [references/profiles/ops.md](references/profiles/ops.md) |
+| `life` | A person's base organized by subject (`areas/`), agent as assistant; maps the folder set | [references/profiles/life.md](references/profiles/life.md) |
 
 ## Procedures
 

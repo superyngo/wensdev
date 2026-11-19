@@ -258,3 +258,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   shape and task end; §Sweeping tmp/ gains a Backup class. Measured across 18 repos: flat
   numbered files (`q3.py` … `q9.py`) that cannot be triaged, and 12 conclusions left in
   gitignored scratch in 6 repos. Grades and numbers unchanged.
+- skill(repo-docs): add the `life` profile and let a profile map the folder set. Principle 25:
+  a profile may replace `spec/`, `plan/`, `debug/`, `audit/`, and the backlog's location with a
+  subject-organized layout (e.g. `areas/<area>/`) and name extra root files, provided its
+  mapping table gives each one exactly one lifecycle class from the closed list in
+  `profiles/README.md`. Principles 1, 2, and 19 defer to that mapping. New classes: event log
+  (dated, frozen on write, no `Status:`), capture queue, outside git. New `profiles/life.md`,
+  built from `~/life`: areas with living README and BACKLOG, event logs, decisions, and
+  out-of-git files; root `NOW.md` and `INBOX.md`; a weekly NOW rewrite triggered when
+  `Week of` is over 7 days old; cross-cutting checks in an area of their own; other repos'
+  systems indexed only. See ADR 0006.

@@ -14,7 +14,7 @@ development, operations, and others added later — is set by the repo's **profi
 | # | Grade | Principle |
 |---|---|---|
 | 1 | MUST | Root `CONTEXT.md` is the single documentation entry point (an index, not a glossary) |
-| 2 | MUST | `docs/` has a fixed folder set (plus optional `memo/`, `note/`), each with an indexing `README.md` |
+| 2 | MUST | `docs/` has a fixed folder set (plus optional `memo/`, `note/`), each with an indexing `README.md`; a profile may map the working-record folders (25) |
 | 3 | SHOULD | Agent instruction file points at `CONTEXT.md`, never restates reference |
 | 4 | SHOULD | Documents are written in English, whatever language the conversation uses |
 | 5 | MUST | `docs/reference/` describes current behavior only |
@@ -31,13 +31,13 @@ development, operations, and others added later — is set by the repo's **profi
 | 16 | MUST | One ADR per decision that is expensive to reverse and meant to stay fixed — never for procedures; never edited, only superseded |
 | 17 | MUST | `adr/README.md` is a status table; filenames are `NNNN-kebab-title.md` |
 | 18 | SHOULD | `CHANGELOG.md` carries `[Unreleased]` plus the current series; older series archive verbatim |
-| 19 | SHOULD | Exactly one living backlog record, `plan/BACKLOG.md` — the only exception to freeze-on-landing |
+| 19 | SHOULD | Exactly one living backlog record, `plan/BACKLOG.md` (or as a profile maps it) — the only exception to freeze-on-landing |
 | 20 | SHOULD | Docs cite code by symbol, never by `file:line`; counted claims are machine-checked or dropped |
 | 21 | CONSIDER | Audit living docs against the code periodically, for accuracy as well as structure |
 | 22 | CONSIDER | `docs/memo/` is the human's free space: any form, any language, not canonical, agent-edited only on request |
 | 23 | SHOULD | `docs/note/` holds living, topic-named knowledge that holds beyond this repo's own systems; no catch-all lessons file |
 | 24 | SHOULD | Route each finding by its nature; a lesson that changes how work is done edits the procedure step itself; records and notes link both ways |
-| 25 | SHOULD | `CONTEXT.md` declares the repo's profile; a profile sets what folders hold and the cadences, never the lifecycle rules |
+| 25 | SHOULD | `CONTEXT.md` declares the repo's profile; a profile sets what folders hold and the cadences, may map the folder set through lifecycle classes, never changes the lifecycle rules |
 
 ## A. Entry point, indexes, and language
 
@@ -45,12 +45,14 @@ development, operations, and others added later — is set by the repo's **profi
    one table of the `docs/` folders (what each holds, whether it is canonical, its lifecycle)
    plus a reading order for a newcomer. It holds no glossary terms itself — it links to
    `docs/reference/glossary.md` as the first thing to read. The repo root keeps only
-   `README.md`, `CHANGELOG.md`, `CONTEXT.md`, `LICENSE`, and platform-mandated files; every
-   other document lives under `docs/`. **Template:** [layout-and-lifecycle.md](layout-and-lifecycle.md) §Root CONTEXT.md template.
+   `README.md`, `CHANGELOG.md`, `CONTEXT.md`, `LICENSE`, platform-mandated files, and the root
+   files a declared profile maps (principle 25); every other document lives under `docs/` or in
+   the profile's mapped layout. **Template:** [layout-and-lifecycle.md](layout-and-lifecycle.md) §Root CONTEXT.md template.
 
 2. **[MUST]** `docs/` contains exactly these folders, singular names: `reference/`, `adr/`,
    `spec/`, `plan/`, `debug/`, `audit/`, `tmp/` — plus `memo/` (principle 22) and `note/`
-   (principle 23) where the repo uses them. Each except `tmp/` has a `README.md`; outside `memo/`, that `README.md` lists
+   (principle 23) where the repo uses them; a declared profile may replace `spec/`, `plan/`,
+   `debug/`, and `audit/` with the layout it maps (principle 25). Each except `tmp/` has a `README.md`; outside `memo/`, that `README.md` lists
    every `.md` file in that folder with a one-line summary and its status. Adding or
    re-statusing a document and updating its folder `README.md` happen in the same commit; a
    document absent from its index is a bug. Lay the whole set down at **repo initialization**,
@@ -212,7 +214,8 @@ development, operations, and others added later — is set by the repo's **profi
     [layout-and-lifecycle.md](layout-and-lifecycle.md) §Changelog archiving.
 
 19. **[SHOULD]** Open follow-ups live in exactly one **living backlog record**,
-    `docs/plan/BACKLOG.md` — named by role and undated per principle 10 — and that record is the
+    `docs/plan/BACKLOG.md` (or one per domain folder plus a root roll-up, where a profile maps
+    the folder set, principle 25) — named by role and undated per principle 10 — and that record is the
     single permitted exception to principle 8's freeze-on-landing: rows move to a `Done` log with
     the commit that closed them and are never deleted. Frozen audits and debug notes are right
     for evidence and wrong for a backlog — nothing can be ticked off in them, so an item's real
@@ -286,12 +289,18 @@ development, operations, and others added later — is set by the repo's **profi
     reference, §Where a finding goes.
 
 25. **[SHOULD]** Root `CONTEXT.md` declares the repo's **profile** — its primary kind of work —
-    on a `Profile:` line (`dev`, `ops`, …; several may be listed, primary first). A profile file
+    on a `Profile:` line (`dev`, `ops`, `life`, …; several may be listed, primary first). A profile file
     in [profiles/](profiles/README.md) maps the domain onto this skill: what each folder holds,
     which optional folders are expected, the sweep cadence, the ADR scope, and changelog and
     commit conventions. A profile may change what a folder **holds** and **when** things
-    happen; it never changes the lifecycle rules — folder set, dated ⇔ frozen, `Status:`
-    values, indexes. A repo with no `Profile:` line is `dev`.
+    happen. Where the domain's work is organized by subject rather than by document lifecycle,
+    a profile may also **map the folder set**: replace `spec/`, `plan/`, `debug/`, `audit/`, and
+    the backlog's location with a domain layout (e.g. `areas/<area>/`), and name extra living
+    files at the root. Its mapping table then assigns every replacement folder and file exactly
+    one **lifecycle class** from the closed list in the profiles README, and that class's rules
+    apply unchanged; `reference/`, `adr/`, `tmp/`, `memo/`, and `note/` are never mapped away.
+    A profile never changes the lifecycle rules — dated ⇔ frozen, `Status:` values, indexes. A
+    repo with no `Profile:` line is `dev`.
 
 ## Common Mistakes
 
@@ -341,3 +350,6 @@ development, operations, and others added later — is set by the repo's **profi
   can be traced from the other (violates 24).
 - An operations repo forced into release-shaped rules — a tmp sweep "at each release" that never
   comes — because no profile was declared (violates 25).
+- A subject-organized layout invented in one repo with a deviation ADR per principle, or a
+  profile's mapped folder with no lifecycle class, so nobody knows which rules it follows
+  (violates 25).

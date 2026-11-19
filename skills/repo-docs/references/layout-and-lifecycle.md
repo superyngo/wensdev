@@ -75,7 +75,9 @@ Order matters — each step is depended on by the next:
 2. The seven folders with their `README.md` index stubs, each carrying its `## In progress`
    section empty (principle 12), `docs/memo/README.md` from its template (principle 22),
    `docs/note/README.md` where the profile expects it (principles 23, 25), plus
-   root `CONTEXT.md` from the template above, with its `Profile:` line.
+   root `CONTEXT.md` from the template above, with its `Profile:` line. Under a profile that
+   maps the folder set (principle 25), lay down its mapped layout in place of `spec/`, `plan/`,
+   `debug/`, `audit/`, and `docs/plan/BACKLOG.md`, and list each mapped path in `CONTEXT.md`.
 3. `CHANGELOG.md` containing only `## [Unreleased]`. Spell that heading exactly — release
    tooling rewrites it and version gates grep for the result (principle 18).
 4. **`docs/plan/BACKLOG.md`, created empty on day one** (principle 19). This is the step most
