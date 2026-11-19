@@ -9,7 +9,7 @@ Start at [`CONTEXT.md`](CONTEXT.md) for how this repo is organized.
 ## Skills
 
 - `wens-dev-principles` — cross-project UI, CLI, debugging, performance, and multi-agent principles.
-- `repo-docs` — repository documentation layout and lifecycle: `CONTEXT.md`, the `docs/` folder set, ADRs, working records, backlog, changelog archiving.
+- `repo-docs` — repository documentation layout and lifecycle: `CONTEXT.md`, the `docs/` folder set, ADRs and their scope, working records, `docs/note/` knowledge, backlog, changelog archiving; dev and ops profiles.
 - `rust-crossplatform-app` — blueprint for one Rust codebase shipping to CLI/TUI/web/desktop/mobile/extension.
 - `tui-components` — ratatui component specs (menu, modal, toggle tree, sidebar navigation, split panes, floating windows, mobile view) and a web-UI-to-terminal vocabulary map.
 - `ui-design` — design-first static TSX + Tailwind mock-ups with tokens, typed states, screenshot review, and a GPUI/web handoff.

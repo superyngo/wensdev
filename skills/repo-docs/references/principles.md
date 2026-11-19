@@ -5,12 +5,16 @@ of truth, and when a document freezes. Applies to any repo that has more than a 
 are *principles*, not templates — the templates (directory tree, `CONTEXT.md`, folder
 `README.md`s, status line, glossary entry) live in [layout-and-lifecycle.md](layout-and-lifecycle.md).
 
+The principles are domain-neutral. What a folder holds in a given kind of repo — software
+development, operations, and others added later — is set by the repo's **profile**
+(principle 25), in [profiles/](profiles/README.md).
+
 ## Index
 
 | # | Grade | Principle |
 |---|---|---|
 | 1 | MUST | Root `CONTEXT.md` is the single documentation entry point (an index, not a glossary) |
-| 2 | MUST | `docs/` has a fixed folder set, each with an indexing `README.md` |
+| 2 | MUST | `docs/` has a fixed folder set (plus optional `memo/`, `note/`), each with an indexing `README.md` |
 | 3 | SHOULD | Agent instruction file points at `CONTEXT.md`, never restates reference |
 | 4 | SHOULD | Documents are written in English, whatever language the conversation uses |
 | 5 | MUST | `docs/reference/` describes current behavior only |
@@ -21,16 +25,19 @@ are *principles*, not templates — the templates (directory tree, `CONTEXT.md`,
 | 10 | MUST | Frozen working records are dated `YYYY-MM-DD-kebab-title.md`; living records are named by role, undated |
 | 11 | SHOULD | A working record may own a same-basename directory for scripts and fixtures |
 | 12 | SHOULD | Folder `README.md` lists in-progress work in a section at the top |
-| 13 | CONSIDER | `docs/tmp/` is scratch; sweep it at each release — triage first, then archive or trash, with approval |
+| 13 | CONSIDER | `docs/tmp/` is scratch; sweep it at each release (or at the profile's cadence) — triage first, then archive or trash, with approval |
 | 14 | SHOULD | `audit/` holds sweeps and verification runs; one-off measurement in the record, regression checks in repo tooling |
 | 15 | MUST | Deviating from any MUST principle in this skill or `wens-dev-principles` requires an ADR |
-| 16 | MUST | One ADR per expensive decision; never edited, only superseded |
+| 16 | MUST | One ADR per decision that is expensive to reverse and meant to stay fixed — never for procedures; never edited, only superseded |
 | 17 | MUST | `adr/README.md` is a status table; filenames are `NNNN-kebab-title.md` |
 | 18 | SHOULD | `CHANGELOG.md` carries `[Unreleased]` plus the current series; older series archive verbatim |
 | 19 | SHOULD | Exactly one living backlog record, `plan/BACKLOG.md` — the only exception to freeze-on-landing |
 | 20 | SHOULD | Docs cite code by symbol, never by `file:line`; counted claims are machine-checked or dropped |
 | 21 | CONSIDER | Audit living docs against the code periodically, for accuracy as well as structure |
 | 22 | CONSIDER | `docs/memo/` is the human's free space: any form, any language, not canonical, agent-edited only on request |
+| 23 | SHOULD | `docs/note/` holds living, topic-named knowledge that holds beyond this repo's own systems; no catch-all lessons file |
+| 24 | SHOULD | Route each finding by its nature; a lesson that changes how work is done edits the procedure step itself; records and notes link both ways |
+| 25 | SHOULD | `CONTEXT.md` declares the repo's profile; a profile sets what folders hold and the cadences, never the lifecycle rules |
 
 ## A. Entry point, indexes, and language
 
@@ -42,8 +49,8 @@ are *principles*, not templates — the templates (directory tree, `CONTEXT.md`,
    other document lives under `docs/`. **Template:** [layout-and-lifecycle.md](layout-and-lifecycle.md) §Root CONTEXT.md template.
 
 2. **[MUST]** `docs/` contains exactly these folders, singular names: `reference/`, `adr/`,
-   `spec/`, `plan/`, `debug/`, `audit/`, `tmp/` — plus `memo/` where the repo uses one
-   (principle 22). Each except `tmp/` has a `README.md`; outside `memo/`, that `README.md` lists
+   `spec/`, `plan/`, `debug/`, `audit/`, `tmp/` — plus `memo/` (principle 22) and `note/`
+   (principle 23) where the repo uses them. Each except `tmp/` has a `README.md`; outside `memo/`, that `README.md` lists
    every `.md` file in that folder with a one-line summary and its status. Adding or
    re-statusing a document and updating its folder `README.md` happen in the same commit; a
    document absent from its index is a bug. Lay the whole set down at **repo initialization**,
@@ -131,7 +138,8 @@ are *principles*, not templates — the templates (directory tree, `CONTEXT.md`,
 13. **[CONSIDER]** `docs/tmp/` is a committed scratch area with no naming or index rules;
     subdirectories per topic are allowed. `docs/tmp/<agent>-scratch/` is a gitignored subpath
     for probes that need not land. **Sweep `tmp/` at each release** — "when it grows stale"
-    names no moment, so it never happens. The sweep **triages before it removes**: anything
+    names no moment, so it never happens. A repo with no releases sweeps at the cadence its
+    profile names (principle 25; operations: the first session of each week). The sweep **triages before it removes**: anything
     worth citing later is promoted to its real home first (principle 14). What is left and stale
     leaves in a recoverable way — tracked files into `docs/tmp/archive/YYYY-MM.tar.gz`,
     untracked files into the OS trash, never `rm`. Build output (`target/`, `node_modules/`,
@@ -154,10 +162,23 @@ are *principles*, not templates — the templates (directory tree, `CONTEXT.md`,
     `wens-dev-principles` — requires an ADR in `docs/adr/` citing the principle by skill and
     number (`repo-docs 8`, `wens-dev-principles ui 7`).
 
-16. **[MUST]** One ADR per decision that was expensive to reach and would be expensive to
-    reverse. It records why, the alternatives rejected, and the date; it is a historical record,
+16. **[MUST]** One ADR per decision that would be expensive to reverse **and** is meant to stay
+    fixed. It records why, the alternatives rejected, and the date; it is a historical record,
     never edited afterward. Revisiting a decision means a new ADR whose text marks the old one
     (or the exact section) superseded. Current behavior lives in `reference/`, not in the ADR.
+
+    **Scope.** A procedure that must stay adjustable — a command, a tool choice, a step order, a
+    schedule — never gets an ADR, however much effort it took to find: it is a step in a
+    `reference/` procedure, edited in place, with a `note/` (principle 23) explaining why when
+    the why is not obvious. An ADR for a procedure makes every later improvement a
+    supersession, and the chain grows faster than anyone reads it. ADR-worthy: authority and
+    safety gates, the documentation system itself, architecture direction, persisted or public
+    contracts. In development, weigh the project's **stage** and the **room left to switch**: in
+    exploration, a choice expected to change is a `reference/` line or a `BACKLOG.md` Watching
+    row, not an ADR; once a choice is locked in by persisted data, a public interface, or a
+    dependency other code builds on, it is an ADR. **When in doubt, write it in `reference/`
+    first**; promote it to an ADR when reversing it has become costly. The profile names its
+    domain's ADR scope (principle 25). **Stage table:** same reference, §ADR scope.
 
 17. **[MUST]** `adr/README.md` is a table `# | Decision | Status` with status values `Proposed`,
     `Implemented (YYYY-MM-DD)`, `Superseded by NNNN`, plus a note under the table for partial
@@ -221,6 +242,43 @@ are *principles*, not templates — the templates (directory tree, `CONTEXT.md`,
     a spec or a `BACKLOG.md` row as a new document; the memo stays as written.
     **Template:** same reference, §Folder README.md templates.
 
+## G. Knowledge, findings, and profiles
+
+23. **[SHOULD]** `docs/note/` holds **living, topic-named knowledge that holds beyond this
+    repo's own systems**: how a tool, platform, or library actually behaves, a gotcha that
+    would bite on another host or in another project. Test: *would this still be true on
+    another system?* Yes → `note/`. Each file is one topic, named by the topic and undated per
+    principle 10 (`rhel-local-rpm-install.md`, never `2026-11-18-kernel-patch-lessons.md`); a
+    new finding on an existing topic is added to that file rather than a new one. A note
+    explains **why**; it is not a procedure — the steps live in `reference/` and the note links
+    to them. It ends with a `## Cases` section linking the dated records where the knowledge
+    was learned. There is **no catch-all** `lessons-learned.md`: a lessons file mixes topics,
+    is read by no one before the next attempt, and lets the procedure stay wrong. `note/` is
+    canonical for what it states and is kept current like `reference/` (principle 5 applies:
+    a note proven wrong is corrected, not annotated). When a second repo needs the same note,
+    move it to a shared home (a knowledge repo or a skill) and leave a link.
+    **Template:** same reference, §Folder README.md templates.
+
+24. **[SHOULD]** Route each finding by its **nature**, not by the event that produced it — one
+    incident usually yields several pieces with different homes: knowledge that holds elsewhere
+    → `note/`; a command the next person following the procedure will need → edit that step in
+    `reference/` and link the note that explains it; a fact true only of specific systems →
+    `reference/`; what happened on that day → the dated `plan/`, `debug/`, or `audit/` record;
+    a reversal of an ADR-scope decision (principle 16) → a new ADR; a new term → the glossary;
+    a follow-up → `BACKLOG.md`. **A lesson that changes how the work is done must change the
+    procedure step itself** — a note without the procedure edit means the old way is repeated.
+    Records and notes **link both ways**: the record links the note (what was learned), the
+    note's `## Cases` links the record (where it was learned). **Routing table:** same
+    reference, §Where a finding goes.
+
+25. **[SHOULD]** Root `CONTEXT.md` declares the repo's **profile** — its primary kind of work —
+    on a `Profile:` line (`dev`, `ops`, …; several may be listed, primary first). A profile file
+    in [profiles/](profiles/README.md) maps the domain onto this skill: what each folder holds,
+    which optional folders are expected, the sweep cadence, the ADR scope, and changelog and
+    commit conventions. A profile may change what a folder **holds** and **when** things
+    happen; it never changes the lifecycle rules — folder set, dated ⇔ frozen, `Status:`
+    values, indexes. A repo with no `Profile:` line is `dev`.
+
 ## Common Mistakes
 
 - An agent instruction file that grows into a second, drifting copy of reference (violates 3).
@@ -254,3 +312,13 @@ are *principles*, not templates — the templates (directory tree, `CONTEXT.md`,
   what the code does (violates 22).
 - Writing a record in the conversation's language (e.g. Chinese) so glossary terms and greps no
   longer match the English docs around it (violates 4).
+- An ADR per change of install command or tool, so three ADRs supersede each other within two
+  weeks while the procedure itself is still being learned (violates 16).
+- A `lessons-learned.md` that collects every incident's takeaways while the procedure that
+  caused them stays unchanged (violates 23 and 24).
+- A note dated by the event (`note/2026-11-18-patch-lessons.md`), or a note that is really a
+  host-specific procedure (violates 23).
+- A note with no `## Cases`, or a record that learned something and links no note, so neither
+  can be traced from the other (violates 24).
+- An operations repo forced into release-shaped rules — a tmp sweep "at each release" that never
+  comes — because no profile was declared (violates 25).

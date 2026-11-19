@@ -238,3 +238,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added the `slow-down` skill: early-stage ideation at the user's thinking pace, one move per
   turn (Lead / Offer / Space), a parking lot for foreseen issues, and a Decided / Still open /
   Parking lot recap on hand-off. Listed in `CONTEXT.md`, `README.md`, and `plugin.json`.
+
+### 2026-11-19
+
+- skill(repo-docs): add profiles, `docs/note/`, finding routing, and an ADR scope test, derived
+  from an operations repo built on the skill. New principles 23 (`note/`: living, topic-named
+  knowledge, `## Cases` back-links, no lessons-learned catch-all), 24 (route each finding by its
+  nature; a lesson edits the procedure step itself), and 25 (`Profile:` line in `CONTEXT.md`).
+  Principle 2 admits optional `note/`; 13 sweeps at the profile's cadence when there are no
+  releases; 16 limits ADRs to decisions expensive to reverse and meant to stay fixed — never
+  procedures, and in development weighed by stage and room to switch. New
+  `references/profiles/` (contract, `dev.md`, `ops.md`) and layout sections §Where a finding
+  goes and §ADR scope. No existing number moves. See ADR 0005.

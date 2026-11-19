@@ -42,6 +42,9 @@ docs/
   audit/
     README.md
     2026-08-29-dead-code-sweep.md
+  note/                             # living topic knowledge, undated (principle 23)
+    README.md
+    rhel-local-rpm-install.md
   memo/                             # the human's free space, any form (principle 22)
     README.md
     ideas.md
@@ -52,7 +55,7 @@ docs/
 ```
 
 Filenames carry the lifecycle: **dated ⇔ frozen snapshot, undated ⇔ living** (principle 10). Every
-undated name above — `CONTEXT.md`, `CHANGELOG.md`, the `reference/` files, `BACKLOG.md` — is a
+undated name above — `CONTEXT.md`, `CHANGELOG.md`, the `reference/` and `note/` files, `BACKLOG.md` — is a
 document whose content is always current; every dated one is a judgement formed on that day and
 frozen. `adr/NNNN-*.md` is the third case: frozen, but sequence-numbered because ADRs are cited
 by number.
@@ -69,8 +72,9 @@ Order matters — each step is depended on by the next:
 1. `docs/reference/glossary.md` — **before any code** (principle 6). Written later, the
    identifiers and the docs have already diverged and one of them has to be renamed.
 2. The seven folders with their `README.md` index stubs, each carrying its `## In progress`
-   section empty (principle 12), `docs/memo/README.md` from its template (principle 22), plus
-   root `CONTEXT.md` from the template above.
+   section empty (principle 12), `docs/memo/README.md` from its template (principle 22),
+   `docs/note/README.md` where the profile expects it (principles 23, 25), plus
+   root `CONTEXT.md` from the template above, with its `Profile:` line.
 3. `CHANGELOG.md` containing only `## [Unreleased]`. Spell that heading exactly — release
    tooling rewrites it and version gates grep for the result (principle 18).
 4. **`docs/plan/BACKLOG.md`, created empty on day one** (principle 19). This is the step most
@@ -78,8 +82,8 @@ Order matters — each step is depended on by the next:
    into `tmp/` or the tail of a debug note, and that path — findings scattered across frozen
    records — persists for as long as the repo does.
 5. `docs/adr/0001-*.md` for the first expensive decision, usually the stack or a core dependency
-   choice, on the day it is made (principle 16). The ADR habit is set by whether the first one
-   exists.
+   choice, on the day it is made — if it passes the scope test in §ADR scope (principle 16).
+   A choice still expected to change is a `reference/` line instead.
 6. `.gitignore` with `docs/tmp/*-scratch/` (principle 13).
 7. The agent instruction file, pointing at `CONTEXT.md` and holding conduct only — commands,
    commit rules, release mechanics (principle 3).
@@ -103,6 +107,8 @@ that the layout is not a judgement call at hour zero of a new repo.
 Entry point for all documentation. Root-level files (`README.md`, `CHANGELOG.md`, `LICENSE`)
 stay here; everything else lives under `docs/`.
 
+Profile: dev
+
 | Folder | Holds | Canonical? | Lifecycle |
 |---|---|---|---|
 | [`docs/reference/`](docs/reference/README.md) | Current behavior: glossary, per-subsystem contracts | Yes — the only source of truth | Kept in sync with the code |
@@ -112,6 +118,7 @@ stay here; everything else lives under `docs/`.
 | [`docs/plan/BACKLOG.md`](docs/plan/BACKLOG.md) | The one living tracker of open work, pending verification, external blockers, and watched items | No — live state | Never frozen while anything is open |
 | [`docs/debug/`](docs/debug/README.md) | Handoff notes from investigations, with repro scripts | No — historical | Frozen once resolved; only `Status:` changes |
 | [`docs/audit/`](docs/audit/README.md) | Point-in-time sweeps for bugs, dead code, inconsistency, plus assessment / verification runs | No — historical | Frozen once findings are addressed; only `Status:` changes |
+| [`docs/note/`](docs/note/README.md) | Topic knowledge that holds beyond this repo's own systems: tool and platform behavior, gotchas | Yes — for what it states | Living; corrected in place; one file per topic |
 | [`docs/memo/`](docs/memo/README.md) | The human's notes: ideas still forming, loose thinking, background | No — not evidence of behavior | Free-form; edited by people, by agents only on request |
 | `docs/tmp/` | Scratch; `<agent>-scratch/` is gitignored | No | Swept at each release: promoted, archived to `tmp/archive/YYYY-MM.tar.gz`, or trashed |
 
@@ -215,6 +222,77 @@ able to find again. Any filename, any structure, any language.
 
 No file index is required; add one if it helps.
 
+### `docs/note/README.md`
+
+```markdown
+# Notes
+
+Living knowledge that would still be true on another system: how a tool, platform, or library
+actually behaves. One file per topic, named by the topic, undated. Procedures are not here —
+they are steps in `../reference/`, which link the note that explains why.
+
+| Note | Topic |
+|---|---|
+| [rhel-local-rpm-install.md](rhel-local-rpm-install.md) | Installing local RPMs on RHEL: `dnf install` vs `rpm -U` dependency handling |
+
+- New finding on an existing topic → add it to that file, not a new one.
+- No catch-all `lessons-learned.md`. Where each piece of a finding goes: repo-docs 24.
+- Every note ends with `## Cases`, linking the dated records where it was learned.
+```
+
+A note file:
+
+```markdown
+# Installing local RPMs on RHEL
+
+<What the tool does, why, and the trap. Explanation, not steps.>
+
+Procedure: [bcloud-qa.md §5.3](../reference/bcloud-qa.md#53-apply-the-update)
+
+## Cases
+
+- [2026-11-18 kernel CVE patch](../plan/2026-11-18-kernel-cve-patch.md) §3.1 — `rpm -U` left a
+  dependency unresolved; switched to `dnf install`.
+```
+
+## Where a finding goes
+
+One event usually yields several pieces; route each by its nature (principle 24). Ask the
+questions in order for every piece:
+
+| Question | Home | Dev example | Ops example |
+|---|---|---|---|
+| Still true on another system, host, or project? | `note/<topic>.md`, named by topic | A compiler flag's behavior on Windows | `dnf install` vs `rpm -U` on local RPMs |
+| Which command or step will the next person following the procedure need? | Edit that step in `reference/`, link the note | The release checklist step | The patch step in the system runbook |
+| True only of specific systems? | `reference/` | This service's port map | One host's broken repo mirror |
+| What happened on that day or operation? | The dated `plan/`, `debug/`, or `audit/` record, frozen once closed | The debug record | The maintenance plan's execution log |
+| Reverses or corrects an ADR-scope decision (§ADR scope)? | A new ADR, may supersede part of an old one | Changing the persistence format | Changing an approval gate |
+| A new term? | `reference/glossary.md` | | |
+| Something left to do? | `plan/BACKLOG.md` row | | |
+
+Then link both ways: the record links the note; the note's `## Cases` links the record.
+
+## ADR scope
+
+An ADR passes both tests: expensive to reverse, and meant to stay fixed (principle 16). Anything
+else is a `reference/` entry, edited in place.
+
+| Never an ADR | Always an ADR |
+|---|---|
+| A command, tool choice, step order, schedule, threshold being tuned | Authority and safety gates (who may do what, approval rules) |
+| A workaround for a known defect | The documentation system itself (deviations, per principle 15) |
+| A choice the profile marks as procedure | Architecture direction; persisted or public contracts |
+
+In development, also weigh the stage and the room left to switch:
+
+| Stage | Room to switch | Record the choice as |
+|---|---|---|
+| Exploration / prototype | Large — little depends on it | `reference/` line, or a `BACKLOG.md` Watching row with the trigger that would settle it |
+| Building toward a first release | Shrinking | ADR only for persisted data formats, public interfaces, security boundaries, and dependencies other code builds on |
+| Released / stable | Small — users or data depend on it | ADR for any change to an external contract or a locked-in dependency |
+
+When in doubt, write it in `reference/` first; write the ADR when reversing it has become costly.
+
 ## Status line
 
 The second line of every file in `spec/`, `plan/`, `debug/`, `audit/`, immediately after the
@@ -299,7 +377,8 @@ Checklist:
 
 ## Sweeping tmp/
 
-Run at each release (principle 13), after the release is cut. Scratch has two halves with
+Run at each release (principle 13), after the release is cut — or, in a repo with no releases, at
+the cadence its profile names (principle 25). Scratch has two halves with
 different tools: **tracked** files, which git can restore, and **untracked** files under
 `<agent>-scratch/`, which exist only on this disk. Most of what accumulates is the second half.
 
@@ -323,7 +402,7 @@ find docs/tmp -type d \( -name target -o -name node_modules -o -name .venv -o -n
 
 | Class | Test | Action |
 |---|---|---|
-| Promote | Someone will want to cite or re-run it (principle 14), or it holds an open follow-up | Write the `audit/` record, `BACKLOG.md` row, or `reference/` section — or, for a forming idea the human wants kept, move it to `memo/` (principle 22); the scratch copy then becomes Stale |
+| Promote | Someone will want to cite or re-run it (principle 14), or it holds an open follow-up or reusable knowledge | Write the `audit/` record, `BACKLOG.md` row, `reference/` section, or `note/` topic (principle 23) — or, for a forming idea the human wants kept, move it to `memo/` (principle 22); the scratch copy then becomes Stale |
 | Regenerable | A build-output directory from the `find` above | Trash the directory, keep its sources |
 | Stale | Not modified for 30 days **and** not referenced from any living document or open working record | Tracked → archive; untracked → trash |
 | Live | Everything else | Leave |
@@ -484,6 +563,8 @@ half; accuracy is where the defects are. Run in two passes:
       ```
 
 - [ ] No file in `reference/` contains a backlog, a "History" section, or a TODO list.
+- [ ] Every `note/` file is undated, named by topic, ends with `## Cases`, and holds no
+      host-specific procedure; no `lessons-learned`-style catch-all exists (principle 23).
 
 **Pass 2 — accuracy (read the code).**
 

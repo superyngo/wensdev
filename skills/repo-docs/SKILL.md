@@ -1,6 +1,6 @@
 ---
 name: repo-docs
-description: Repository documentation layout and lifecycle. Use when creating, moving, renaming, indexing, or auditing a repo's documents — CONTEXT.md, the docs/ folder set, glossary, ADRs, specs and plans, debug and audit records, Status lines, BACKLOG.md, CHANGELOG archiving, docs/tmp scratch, docs/memo human notes — when initializing a new repo's docs skeleton, and when deciding where a finding, decision, or follow-up should be written down.
+description: Repository documentation layout and lifecycle, for dev and ops (maintenance) repos. Use when creating, moving, indexing, or auditing a repo's documents — CONTEXT.md, the docs/ folder set, glossary, ADRs and when not to write one, specs, plans, debug and audit records, Status lines, BACKLOG.md, CHANGELOG, docs/tmp, docs/memo, docs/note topic knowledge — when initializing a repo's docs skeleton, and when deciding where a finding, lesson, decision, or follow-up goes.
 allowed-tools: Read, Grep, Glob, Bash, Write, Edit
 ---
 
@@ -11,9 +11,10 @@ freezes. The rules are **exact**: folder names, filenames, `Status:` values, and
 are fixed strings that tooling and other documents grep for, so copy them rather than adapting
 them.
 
-This file is a router. The 22 principles are in
+This file is a router. The 25 principles are in
 [references/principles.md](references/principles.md); templates, commands, and checklists are in
-[references/layout-and-lifecycle.md](references/layout-and-lifecycle.md).
+[references/layout-and-lifecycle.md](references/layout-and-lifecycle.md); what each folder holds
+in a given kind of repo is in [references/profiles/](references/profiles/README.md).
 
 ## Grades
 
@@ -31,15 +32,29 @@ The grades govern the repos that use this skill, not the maintenance of the skil
 
 | You are about to | Principles | Template or checklist in `layout-and-lifecycle.md` |
 |---|---|---|
-| Decide where a document, finding, or follow-up goes | 1, 2, 5, 14, 19 | §Directory tree |
+| Decide where a document, finding, lesson, or follow-up goes | 1, 2, 5, 14, 19, 23, 24 | §Directory tree, §Where a finding goes |
 | Write or edit `CONTEXT.md`, a folder `README.md`, or the agent instruction file | 1, 2, 3, 12 | §Root CONTEXT.md template, §Folder README.md templates |
 | Add a term or a reference document | 5, 6, 7, 20 | §Glossary entry |
 | Write a spec, plan, debug note, or audit record | 8, 9, 10, 11, 14 | §Status line, §Script directories |
-| Record or revisit a decision | 15, 16, 17 | §Folder README.md templates (`docs/adr/README.md`) |
+| Record or revisit a decision, or decide whether it needs an ADR at all | 15, 16, 17 | §ADR scope, §Folder README.md templates (`docs/adr/README.md`) |
 | Track open work | 19 | §Living backlog record |
 | Choose the language of a document | 4 | — |
 | Use or clean `docs/tmp/` | 13 | §Sweeping tmp/ |
 | Read, write, or tidy `docs/memo/` (the human's notes) | 22 | §Folder README.md templates (`docs/memo/README.md`) |
+| Write general knowledge (tool or platform behavior, gotchas) in `docs/note/` | 23, 24 | §Folder README.md templates (`docs/note/README.md`) |
+| Set up docs for a non-software repo (operations, others), or adapt a rule to the repo's domain | 25 | `profiles/` |
+
+## Profiles
+
+The principles are domain-neutral; a profile says what each folder holds, the cadences, and the
+ADR scope for one kind of repo (principle 25). A repo declares it on a `Profile:` line in
+`CONTEXT.md`; none means `dev`. To add one, follow the contract in
+[references/profiles/README.md](references/profiles/README.md) and add a row here.
+
+| Profile | Applies when | File |
+|---|---|---|
+| `dev` | Ships software: code, releases, versions | [references/profiles/dev.md](references/profiles/dev.md) |
+| `ops` | Runs existing systems: hosts, patches, compliance; no releases | [references/profiles/ops.md](references/profiles/ops.md) |
 
 ## Procedures
 
@@ -50,7 +65,7 @@ checklist is ticked.
 |---|---|
 | Initialize a new repo's documentation skeleton | §Repo initialization |
 | Archive a completed changelog series | §Changelog archiving |
-| Sweep `docs/tmp/` at a release: triage, then archive or trash with approval | §Sweeping tmp/ |
+| Sweep `docs/tmp/` at a release (or the profile's cadence): triage, then archive or trash with approval | §Sweeping tmp/ |
 | Find working records with a missing `Status:` line | §Status line |
 | Audit living documents against the code (structure pass, then accuracy pass) | §Documentation audit |
 

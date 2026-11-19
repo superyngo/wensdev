@@ -62,4 +62,18 @@ _Avoid_: Release note, update entry
 A document in `docs/spec/`, `docs/plan/`, `docs/debug/`, or `docs/audit/`. Opens with a
 `Status:` line, is named `YYYY-MM-DD-kebab-title.md`, and freezes when it lands — after which
 only its `Status:` line may change.
-_Avoid_: Note, writeup, report
+_Avoid_: Note (a `docs/note/` file, not a record), writeup, report
+
+**Note** (repo-docs):
+A living, topic-named, undated file in a repo's `docs/note/` holding knowledge that holds beyond
+that repo's own systems — tool or platform behavior, a gotcha. Explains why; the steps live in
+`reference/`. Ends with `## Cases` linking the records where it was learned. Distinct from a
+working record. See [ADR 0005](../adr/0005-repo-docs-gains-profiles-note-folder-and-adr-scope.md).
+_Avoid_: Lessons learned, tip, knowledge-base article
+
+**Profile** (repo-docs):
+A repo's primary kind of work (`dev`, `ops`, …), declared on a `Profile:` line in its
+`CONTEXT.md`. A profile file under `skills/repo-docs/references/profiles/` sets what each docs
+folder holds, the cadences, and the ADR scope for that domain, never the lifecycle rules.
+Distinct from a **Domain** of `wens-dev-principles`.
+_Avoid_: Domain, mode, flavor
