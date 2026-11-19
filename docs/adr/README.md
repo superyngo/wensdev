@@ -13,6 +13,7 @@ that skill's own `docs/adr/` — see 0001.
 | [0002](0002-changelog-uses-keep-a-changelog-headings.md) | `CHANGELOG.md` uses `## [Unreleased]`, overriding the global instruction file's prose form, because release tooling parses it | Implemented (2026-09-09) |
 | [0003](0003-docs-domain-becomes-the-repo-docs-skill.md) | The `docs` domain of `wens-dev-principles` becomes the `repo-docs` skill; numbers unchanged, old citations a permanent alias | Implemented (2026-11-12) |
 | [0004](0004-repo-docs-gains-an-optional-memo-folder.md) | `repo-docs` gains an optional `docs/memo/` folder: free-form, any language, not canonical, human-owned | Implemented (2026-11-12) |
+| [0005](0005-repo-docs-gains-profiles-note-folder-and-adr-scope.md) | `repo-docs` gains profiles, an optional `docs/note/` folder, finding routing, and an ADR scope test | Implemented (2026-11-19) |
 | [0006](0006-repo-docs-profiles-may-map-the-folder-set.md) | A `repo-docs` profile may map the folder set onto a domain layout through lifecycle classes; adds the `life` profile and the event-log class | Implemented (2026-11-19) |
 
 Partial supersessions: none.
