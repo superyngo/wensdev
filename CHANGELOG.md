@@ -270,3 +270,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   systems indexed only. See ADR 0006.
 - docs(plan): backlog T8 (ADR index is missing 0005) and T9 (`~/life` adopts the `life` profile).
 - docs(adr): index ADR 0005 in `docs/adr/README.md` (backlog T8).
+- docs(plan): close backlog T7 (`.gitignore` already ignores scratch) and T9 (`~/life` adopted the `life` profile).

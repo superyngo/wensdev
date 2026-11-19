@@ -15,8 +15,6 @@ last checked against the tree — not when it was opened.
 | T4 | 2026-11-12 | 2026-11-12 | P3 | `repo-docs` has no command-shaped entry points or skeleton script | `docs/spec/2026-11-12-repo-docs-skill.md` §Later phases; `skills/repo-docs/references/layout-and-lifecycle.md` §Repo initialization | M | `init`, `audit`, `archive` entry points exist; an idempotent script (create-if-absent) lays down the skeleton and the init checklist passes on an empty repo |
 | T5 | 2026-11-12 | 2026-11-12 | P2 | `tui-components` description is 703 characters, over the 550 limit | `skills/tui-components/SKILL.md` frontmatter; `check_structure.py` `DESC_LIMIT` | S | `check_structure.py` reports no description failure |
 | T6 | 2026-11-12 | 2026-11-12 | P2 | `ui-design` and `repo-docs` are not linked into `~/.omp/agent/skills/`, so neither is loadable | `skills/ui-design/SKILL.md`, `skills/repo-docs/SKILL.md` | S | Both names appear in the agent's skill list |
-| T7 | 2026-11-12 | 2026-11-12 | P3 | This repo has no `.gitignore`, so `docs/tmp/claude-scratch/` (272 MB, mostly one `target/`) is untracked rather than ignored | `git check-ignore docs/tmp/claude-scratch` exits 1; `skills/repo-docs/references/layout-and-lifecycle.md` §Repo initialization step 6 | S | `git check-ignore docs/tmp/claude-scratch` exits 0 |
-| T9 | 2026-11-19 | 2026-11-19 | P3 | `~/life` has not adopted the `life` profile (separate repo; needs owner approval there) | `~/life/CONTEXT.md` has no `Profile:` line; `skills/repo-docs/references/profiles/life.md`; evaluation `docs/tmp/claude-scratch/2026-11-19-repo-docs-life-profile-and-scratch-evaluation.md` §Out of scope | M | `~/life` declares `Profile: life`, a new ADR there supersedes ADR 0001 §2–4, the stale NOW.md is rewritten, the two security checks leave scratch, the ezpad XML moves to `~/repos/macmini-ops` |
 
 ## Watching
 
@@ -29,3 +27,5 @@ last checked against the tree — not when it was opened.
 | ID | Finding | Closed by |
 |---|---|---|
 | T8 | `docs/adr/README.md` had no row for ADR 0005 | `docs(adr): index ADR 0005` |
+| T7 | No `.gitignore`, so `docs/tmp/claude-scratch/` was untracked rather than ignored | `d784aea` added `.gitignore` (`docs/tmp/*-scratch/`); verified 2026-11-19 with `git check-ignore` |
+| T9 | `~/life` had not adopted the `life` profile | `~/life` `1f94d62` (Profile line, ADR 0002, NOW rewrite, `areas/digital-security/`, tmp sweep); `~/repos/macmini-ops` `59b4ee5` (ezpad XML) |
