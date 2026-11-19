@@ -250,3 +250,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   procedures, and in development weighed by stage and room to switch. New
   `references/profiles/` (contract, `dev.md`, `ops.md`) and layout sections §Where a finding
   goes and §ADR scope. No existing number moves. See ADR 0005.
+- skill(repo-docs): give agent scratch a shape and an exit. Principle 13: one dated directory
+  per task under `docs/tmp/<agent>-scratch/`, each script opening with its purpose and how to
+  run it; clones, mirrors, downloaded pages, and `__pycache__/` count as regenerable; backups
+  (a `.git` copy, `*.orig`, `*-backup*`) are never stale by age. Principle 14: the agent that
+  made the scratch triages it at task end, before reporting done. New layout section §Scratch
+  shape and task end; §Sweeping tmp/ gains a Backup class. Measured across 18 repos: flat
+  numbered files (`q3.py` … `q9.py`) that cannot be triaged, and 12 conclusions left in
+  gitignored scratch in 6 repos. Grades and numbers unchanged.

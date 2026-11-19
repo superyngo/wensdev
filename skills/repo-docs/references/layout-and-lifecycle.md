@@ -50,6 +50,7 @@ docs/
     ideas.md
   tmp/                              # scratch, no rules
     <agent>-scratch/                # gitignored probes
+      2026-11-19-range-probe/       # one dated directory per task (principle 13)
     archive/
       2026-05.tar.gz
 ```
@@ -375,6 +376,45 @@ Checklist:
 - [ ] This script is a one-off measurement, not a regression check re-run every release — the
       latter is repo tooling and is not bound by the freeze rule here.
 
+## Scratch shape and task end
+
+Scratch is shaped on the way in and triaged by its author on the way out (principles 13, 14),
+so the sweep has little left to guess about.
+
+**Shape.** One directory per task, holding everything the task produced:
+
+```
+docs/tmp/claude-scratch/
+  2026-11-19-range-probe/
+    range_server.py      # opens with: what it is for, how to run it
+    fixture.bin
+    run.log
+```
+
+```python
+"""Probe: HTTP server with Range + ETag support; logs each request's Range header.
+Usage: python3 range_server.py <file> <port>"""
+```
+
+Never write bare, numbered files (`q5.py`, `dt4.toml`, `s1.json`) straight into
+`<agent>-scratch/`: nobody can tell later what they were for.
+
+**At task end**, before reporting done, the agent that made the directory routes each piece:
+
+| Piece | Goes to |
+|---|---|
+| A conclusion someone will cite or re-run | An `audit/` record (principle 14); the scripts and fixtures that back it move into the record's same-basename directory, made self-contained (§Script directories) |
+| A check that must be re-run every release | Repo tooling, named in `reference/README.md` (principles 7, 14) |
+| Knowledge, a procedure fix, a follow-up | `note/`, the `reference/` step, `BACKLOG.md` (§Where a finding goes) |
+| Material about a system another repo owns | That repo's scratch or records, not this one's |
+| Everything else | Stays in scratch; state its path in the report |
+
+Checklist:
+
+- [ ] Every file this task wrote is inside one dated task directory.
+- [ ] Every script opens with its purpose and how to run it.
+- [ ] No conclusion is left only in scratch; the report names the path of whatever stays.
+
 ## Sweeping tmp/
 
 Run at each release (principle 13), after the release is cut — or, in a repo with no releases, at
@@ -393,7 +433,7 @@ for e in docs/tmp/* docs/tmp/*-scratch/*; do
     "$([ -n "$(git ls-files "$e" | head -1)" ] && echo tracked || echo untracked)" "$e"
 done
 find docs/tmp -type d \( -name target -o -name node_modules -o -name .venv -o -name dist \
-  -o -name build \) -prune -exec du -sh {} +
+  -o -name build -o -name __pycache__ \) -prune -exec du -sh {} +
 ```
 
 (`stat -f %Sm -t` is the macOS form; on Linux use `stat -c %y`.)
@@ -403,7 +443,8 @@ find docs/tmp -type d \( -name target -o -name node_modules -o -name .venv -o -n
 | Class | Test | Action |
 |---|---|---|
 | Promote | Someone will want to cite or re-run it (principle 14), or it holds an open follow-up or reusable knowledge | Write the `audit/` record, `BACKLOG.md` row, `reference/` section, or `note/` topic (principle 23) — or, for a forming idea the human wants kept, move it to `memo/` (principle 22); the scratch copy then becomes Stale |
-| Regenerable | A build-output directory from the `find` above | Trash the directory, keep its sources |
+| Regenerable | A build-output directory from the `find` above, or a clone, mirror, or downloaded page that can be fetched again from a source named in the report | Trash it, keep its sources |
+| Backup | A copy of `.git`, `*.orig`, `*-backup*`, or anything kept as a fallback for a live original | Ask the owner, one line per backup; never Stale by age, never archived into git |
 | Stale | Not modified for 30 days **and** not referenced from any living document or open working record | Tracked → archive; untracked → trash |
 | Live | Everything else | Leave |
 
@@ -430,7 +471,8 @@ Checklist:
       before its scratch copy is touched.
 - [ ] The table was shown and approved in this sweep.
 - [ ] Nothing was removed with `rm`; `archive/` itself was not archived.
-- [ ] No build-output directory went into a tarball.
+- [ ] No build-output directory, clone, or backup went into a tarball; no backup was trashed
+      without its own approval line.
 - [ ] `git check-ignore docs/tmp/<agent>-scratch` succeeds; if not, add `docs/tmp/*-scratch/` to
       `.gitignore`.
 

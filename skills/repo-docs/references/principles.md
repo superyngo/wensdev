@@ -25,8 +25,8 @@ development, operations, and others added later — is set by the repo's **profi
 | 10 | MUST | Frozen working records are dated `YYYY-MM-DD-kebab-title.md`; living records are named by role, undated |
 | 11 | SHOULD | A working record may own a same-basename directory for scripts and fixtures |
 | 12 | SHOULD | Folder `README.md` lists in-progress work in a section at the top |
-| 13 | CONSIDER | `docs/tmp/` is scratch; sweep it at each release (or at the profile's cadence) — triage first, then archive or trash, with approval |
-| 14 | SHOULD | `audit/` holds sweeps and verification runs; one-off measurement in the record, regression checks in repo tooling |
+| 13 | CONSIDER | `docs/tmp/` is scratch, one dated directory per task; sweep it at each release (or at the profile's cadence) — triage first, then archive or trash, with approval |
+| 14 | SHOULD | `audit/` holds sweeps and verification runs; one-off measurement in the record, regression checks in repo tooling; the agent that made the scratch triages it at task end |
 | 15 | MUST | Deviating from any MUST principle in this skill or `wens-dev-principles` requires an ADR |
 | 16 | MUST | One ADR per decision that is expensive to reverse and meant to stay fixed — never for procedures; never edited, only superseded |
 | 17 | MUST | `adr/README.md` is a status table; filenames are `NNNN-kebab-title.md` |
@@ -137,15 +137,23 @@ development, operations, and others added later — is set by the repo's **profi
 
 13. **[CONSIDER]** `docs/tmp/` is a committed scratch area with no naming or index rules;
     subdirectories per topic are allowed. `docs/tmp/<agent>-scratch/` is a gitignored subpath
-    for probes that need not land. **Sweep `tmp/` at each release** — "when it grows stale"
+    for probes that need not land. Inside it, **each task gets its own directory**,
+    `YYYY-MM-DD-<slug>/`, holding its scripts, fixtures, and output, and each script opens with
+    a comment saying what it is for and how to run it: a month later, `q5.py` beside `dt4.toml`
+    cannot be triaged, while a dated task directory is one line in the sweep.
+    **Sweep `tmp/` at each release** — "when it grows stale"
     names no moment, so it never happens. A repo with no releases sweeps at the cadence its
     profile names (principle 25; operations: the first session of each week). The sweep **triages before it removes**: anything
     worth citing later is promoted to its real home first (principle 14). What is left and stale
     leaves in a recoverable way — tracked files into `docs/tmp/archive/YYYY-MM.tar.gz`,
     untracked files into the OS trash, never `rm`. Build output (`target/`, `node_modules/`,
-    `.venv/`, `dist/`, `build/`) is regenerable, not scratch: it is most of the bytes and is
-    never archived. The sweep reports its classification and waits for approval every time; it
-    moves nothing on its own. **Procedure:** same reference, §Sweeping tmp/.
+    `.venv/`, `dist/`, `build/`, `__pycache__/`) and anything that can be fetched again from a
+    named source (git clones and mirrors, downloaded pages) are regenerable, not scratch: they
+    are most of the bytes and are never archived. A **backup** (a copy of `.git`, `*.orig`,
+    `*-backup*`) is never stale by age: it waits for an explicit decision and is never tarred
+    into git, where it may carry history or secrets. The sweep reports its classification and
+    waits for approval every time; it moves nothing on its own. **Procedure:** same reference,
+    §Scratch shape and task end, §Sweeping tmp/.
 
 14. **[SHOULD]** `docs/audit/` covers **any point-in-time judgement** of the tree: sweeps (bugs,
     dead code, inconsistency) and equally assessment and verification runs. The homing test is one
@@ -154,7 +162,13 @@ development, operations, and others added later — is set by the repo's **profi
     (`2026-09-17-verify-keymap-parity.md`, `2026-09-17-sweep-dead-code.md`) and not required when
     the folder already names the kind. A **regression** check — one re-run every release — does not
     belong in a record directory: principle 11 freezes those and requires them to be self-contained.
-    It is repo tooling, named in `reference/README.md` per principles 7 and 20.
+    It is repo tooling, named in `reference/README.md` per principles 7 and 20. The agent that
+    made the scratch applies the homing test **at task end**, before it reports done, while it
+    still knows what each file was for: a conclusion becomes an `audit/` record and the scripts
+    that back it move into that record's directory (principle 11); a recurring check becomes
+    repo tooling; knowledge goes to `note/` and follow-ups to `BACKLOG.md` (principle 24);
+    whatever is left stays in scratch and its path is stated. The sweep (principle 13) catches
+    what this step missed; it is not the first time anyone looks.
 
 ## D. `adr/`
 
@@ -308,6 +322,11 @@ development, operations, and others added later — is set by the repo's **profi
   be re-run every release parked in a frozen record directory (violates 14).
 - Archiving or trashing `tmp/` without triage, so the one evaluation worth keeping goes into a
   tarball with the probes; or tarring a 600 MB `target/` directory into git history (violates 13).
+- Flat, numbered scratch files (`q3.py` … `q9.py`, `dt.toml` … `dt5.toml`) with no task
+  directory and no header comment, so the sweep cannot tell what any of them was for (violates 13).
+- Trashing a `.git` copy or another backup in a sweep because it was 30 days old (violates 13).
+- A conclusion written in gitignored scratch and reported as done, so it is lost at the next
+  sweep (violates 14).
 - An agent parking its session notes or run output in `memo/`, or citing a memo as proof of
   what the code does (violates 22).
 - Writing a record in the conversation's language (e.g. Chinese) so glossary terms and greps no

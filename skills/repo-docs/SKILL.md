@@ -39,7 +39,7 @@ The grades govern the repos that use this skill, not the maintenance of the skil
 | Record or revisit a decision, or decide whether it needs an ADR at all | 15, 16, 17 | §ADR scope, §Folder README.md templates (`docs/adr/README.md`) |
 | Track open work | 19 | §Living backlog record |
 | Choose the language of a document | 4 | — |
-| Use or clean `docs/tmp/` | 13 | §Sweeping tmp/ |
+| Write scratch, finish a task that wrote scratch, or clean `docs/tmp/` | 13, 14 | §Scratch shape and task end, §Sweeping tmp/ |
 | Read, write, or tidy `docs/memo/` (the human's notes) | 22 | §Folder README.md templates (`docs/memo/README.md`) |
 | Write general knowledge (tool or platform behavior, gotchas) in `docs/note/` | 23, 24 | §Folder README.md templates (`docs/note/README.md`) |
 | Set up docs for a non-software repo (operations, others), or adapt a rule to the repo's domain | 25 | `profiles/` |
@@ -65,6 +65,7 @@ checklist is ticked.
 |---|---|
 | Initialize a new repo's documentation skeleton | §Repo initialization |
 | Archive a completed changelog series | §Changelog archiving |
+| Triage a task's own scratch before reporting done | §Scratch shape and task end |
 | Sweep `docs/tmp/` at a release (or the profile's cadence): triage, then archive or trash with approval | §Sweeping tmp/ |
 | Find working records with a missing `Status:` line | §Status line |
 | Audit living documents against the code (structure pass, then accuracy pass) | §Documentation audit |
