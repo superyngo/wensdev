@@ -170,6 +170,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   guidance whose subject is a specific language (e.g. Chinese typesetting), which may use that
   language where needed.
 
+### 2026-10-13
+
+- skill(tui-components): add `split-panes.md` (split tree, one-cell shared dividers, drag-to-resize,
+  preset layouts with identity-preserving re-tiling) and contract C11 "Drag sessions". Fix the
+  hit-map push order in `menu-dropdown.md`/`modal-dialog.md`: the body went last, which shadowed
+  every row under last-wins hit testing; it now goes first. Add a target → menu example and the
+  pty/SGR-mouse real-artifact test row. Worked out on the `wens-tui-lab` demo.
+- skill(tui-components): add `floating-windows.md` (z-order as Vec order, move/resize drag
+  sessions, hidden snap grid shown during drag, edge snap, maximize/restore, taskbar in creation
+  order, per-target right-click menus) and catalog rows for floating windows and the taskbar.
+  Note the pyte orphan-cell caveat in contracts C10.
+
 ### 2026-10-14
 
 - skill(tui-components): link the worked-demo references to the public
@@ -186,18 +198,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   (Termux gesture table, act-on-release, soft-keyboard reflow). Catalog: FAB, swipe actions, pull
   to refresh, bottom sheet, snackbar, bottom navigation and app bar. Contracts C10 now says pyte
   orphan cells are an emulator artifact. Worked out on `wens-tui-lab`.
-
-### 2026-10-13
-
-- skill(tui-components): add `split-panes.md` (split tree, one-cell shared dividers, drag-to-resize,
-  preset layouts with identity-preserving re-tiling) and contract C11 "Drag sessions". Fix the
-  hit-map push order in `menu-dropdown.md`/`modal-dialog.md`: the body went last, which shadowed
-  every row under last-wins hit testing; it now goes first. Add a target → menu example and the
-  pty/SGR-mouse real-artifact test row. Worked out on the `wens-tui-lab` demo.
-- skill(tui-components): add `floating-windows.md` (z-order as Vec order, move/resize drag
-  sessions, hidden snap grid shown during drag, edge snap, maximize/restore, taskbar in creation
-  order, per-target right-click menus) and catalog rows for floating windows and the taskbar.
-  Note the pyte orphan-cell caveat in contracts C10.
 
 ### 2026-11-03
 
@@ -278,3 +278,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   trimmed to the bare `Status: Resolved (2026-09-09)`, its follow-up note moved to the
   `docs/audit/README.md` row note; `docs/plan/README.md` carries the template's BACKLOG line;
   `publishing-platform-stores` ADR index statuses dated (`Implemented (YYYY-MM-DD)`).
+- docs: repo-docs wave B — BACKLOG gains `Pending verification` and `Awaiting external`
+  sections, T6 closed (both skills linked since 2026-11-12), T8 cites its hash; the structure
+  check is copied to `scripts/check_structure.py` (skips `docs/tmp/`) and `reference/` points
+  at it; `CONTEXT.md` sets a monthly tmp-sweep cadence and lists BACKLOG in the reading order;
+  CHANGELOG day headings reordered; plugin description names `repo-docs`.

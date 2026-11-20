@@ -1,7 +1,7 @@
 # Skill Anatomy
 
 The required shape of a skill in this repo. Enforced by
-[`../audit/2026-09-09-skills-consolidation/check_structure.py`](../audit/2026-09-09-skills-consolidation/check_structure.py).
+[`../../scripts/check_structure.py`](../../scripts/check_structure.py).
 
 ## Files
 

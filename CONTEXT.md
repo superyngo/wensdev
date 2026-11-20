@@ -16,7 +16,7 @@ Profile: dev
 | [`docs/debug/`](docs/debug/README.md) | Handoff notes from investigations, with repro scripts | No — historical | Frozen once resolved; only `Status:` changes |
 | [`docs/audit/`](docs/audit/README.md) | Point-in-time sweeps for bugs, dead code, inconsistency | No — historical | Frozen once findings are addressed; only `Status:` changes |
 | [`docs/memo/`](docs/memo/README.md) | The human's notes: ideas still forming, loose thinking, background | No — not evidence of behavior | Free-form; edited by people, by agents only on request |
-| `docs/tmp/` | Scratch | No | Swept at each release: promoted, archived to `tmp/archive/YYYY-MM.tar.gz`, or trashed |
+| `docs/tmp/` | Scratch; `<agent>-scratch/` is gitignored | No | wensdev cuts no releases, so swept monthly (first session of the month): promoted, archived to `tmp/archive/YYYY-MM.tar.gz`, or trashed |
 
 ## The skills themselves
 
@@ -45,3 +45,4 @@ skill rather than here.
 2. [`docs/reference/README.md`](docs/reference/README.md) — the repo map.
 3. [`docs/adr/README.md`](docs/adr/README.md) — why the shape is what it is.
 4. `CHANGELOG.md` — what changed recently.
+5. [`docs/plan/BACKLOG.md`](docs/plan/BACKLOG.md) — open work.
