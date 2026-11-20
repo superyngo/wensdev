@@ -283,3 +283,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   check is copied to `scripts/check_structure.py` (skips `docs/tmp/`) and `reference/` points
   at it; `CONTEXT.md` sets a monthly tmp-sweep cadence and lists BACKLOG in the reading order;
   CHANGELOG day headings reordered; plugin description names `repo-docs`.
+- docs(spec): draft `my-home` skill spec: a home-directory steward with a `~/Docs` notebook, `~` as a
+  whitelisted git repo, and a one-line `~/AGENTS.md` pointer; standalone, not a repo-docs profile.

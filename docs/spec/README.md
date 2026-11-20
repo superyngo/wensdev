@@ -5,7 +5,7 @@ written, never rewritten. Current behavior lives in [`../reference/`](../referen
 
 ## In progress
 
-_None._
+- [2026-11-20 my-home skill](2026-11-20-my-home-skill.md) — `Draft`
 
 ## Landed
 
