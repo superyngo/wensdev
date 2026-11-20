@@ -285,3 +285,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   CHANGELOG day headings reordered; plugin description names `repo-docs`.
 - docs(spec): draft `my-home` skill spec: a home-directory steward with a `~/Docs` notebook, `~` as a
   whitelisted git repo, and a one-line `~/AGENTS.md` pointer; standalone, not a repo-docs profile.
+- docs(spec): `my-home` recast as an init-type skill (`init`/`update`); standing guidance moves to
+  home files (`~/AGENTS.md` safety floor, `~/Docs/GUIDE.md`), templates carry version markers.
