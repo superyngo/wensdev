@@ -271,3 +271,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - docs(plan): backlog T8 (ADR index is missing 0005) and T9 (`~/life` adopts the `life` profile).
 - docs(adr): index ADR 0005 in `docs/adr/README.md` (backlog T8).
 - docs(plan): close backlog T7 (`.gitignore` already ignores scratch) and T9 (`~/life` adopted the `life` profile).
+
+### 2026-11-20
+
+- docs: align with repo-docs rules — `Profile: dev` in `CONTEXT.md`; audit 2026-09-09 line 2
+  trimmed to the bare `Status: Resolved (2026-09-09)`, its follow-up note moved to the
+  `docs/audit/README.md` row note; `docs/plan/README.md` carries the template's BACKLOG line;
+  `publishing-platform-stores` ADR index statuses dated (`Implemented (YYYY-MM-DD)`).

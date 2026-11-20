@@ -7,7 +7,7 @@ Current behavior lives in [`../../SKILL.md`](../../SKILL.md).
 
 | # | Decision | Status |
 |---|---|---|
-| [0001](0001-shared-publish-gate.md) | One shared `publish-gate` environment fans out to every store, instead of one approval per store | Implemented |
-| [0002](0002-selective-publish-gate.md) | Splitting the gate into one job per store when a release must reach only some stores | Implemented |
+| [0001](0001-shared-publish-gate.md) | One shared `publish-gate` environment fans out to every store, instead of one approval per store | Implemented (2026-09-09) |
+| [0002](0002-selective-publish-gate.md) | Splitting the gate into one job per store when a release must reach only some stores | Implemented (2026-09-29) |
 
 Partial supersessions: none.

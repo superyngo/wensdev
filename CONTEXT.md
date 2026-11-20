@@ -4,6 +4,8 @@ Entry point for all documentation in `wensdev`, a bundled set of Claude/agent sk
 cross-project software development. Root-level files (`README.md`, `CHANGELOG.md`, `LICENSE`) stay here;
 everything else lives under `docs/` or inside a skill.
 
+Profile: dev
+
 | Folder | Holds | Canonical? | Lifecycle |
 |---|---|---|---|
 | [`docs/reference/`](docs/reference/README.md) | Current behavior: glossary, repo conventions | Yes — the only source of truth | Kept in sync with `skills/` |
