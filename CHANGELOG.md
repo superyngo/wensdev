@@ -287,3 +287,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   whitelisted git repo, and a one-line `~/AGENTS.md` pointer; standalone, not a repo-docs profile.
 - docs(spec): `my-home` recast as an init-type skill (`init`/`update`); standing guidance moves to
   home files (`~/AGENTS.md` safety floor, `~/Docs/GUIDE.md`), templates carry version markers.
+- feat(my-home): new init-type skill — `init`/`update` lay down and upgrade `~/AGENTS.md`,
+  `~/Docs/GUIDE.md` and the notebook, and the whitelisted `~` git repo; templates and per-OS
+  commands in `references/`. Spec shipped.

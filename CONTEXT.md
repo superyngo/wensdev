@@ -38,6 +38,7 @@ skill rather than here.
 | `publishing-platform-stores` | Store submission workflows hanging off that release |
 | `git-workflow` | Repo init / Gist / commit-push-tag-release |
 | `slow-down` | Early-stage ideation at the user's pace: lead / offer / space moves, parking lot, hand-off recap |
+| `my-home` | Init-type: installs and upgrades the home's agent files (`~/AGENTS.md`, `~/Docs/` notebook and `GUIDE.md`, whitelisted `~` git repo); daily conduct lives in those files |
 
 ## Reading order
 

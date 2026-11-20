@@ -1,5 +1,5 @@
 # my-home skill
-Status: Draft
+Status: Shipped (2026-11-20)
 
 ## Goal
 

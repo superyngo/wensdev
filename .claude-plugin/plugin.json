@@ -1,6 +1,6 @@
 {
   "name": "wensdev",
-  "description": "Wen's bundled cross-project software development skills: UI/CLI engineering principles, repo documentation layout (repo-docs), Rust cross-platform app blueprint, ratatui TUI component specs, design-first UI mock-ups, VS Code extension debugging, GitHub repo/release workflows, platform-store publishing, and a slow-paced ideation mode.",
+  "description": "Wen's bundled cross-project software development skills: UI/CLI engineering principles, repo documentation layout (repo-docs), Rust cross-platform app blueprint, ratatui TUI component specs, design-first UI mock-ups, VS Code extension debugging, GitHub repo/release workflows, platform-store publishing, a slow-paced ideation mode, and home-directory setup for an agent steward (my-home).",
   "version": "0.1.0",
   "author": {
     "name": "Wen"
