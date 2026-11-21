@@ -14,3 +14,4 @@ _None._
 
 | Date | Document | Status |
 |---|---|---|
+| 2026-10-13 | [2026-10-13-tui-demo.md](2026-10-13-tui-demo.md) | Shipped (2026-10-14) |

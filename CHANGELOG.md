@@ -290,3 +290,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - feat(my-home): new init-type skill — `init`/`update` lay down and upgrade `~/AGENTS.md`,
   `~/Docs/GUIDE.md` and the notebook, and the whitelisted `~` git repo; templates and per-OS
   commands in `references/`. Spec shipped.
+
+### 2026-11-21
+
+- docs(plan,audit): promote `wens-tui-lab`'s gitignored scratch plan into frozen records —
+  `docs/plan/2026-10-13-tui-demo.md` (Shipped 2026-10-14) and
+  `docs/audit/2026-10-13-tui-demo-mobile-view-evaluation.md` (Resolved 2026-10-14); indexed in
+  both folder `README.md`s.

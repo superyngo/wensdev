@@ -13,6 +13,7 @@ _None._
 | Date | Document | Status |
 |---|---|---|
 | 2026-09-09 | [2026-09-09-skills-consolidation.md](2026-09-09-skills-consolidation.md) | Resolved (2026-09-09) |
+| 2026-10-13 | [2026-10-13-tui-demo-mobile-view-evaluation.md](2026-10-13-tui-demo-mobile-view-evaluation.md) | Resolved (2026-10-14) |
 
 Note on 2026-09-09-skills-consolidation: follow-ups closed 2026-09-09 — `LICENSE` added; the
 only identity actually surviving F8 into `git-workflow` was the MIT copyright-holder fallback,
